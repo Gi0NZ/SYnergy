@@ -1,54 +1,77 @@
-import dpctl 
-import synergy_backend
+import dpctl
+import importlib
+from dataclasses import dataclass
 
-class SynergyQueue(dpctl.SyclQueue):
-    """Implementazione della synergy queue """
+_synergy_native = importlib.import_module("bindings._synergy_native")
 
-    def __init__(self, *args, **kwargs):
-        #inizializzazione della coda SYCL
-        super().__init__()
+#Qui ho messo cuda:gpu:0 - va poi reso generale
 
-        #estrazione del puntatore alla coda SYCL
-        sycl_pointer = self.addressof_ref()
+#Facade Python per l'adapter Synergy queue.
+class SYnergyQueue:
+    def __init__(self, device="cuda:gpu:0", queue=None):
+        if queue is None:
+            self.dpctl_queue = dpctl.SyclQueue(device)
+        else:
+            self.dpctl_queue = queue
 
-        #inizializzazione adapter
-        self._synergy_adapter = synergy_backend.PySynergyQueue(sycl_pointer)
+        self._adapter = _synergy_native.SYnergy_Queue_Adapter(self.dpctl_queue)
 
-        print(f"DEBUG PY: Coda SynergyQueue inizializzata all'indirizzo_ {sycl_pointer}")
-
-
-    def smart_submit(self, kernel_func, *args, profiling=False, core_freq=0, uncore_freq=0, **kwargs):
-        """NOTA: Implementare dopo diversi metodi che vengono chiamati in base agli elementi che vengono inseriti"""
-        if core_freq > 0 or uncore_freq > 0:
-            try:
-                print("f[SYnergy]: impostazione frequenze")
-                self._synergy_adapter.set_target_frequencies(core_freq, uncore_freq)
-            except RuntimeError as e:
-                print("Impossibile fissare le frequenze")
-
-        if profiling:
-            try:
-                print("Profiling attivato: registrazione energia di partenza")
-                self._synergy_adapter.prepare_profiling();
-            except RuntimeError as e:
-                print("Impossibile accedere ai sensori di sistema")
-                profiling = False
-
-
-        print("Sottomissione kernel al device")
-        event = super().submit(kernel_func, *args, **kwargs)
-
-        event.wait()
-
-        if profiling:
-            try:
-                onsumo_joule = self._synergy_adapter.finalize_profiling()
-                print("Il consumo netto è pari a {consumo_joule: .4f} Joule")
-            except RuntimeError:
-                pass
-        
-        return event
+    @property
+    def device_name(self):
+        return self._adapter.device_name()
     
-    def get_current_energy(self):
-        """lettura energia istantanea del device"""
-        return self._synergy_adapter.get_current_energy()
+    @property
+    def backend_name(self):
+        return self._adapter.backend_name()
+    
+    def wait(self):
+        self._adapter.wait()
+
+    def device_energy(self):
+        return self._adapter.device_energy_consumption()
+    
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, exc_type, exc, tb):
+        self.wait()
+        return False
+    
+    def capabilities(self):
+        caps = self._adapter.capabilities()
+
+        return SYnergyCapabilities(
+            cuda_support=caps.cuda_support,
+            rocm_support=caps.rocm_support,
+            level_zero_support=caps.level_zero_support,
+            geopm_support=caps.geopm_support,
+            device_profiling=caps.device_profiling,
+            kernel_profiling=caps.kernel_profiling,
+            host_profiling=caps.host_profiling,
+            use_profiling_energy=caps.use_profiling_energy,
+        )
+    
+@dataclass
+class SYnergyCapabilities:
+    cuda_support: bool
+    rocm_support: bool
+    level_zero_support: bool
+    geopm_support: bool
+
+    device_profiling: bool
+    kernel_profiling: bool
+    host_profiling: bool
+    use_profiling_energy: bool
+
+    def as_dict(self):
+        return {
+            "cuda_support": self.cuda_support,
+            "rocm_support": self.rocm_support,
+            "level_zero_support": self.level_zero_support,
+            "geopm_support": self.geopm_support,
+            "device_profiling": self.device_profiling,
+            "kernel_profiling": self.kernel_profiling,
+            "host_profiling": self.host_profiling,
+            "use_profiling_energy": self.use_profiling_energy,
+        }
+        
