@@ -8,6 +8,9 @@
 !/binding/
 
 
+#Ignora questi elementi
+/python/tests
+
 
 # (Opzionale ma molto consigliato) Mantiene anche i file di testo base della repo
 !/.gitignore

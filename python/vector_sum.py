@@ -20,7 +20,6 @@ q = d.SyclQueue("cuda:gpu:0")
 
 print("Using device:")
 q.sycl_device.print_device_info()
-
 a = dpt.ones(N, dtype=dpt.float32, sycl_queue=q)
 b = dpt.ones(N, dtype=dpt.float32, sycl_queue=q)
 c = dpt.zeros(N, dtype=dpt.float32, sycl_queue=q)
@@ -31,3 +30,5 @@ energia = synergy_custom.run_vector_add(q, a, b, c, N)
 
 print(f"Calcolo terminato - Energia consumata: {energia:.4f} J")
 print(f"Verifica C[0]: {float(c[0])}")
+
+

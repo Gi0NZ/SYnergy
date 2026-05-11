@@ -34,8 +34,15 @@ PYBIND11_MODULE(_synergy_native, m) {
     .def("backend_name", &SYnergy_Queue_Adapter::backend_name)
     .def("capabilities", &SYnergy_Queue_Adapter::capabilities)
 
-#ifdef SYNERGY_DEVICE_PROFILING
+
     .def("device_energy_consumption", &SYnergy_Queue_Adapter::device_energy_consumption)
-#endif
+
+
+    .def("kernel_energy_consumption", &SYnergy_Queue_Adapter::kernel_energy_consumption)
+
+
+    .def("_native_handle", &SYnergy_Queue_Adapter::native_handle)
+
+    .def("set_target_frequencies", &SYnergy_Queue_Adapter::set_target_frequencies)
     ;
 }

@@ -45,7 +45,7 @@ static float* get_float_usm_ptr(const py::object& array, const char* name) {
     return reinterpret_cast<float*>(ptr_value);
 }
 
-double run_vector_add(
+py::event run_vector_add(
     sycl::queue q,
     py::object a,
     py::object b,
