@@ -16,8 +16,8 @@ from dpctl._sycl_event cimport SyclEvent
 from dpctl.program._program cimport SyclKernel
 
 
-cdef extern from "synergy_submit_backend.hpp":
-    DPCTLSyclEventRef SYnergyQueue_SubmitRange(
+cdef extern from "syclinterface/dpctl_sycl_synergy_queue_interface.h":
+    DPCTLSyclEventRef DPCTLQueue_SubmitRangeSYnergy(
         uintptr_t AdapterHandle,
         const DPCTLSyclKernelRef KRef,
         void** Args,
@@ -32,7 +32,7 @@ cdef extern from "synergy_submit_backend.hpp":
         int UseFrequencyScaling,
     )
 
-    DPCTLSyclEventRef SYnergyQueue_SubmitNDRange(
+    DPCTLSyclEventRef DPCTLQueue_SubmitNDRangeSYnergy(
         uintptr_t AdapterHandle,
         const DPCTLSyclKernelRef KRef,
         void** Args,
@@ -47,7 +47,6 @@ cdef extern from "synergy_submit_backend.hpp":
         unsigned int CoreFrequency,
         int UseFrequencyScaling
     )
-
 cdef extern from "synergy_test_kernels.hpp":
     DPCTLSyclKernelRef SYnergyTest_CreateBusyKernel(
         uintptr_t AdapterHandle
@@ -161,7 +160,7 @@ cpdef submit(
         # 4. Submit Range oppure NDRange tramite SYnergy
         # ------------------------------------------------------------
         if lS is None:
-            Eref = SYnergyQueue_SubmitRange(
+            Eref = DPCTLQueue_SubmitRangeSYnergy(
                 adapter_handle,
                 kernel.get_kernel_ref(),
                 kargs,
@@ -194,7 +193,7 @@ cpdef submit(
                         "by the corresponding local range dimension."
                     )
 
-            Eref = SYnergyQueue_SubmitNDRange(
+            Eref = DPCTLQueue_SubmitNDRangeSYnergy(
                 adapter_handle,
                 kernel.get_kernel_ref(),
                 kargs,
