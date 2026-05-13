@@ -12,19 +12,50 @@ _synergy_native = importlib.import_module("bindings._synergy_native")
 
 class SYnergyQueue(dpctl.SyclQueue):
 
-    def __new__(cls, *args, property=None, **kwargs):
+    def __new__(
+    cls,
+    *args,
+    property=None,
+    execution_backend="synergy",
+    allow_fallback=False,
+    **kwargs,
+    ):
         property = cls._ensure_synergy_properties(property)
-
         return super().__new__(cls, *args, property=property, **kwargs)
 
+    def __init__(
+    self,
+    *args,
+    property=None,
+    execution_backend="synergy",
+    allow_fallback=False,
+    **kwargs,
+    ):
+        if execution_backend not in ("synergy", "dpctl", "auto"):
+            raise ValueError(
+                "execution_backend must be one of: 'synergy', 'dpctl', 'auto'."
+            )
 
-
-    def __init__(self, *args, property=None, **kwargs):
-
-        #adapter C++ contenente la synergy::queue
-        self._adapter = _synergy_native.SYnergy_Queue_Adapter(self)
+        self._adapter = None
+        self._adapter_error = None
+        self._execution_backend = execution_backend
         self._last_event = None
         self._profile_log = []
+
+        if execution_backend == "dpctl":
+            return
+
+        try:
+            self._adapter = _synergy_native.SYnergy_Queue_Adapter(self)
+            self._execution_backend = "synergy"
+
+        except Exception as exc:
+            self._adapter_error = exc
+
+            if execution_backend == "auto" or allow_fallback:
+                self._execution_backend = "dpctl"
+            else:
+                raise
 
     @staticmethod
     def _ensure_synergy_properties(prop):
@@ -55,6 +86,7 @@ class SYnergyQueue(dpctl.SyclQueue):
         if value is None:
             if required:
                 raise ValueError(f"{name} is required")
+            return None
             
         if not isinstance(value, (list,tuple)):
             raise TypeError(f"{name} must be a list or a tuple with 1, 2 or 3 dimension.")
@@ -175,6 +207,40 @@ class SYnergyQueue(dpctl.SyclQueue):
             "core_frequency",
             core_frequency,
         )
+
+
+        if self._execution_backend == "dpctl":
+            if use_device_profiling or use_kernel_profiling:
+                raise ValueError(
+                    "SYnergy energy profiling is not available when "
+                    "execution_backend='dpctl'."
+                )
+
+            if use_frequency_scaling:
+                raise ValueError(
+                    "SYnergy frequency scaling is not available when "
+                    "execution_backend='dpctl'."
+                )
+
+            event = super().submit(
+                kernel,
+                args=args,
+                gS=gS,
+                lS=lS,
+                dEvents=dEvents,
+            )
+
+            self._last_event = event
+            self._profile_log.append(
+                {
+                    "execution_backend": "dpctl",
+                    "use_device_profiling": False,
+                    "use_kernel_profiling": False,
+                    "use_frequency_scaling": False,
+                }
+            )
+
+            return event
 
         bridge = self._load_submit_bridge()
 
@@ -403,7 +469,7 @@ class SYnergyQueue(dpctl.SyclQueue):
             args=args,
             gS=gS, lS=lS,
             dEvents=dEvents,
-            user_device_profiling=use_device_profiling,
+            use_device_profiling=use_device_profiling,
             use_kernel_profiling=use_kernel_profiling,
             uncore_frequency=uncore_frequency,
             core_frequency=core_frequency,
@@ -429,17 +495,22 @@ class SYnergyQueue(dpctl.SyclQueue):
     
     
     def wait(self):
-    # Aspetta sia eventuali operazioni dpctl sia quelle SYnergy.
         super().wait()
-        self._adapter.wait()
+        if self._adapter is not None:
+            self._adapter.wait()
 
     @property
     def synergy_device_name(self):
-        return self._adapter.device_name()
+        if self._adapter is not None:
+            return self._adapter.device_name()
+        return self.sycl_device.name
+
 
     @property
     def synergy_backend_name(self):
-        return self._adapter.backend_name()
+        if self._adapter is not None:
+            return self._adapter.backend_name()
+        return str(self.sycl_device.backend)
     
     @property
     def last_event(self):
@@ -454,11 +525,35 @@ class SYnergyQueue(dpctl.SyclQueue):
         return list(self._profile_log)
 
     def capabilities(self):
-        return self._adapter.capabilities().as_dict()
+        if self._adapter is not None:
+            return self._adapter.capabilities().as_dict()
+
+        return {
+            "cuda_support": False,
+            "rocm_support": False,
+            "level_zero_support": False,
+            "geopm_support": False,
+            "device_profiling": False,
+            "kernel_profiling": False,
+            "host_profiling": False,
+            "use_profiling_energy": False,
+            "execution_backend": "dpctl",
+        }
 
     def device_energy_consumption(self):
+        if self._adapter is None:
+            raise RuntimeError(
+                "Device energy consumption is available only with "
+                "execution_backend='synergy'."
+            )
         return self._adapter.device_energy_consumption()
 
+
     def kernel_energy_consumption(self, event):
+        if self._adapter is None:
+            raise RuntimeError(
+                "Kernel energy consumption is available only with "
+                "execution_backend='synergy'."
+            )
         return self._adapter.kernel_energy_consumption(event)
     

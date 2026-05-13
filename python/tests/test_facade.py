@@ -7,12 +7,9 @@ import tempfile
 from pathlib import Path
 
 import numpy as np
-import dpctl
-import dpctl.program as dpctl_program
 import dpctl.memory as dpm
 
 from bindings import SYnergyQueue
-
 
 
 VECTOR_ADD_OPENCL_SOURCE = r"""
@@ -97,7 +94,7 @@ def generate_spirv_kernel(tmpdir: Path) -> Path | None:
     return spv_path
 
 
-def allocate_vector_data(q, n: int):
+def allocate_vector_data(q: SYnergyQueue, n: int):
     a_host = np.ones(n, dtype=np.float32)
     b_host = np.full(n, 2.0, dtype=np.float32)
     c_host = np.empty_like(a_host)
@@ -113,7 +110,7 @@ def allocate_vector_data(q, n: int):
     return a_dev, b_dev, c_dev, c_host
 
 
-def check_vector_result(q, c_dev, c_host, expected_value=3.0) -> bool:
+def check_vector_result(q: SYnergyQueue, c_dev, c_host, expected_value=3.0) -> bool:
     q.memcpy(c_host, c_dev, c_host.nbytes)
 
     expected = np.full_like(c_host, expected_value)
@@ -125,47 +122,14 @@ def check_vector_result(q, c_dev, c_host, expected_value=3.0) -> bool:
     return max_abs_err < 1e-4
 
 
-def run_vector_add_dpctl_submit(label: str, q: dpctl.SyclQueue, kernel) -> str:
-    print()
-    print(f"=== {label} ===")
-
-    n = 1024 * 1024
-    repeat = 64
-
-    a_dev, b_dev, c_dev, c_host = allocate_vector_data(q, n)
-
-    try:
-        event = q.submit(
-            kernel,
-            args=[
-                a_dev,
-                b_dev,
-                c_dev,
-                ctypes.c_uint32(n),
-                ctypes.c_uint32(repeat),
-            ],
-            gS=[n],
-            lS=[256],
-        )
-
-        event.wait()
-
-        print("Event:", event)
-
-        if check_vector_result(q, c_dev, c_host):
-            print(f"[PASS] {label}")
-            return "PASS"
-
-        print(f"[FAIL] {label}: wrong result.")
-        return "FAIL"
-
-    except Exception as exc:
-        print(f"[FAIL] {label}: unexpected exception.")
-        print(type(exc).__name__, exc)
-        return "FAIL"
-
-
-def run_vector_add_synergy_submit(label: str, q, submitter) -> str:
+def run_vector_add_submit(
+    label: str,
+    q: SYnergyQueue,
+    submitter,
+    *,
+    use_device_profiling=False,
+    use_kernel_profiling=False,
+    ) -> str:
     print()
     print(f"=== {label} ===")
 
@@ -185,8 +149,8 @@ def run_vector_add_synergy_submit(label: str, q, submitter) -> str:
             ],
             gS=[n],
             lS=[256],
-            use_device_profiling=True,
-            use_kernel_profiling=True,
+            use_device_profiling=use_device_profiling,
+            use_kernel_profiling=use_kernel_profiling,
         )
 
         event.wait()
@@ -219,7 +183,7 @@ def run_vector_add_synergy_submit(label: str, q, submitter) -> str:
         return "FAIL"
 
 
-def test_submit_validation(q) -> str:
+def test_submit_validation(q: SYnergyQueue) -> str:
     print()
     print("=== submit validation ===")
 
@@ -234,7 +198,7 @@ def test_submit_validation(q) -> str:
     return "FAIL"
 
 
-def test_direct_kernel_if_available(q) -> str:
+def test_direct_kernel_if_available(q: SYnergyQueue) -> str:
     """
     Temporary direct-kernel check.
 
@@ -255,10 +219,12 @@ def test_direct_kernel_if_available(q) -> str:
 
         kernel = synergy_submit.create_busy_kernel(q._adapter)
 
-        return run_vector_add_synergy_submit(
+        return run_vector_add_submit(
             "direct SyclKernel submit",
             q,
             lambda **kwargs: q.submit(kernel, **kwargs),
+            use_device_profiling=True,
+            use_kernel_profiling=True,
         )
 
     except Exception as exc:
@@ -267,77 +233,54 @@ def test_direct_kernel_if_available(q) -> str:
         return "FAIL"
 
 
-def test_spirv_submit(q: dpctl.SyclQueue) -> str:
+def test_spirv_submit(q: SYnergyQueue) -> str:
     with tempfile.TemporaryDirectory(prefix="synergy_spirv_") as tmp:
         spv_path = generate_spirv_kernel(Path(tmp))
 
         if spv_path is None:
             return "SKIP"
 
-        print()
-        print("=== SPIR-V kernel creation through dpctl ===")
-
-        try:
-            il = spv_path.read_bytes()
-
-            program = dpctl_program.create_program_from_spirv(
-                q,
-                il,
-                copts="",
-            )
-
-            kernel = program.get_sycl_kernel("vector_add")
-
-        except Exception as exc:
-            print("[FAIL] SPIR-V kernel creation failed.")
-            print(type(exc).__name__, exc)
-            return "FAIL"
-
-        return run_vector_add_dpctl_submit(
-            "SPIR-V submit through dpctl.SyclQueue",
+        return run_vector_add_submit(
+            "SPIR-V submit",
             q,
-            kernel,
+            lambda **kwargs: q.submit_spirv(
+                spirv=str(spv_path),
+                kernel_name="vector_add",
+                **kwargs,
+            ),
+            use_device_profiling=False,
+            use_kernel_profiling=False,
         )
 
 
-def test_opencl_source_submit(q: dpctl.SyclQueue) -> str:
-    print()
-    print("=== OpenCL source kernel creation through dpctl ===")
-
-    try:
-        program = dpctl_program.create_program_from_source(
+def test_opencl_source_submit(q: SYnergyQueue) -> str:
+        return run_vector_add_submit(
+            "OpenCL source submit",
             q,
-            VECTOR_ADD_OPENCL_SOURCE,
-            copts="",
+            lambda **kwargs: q.submit_opencl_source(
+                source=VECTOR_ADD_OPENCL_SOURCE,
+                kernel_name="vector_add",
+                **kwargs,
+            ),
+            use_device_profiling=False,
+            use_kernel_profiling=False,
         )
-
-        kernel = program.get_sycl_kernel("vector_add")
-
-    except Exception as exc:
-        print("[FAIL] OpenCL source kernel creation failed.")
-        print(type(exc).__name__, exc)
-        return "FAIL"
-
-    return run_vector_add_dpctl_submit(
-        "OpenCL source submit through dpctl.SyclQueue",
-        q,
-        kernel,
-    )
 
 
 def main():
-    qg = SYnergyQueue("cuda:gpu:0")
-    qc = dpctl.SyclQueue("opencl:cpu:0")
+    qg = SYnergyQueue("cuda:gpu:0", execution_backend="synergy")
+    qc = SYnergyQueue("opencl:cpu:0", execution_backend="dpctl")
 
     print("=== Queue GPU info ===")
     print("Device:", qg.synergy_device_name)
     print("Backend:", qg.synergy_backend_name)
     print("Capabilities:", qg.capabilities())
+    
 
-    print()
     print("=== Queue CPU info ===")
-    print("Device:", qc.sycl_device.name)
-    print("Backend:", qc.sycl_device.backend)
+    print("Device:", qc.synergy_device_name)
+    print("Backend:", qc.synergy_backend_name)
+    
 
     results = [
         test_submit_validation(qg),
