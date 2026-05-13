@@ -1,80 +1,10 @@
 import dpctl
+import dpctl.program as dpctl_program
 import importlib
+from pathlib import Path
 from dataclasses import dataclass
 
 _synergy_native = importlib.import_module("bindings._synergy_native")
-
-
-#Facade Python per l'adapter Synergy queue.
-"""class SYnergyQueue:
-    def __init__(self, device="cuda:gpu:0", queue=None):
-        if queue is None:
-            self.dpctl_queue = dpctl.SyclQueue(device)
-        else:
-            self.dpctl_queue = queue
-
-        self._adapter = _synergy_native.SYnergy_Queue_Adapter(self.dpctl_queue)
-
-    @property
-    def device_name(self):
-        return self._adapter.device_name()
-    
-    @property
-    def backend_name(self):
-        return self._adapter.backend_name()
-    
-    def wait(self):
-        self._adapter.wait()
-
-    def device_energy(self):
-        return self._adapter.device_energy_consumption()
-    
-    def __enter__(self):
-        return self
-    
-    def __exit__(self, exc_type, exc, tb):
-        self.wait()
-        return False
-    
-    def capabilities(self):
-        caps = self._adapter.capabilities()
-
-        return SYnergyCapabilities(
-            cuda_support=caps.cuda_support,
-            rocm_support=caps.rocm_support,
-            level_zero_support=caps.level_zero_support,
-            geopm_support=caps.geopm_support,
-            device_profiling=caps.device_profiling,
-            kernel_profiling=caps.kernel_profiling,
-            host_profiling=caps.host_profiling,
-            use_profiling_energy=caps.use_profiling_energy,
-        )
-    
-@dataclass
-class SYnergyCapabilities:
-    cuda_support: bool
-    rocm_support: bool
-    level_zero_support: bool
-    geopm_support: bool
-
-    device_profiling: bool
-    kernel_profiling: bool
-    host_profiling: bool
-    use_profiling_energy: bool
-
-    def as_dict(self):
-        return {
-            "cuda_support": self.cuda_support,
-            "rocm_support": self.rocm_support,
-            "level_zero_support": self.level_zero_support,
-            "geopm_support": self.geopm_support,
-            "device_profiling": self.device_profiling,
-            "kernel_profiling": self.kernel_profiling,
-            "host_profiling": self.host_profiling,
-            "use_profiling_energy": self.use_profiling_energy,
-        }
-        """
-
 
 #Implementazione della classe SYnergyQueue non solo come estensione di SyclQueue ma acnhe come composition, ovvero creazione interna dell'adapter. Questo permette 
 #di mantenere le funzionalità di SyclQueue e allo stesso tempo di definire un insieme di funzioni, tra cui la submit che vogliamo, che permette di gestire profiling 
@@ -118,54 +48,138 @@ class SYnergyQueue(dpctl.SyclQueue):
             props += ("enable_profiling",)
 
         return props
+    
+
+    @staticmethod
+    def _normalize_range(name, value, required=True):
+        if value is None:
+            if required:
+                raise ValueError(f"{name} is required")
+            
+        if not isinstance(value, (list,tuple)):
+            raise TypeError(f"{name} must be a list or a tuple with 1, 2 or 3 dimension.")
+        
+        if len(value) not in (1, 2, 3):
+            raise ValueError(f"{name} must have 1, 2 or 3 dimensions.")
+        
+        normalized = []
+
+        for dim in value:
+            dim = int(dim)
+            if dim <= 0:
+                raise ValueError(f"All dimensions in {name} must be positive")
+            normalized.append(dim)
+
+        return normalized
+    
+
+    @staticmethod
+    def _normalize_frequency(name,value):
+        if value is None:
+            return 0
+        
+        value = int(value)
+
+        if value < 0:
+            raise ValueError(f"{name} must be grater than or equal to zero.")
+            
+        return value
 
 
     # L'attuale implementazione del metodo submit fa l'override dell'originale: in particolare aggiunge un flag use_synergy che, se impostato a ver, invia la submit
     # al backend implementato per synergy, altrimenti utilizza super.submit, usando i metodi base di SyclQueue.
-    def submit(self, kernel, args, gS, lS=None, dEvents=None, 
-               *,
-                use_device_profiling=False, 
-                use_kernel_profiling=False, 
-                uncore_frequency=None, 
-                core_frequency=None,):
-        
-
+    def submit(
+        self,
+        kernel,
+        args,
+        gS,
+        lS=None,
+        dEvents=None,
+        *,
+        use_device_profiling=False,
+        use_kernel_profiling=False,
+        uncore_frequency=None,
+        core_frequency=None,
+    ):
         """
-            Semantica:
+        Submit a dpctl.program.SyclKernel through the SYnergy backend.
 
-            - uncore_frequency e core frequency None:
-                si usa synergy::queue::submit(cgh)
+        This is the direct-kernel execution path: the kernel must already be a
+        valid dpctl.program.SyclKernel. This method does not create or compile
+        kernels; it only submits an existing kernel through synergy::queue.
 
-            - almeno una tra core e uncore settate
-                si usa synergy::queue::submit(
-                uncore_frequency,
-                core_frequency,
-                cgh
-            )
+        Parameters
+        ----------
+        kernel:
+            Existing dpctl.program.SyclKernel.
+        args:
+            Kernel arguments, in the same order expected by the kernel.
+        gS:
+            Global range. Required. Must have 1, 2 or 3 dimensions.
+        lS:
+            Optional local range. If provided, NDRange submit is used.
+            If omitted, simple range submit is used.
+        dEvents:
+            Optional dependency events.
+        use_device_profiling:
+            If True, collect device energy before and after the kernel.
+        use_kernel_profiling:
+            If True, collect kernel energy from the returned event.
+        uncore_frequency, core_frequency:
+            Optional frequency values. If at least one is provided, the
+            frequency-scaling overload of synergy::queue::submit is used.
         """
 
-        """
-            Nota: i campi use_device/kernel_profiling non indicano la scelta di backend, si usa sempre synergy, indicano semplicemente quale misura raccogliere e salvare
-    
-        """
-        
+        if kernel is None:
+            raise ValueError("kernel is required.")
+
+        if not isinstance(kernel, dpctl_program.SyclKernel):  #cambio da if not hasattr - ci assicuriamo che l'oggetto che ci arriva sia effettivamente un SyclKernel e non una ref
+            raise TypeError(
+                "kernel must be a dpctl.program.SyclKernel. "
+                "Use submit_spirv(...) or submit_opencl_source(...) if the kernel "
+                "has to be created from an external representation."
+                )
+
+        if args is None:
+            args = []
+
+        if not isinstance(args, (list, tuple)):
+            raise TypeError("args must be a list or tuple.")
+
+        args = list(args)
+
+        gS = self._normalize_range("gS", gS, required=True)
+        lS = self._normalize_range("lS", lS, required=False)
+
+        if lS is not None and len(lS) != len(gS):
+            raise ValueError("lS and gS must have the same number of dimensions.")
+
         if dEvents is None:
             dEvents = []
 
+        if not isinstance(dEvents, (list, tuple)):
+            raise TypeError("dEvents must be a list or tuple of dpctl.SyclEvent objects.")
+
+        dEvents = list(dEvents)
+
         use_frequency_scaling = (
-            uncore_frequency is not None or core_frequency is not None    
+            uncore_frequency is not None or core_frequency is not None
         )
 
-        normalized_uncore_frequency = (
-            0 if uncore_frequency is None else int(uncore_frequency)
+        normalized_uncore_frequency = self._normalize_frequency(
+            "uncore_frequency",
+            uncore_frequency,
         )
-        normalized_core_frequency = (
-            0 if core_frequency is None else int(core_frequency)
+
+        normalized_core_frequency = self._normalize_frequency(
+            "core_frequency",
+            core_frequency,
         )
 
         bridge = self._load_submit_bridge()
 
-        event, profile = bridge.submit( queue=self,
+        event, profile = bridge.submit(
+            queue=self,
             adapter=self._adapter,
             kernel=kernel,
             args=args,
@@ -178,10 +192,222 @@ class SYnergyQueue(dpctl.SyclQueue):
             uncore_frequency=normalized_uncore_frequency,
             core_frequency=normalized_core_frequency,
         )
+
         self._last_event = event
         self._profile_log.append(profile)
 
         return event
+    
+
+    def _load_spirv_il(self, spirv):
+        """
+        Load SPIR-V intermediate language 
+
+        Parameters:
+        -----------
+        spirv:
+            Can be either an object containing SPIR-V IL or a path to a .spv file
+
+        Returns:
+        --------
+        bytes
+            SPIR-V binary content
+        """
+
+        if isinstance(spirv, (bytes, bytearray, memoryview)):
+            il = bytes(spirv)
+        else:
+            path = Path(spirv)
+
+            if not path.exists():
+                raise FileNotFoundError(f"SPIR-V file not found in path {path}")
+            
+            il = path.read_bytes()
+
+        if not il:
+            raise ValueError("SPIR-V IL is empty")
+        
+        return il
+    
+    def create_kernel_from_spirv(
+            self,
+            spirv,
+            kernel_name,
+            compile_options="",
+    ):
+        
+        """
+        This function creates a dpctl.program.SyclKernel form SPIR-V IL.
+
+        Note: this metod ONLY CREATES the kernel, it does not submit it. The returned kernel can than be used as a parameter for the submit(...) method
+
+
+        Parameters:
+        ----------
+        spirv:
+            Path to a .spv file or SPIR-V IL
+        kernel_name:
+            Name of the kernel function contained in the spirv module
+        compile_options:
+            Optional compilation options passed to dpctl
+
+        Returns:
+        --------
+        dpctl.program.SyclKernel
+
+        """
+
+
+        if not kernel_name or not isinstance(kernel_name, str):
+            raise ValueError("kernel_name must be a non-empty string.")
+        
+        il = self._load_spirv_il(spirv)
+
+        try:
+            program = dpctl_program.create_program_from_spirv(
+                self,
+                il,
+                copts = compile_options or "",
+            )
+
+            return program.get_sycl_kernel(kernel_name)
+        
+        except Exception as exc: #except improvemente - check backend 
+            backend = getattr(self.sycl_device, "backend", "unknown")
+            device = getattr(self.sycl_device, "name", "unknown")
+
+            raise RuntimeError(
+                f"Unable to create kernel '{kernel_name}' from SPIR-V"
+                f"on device '{device}' with backend '{backend}'."
+                "The SPIR-V loading path is correct, but the current backend may not support runtime program from SPIR-V"
+            ) from exc
+        
+    
+    def create_kernel_from_opencl_source(
+            self,
+            source,
+            kernel_name,
+            compile_options="",
+    ):
+        """
+        Create a dpctl.program.SycKerel from an OpenCL source
+
+
+        Parameters:
+        -----------
+        source:
+            OpenCL source code, as a string
+        kernel_name:
+            Name of the kernel function inside the source
+        compile_options:
+            Optional compilation options for dpctl
+
+        Returns:
+        --------
+        dpctl.program.SyclKernel
+        """
+
+        if not isinstance(source, str) or not source.strip():
+            raise ValueError("Source must be a non empty OpenCL C source string")
+
+        if not isinstance(kernel_name, str):
+            raise ValueError("kernel_name must be a non-empty string")
+        
+        try:
+            program= dpctl_program.create_program_from_source(
+                self,
+                source,
+                copts=compile_options or ""
+            )
+
+            return program.get_sycl_kernel(kernel_name)
+        
+        except Exception as exc:
+            backend = getattr(self.sycl_device, "backend", "unknown")
+            device = getattr(self.sycl_device, "name", "unknown")
+
+            raise RuntimeError(
+                f"Unable to create kernel '{kernel_name}' from OpenCL source "
+                f"on device '{device}' with backend '{backend}'. "
+                "The source path is correct, but the current backend may not "
+                "support runtime program creation from OpenCL C source."
+            ) from exc
+        
+    def submit_opencl_source(
+            self, 
+            source,
+            kernel_name, 
+            args,
+            gS,
+            lS=None,
+            dEvents=None,
+            *,
+            use_device_profiling=False,
+            use_kernel_profiling=False,
+            uncore_frequency=None,
+            core_frequency=None,
+            compile_options="",
+    ):
+        kernel = self.create_kernel_from_opencl_source(
+            source,
+            kernel_name,
+            compile_options=compile_options
+        )
+
+        return self.submit(
+            kernel,
+            args=args,
+            gS=gS,
+            lS=lS,
+            dEvents=dEvents,
+            use_device_profiling=use_device_profiling,
+            use_kernel_profiling=use_kernel_profiling,
+            uncore_frequency=uncore_frequency,
+            core_frequency=core_frequency
+        )
+        
+        
+    def submit_spirv(
+            self,
+            spirv,
+            kernel_name,
+            args,
+            gS,
+            lS=None,
+            dEvents=None,
+            *,
+            use_device_profiling=False,
+            use_kernel_profiling=False,
+            uncore_frequency=None,
+            core_frequency=None,
+            compile_options="",
+    ):
+        
+        """
+        Create a kernel from SPIR-V and submit it through SYnergy backend
+
+
+        It is a wapper of 
+            create_kernel_from_spirv(...)
+            submit(...)
+        """
+
+        kernel = self.create_kernel_from_spirv(
+            spirv,
+            kernel_name,
+            compile_options=compile_options
+            )
+        
+        return self.submit(
+            kernel,
+            args=args,
+            gS=gS, lS=lS,
+            dEvents=dEvents,
+            user_device_profiling=use_device_profiling,
+            use_kernel_profiling=use_kernel_profiling,
+            uncore_frequency=uncore_frequency,
+            core_frequency=core_frequency,
+            )
     
     def _load_submit_bridge(self):
         """

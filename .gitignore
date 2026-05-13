@@ -10,7 +10,7 @@
 
 #Ignora questi elementi
 /python/tests
-
+/tmp/
 
 # (Opzionale ma molto consigliato) Mantiene anche i file di testo base della repo
 !/.gitignore
