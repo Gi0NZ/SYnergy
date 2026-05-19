@@ -1,0 +1,216 @@
+
+    cpdef SyclEvent submit_async(
+        self,
+        SyclKernel kernel,
+        list args,
+        list gS,
+        list lS=None,
+        list dEvents=None
+    ):
+        """
+        Asynchronously submit :class:`dpctl.program.SyclKernel` for execution.
+
+        Args:
+            kernel (dpctl.program.SyclKernel):
+                SYCL kernel object
+            args (List[object]):
+                List of kernel arguments
+            gS (List[int]):
+                Global iteration range. Must be a list of length 1, 2, or 3.
+            lS (List[int], optional):
+                Local iteration range. Must be ``None`` or have the same
+                length as ``gS`` and each element of ``gS`` must be divisible
+                by respective element of ``lS``.
+            dEvents (List[dpctl.SyclEvent], optional):
+                List of events indicating ordering of this task relative
+                to tasks associated with specified events.
+
+        Returns:
+            dpctl.SyclEvent:
+                An event associated with submission of the kernel.
+
+        .. note::
+            One must ensure that the lifetime of all kernel arguments
+            extends after the submitted task completes. It is not a concern for
+            scalar arguments since they are passed by value, but for
+            objects representing USM allocations which are passed to the kernel
+            as unified address space pointers.
+
+            One way of accomplishing this is to use
+            :meth:`dpctl.SyclQueue._submit_keep_args_alive`.
+        """
+        cdef void **kargs = NULL
+        cdef _arg_data_type *kargty = NULL
+        cdef DPCTLSyclEventRef *depEvents = NULL
+        cdef DPCTLSyclEventRef Eref = NULL
+        cdef int ret = 0
+        cdef size_t gRange[3]
+        cdef size_t lRange[3]
+        cdef size_t nGS = len(gS)
+        cdef size_t nLS = len(lS) if lS is not None else 0
+        cdef size_t nDE = len(dEvents) if dEvents is not None else 0
+
+        # Allocate the arrays to be sent to DPCTLQueue_Submit
+        kargs = <void**>malloc(len(args) * sizeof(void*))
+        if not kargs:
+            raise MemoryError()
+        kargty = (
+            <_arg_data_type*>malloc(len(args)*sizeof(_arg_data_type))
+        )
+        if not kargty:
+            free(kargs)
+            raise MemoryError()
+        # Create the array of dependent events if any
+        if dEvents is not None and nDE > 0:
+            depEvents = (
+                <DPCTLSyclEventRef*>malloc(nDE*sizeof(DPCTLSyclEventRef))
+            )
+            if not depEvents:
+                free(kargs)
+                free(kargty)
+                raise MemoryError()
+            else:
+                for idx, de in enumerate(dEvents):
+                    if isinstance(de, SyclEvent):
+                        depEvents[idx] = (<SyclEvent>de).get_event_ref()
+                    else:
+                        free(kargs)
+                        free(kargty)
+                        free(depEvents)
+                        raise TypeError(
+                            "A sequence of dpctl.SyclEvent is expected"
+                        )
+
+        # populate the args and argstype arrays
+        ret = self._populate_args(args, kargs, kargty)
+        if ret == -1:
+            free(kargs)
+            free(kargty)
+            free(depEvents)
+            raise TypeError("Unsupported type for a kernel argument")
+
+        if lS is None:
+            ret = self._populate_range(gRange, gS, nGS)
+            if ret == -1:
+                free(kargs)
+                free(kargty)
+                free(depEvents)
+                raise SyclKernelInvalidRangeError(
+                    "Range with ", nGS, " not allowed. Range can only have "
+                    "between one and three dimensions."
+                )
+            Eref = DPCTLQueue_SubmitRange(
+                kernel.get_kernel_ref(),
+                self.get_queue_ref(),
+                kargs,
+                kargty,
+                len(args),
+                gRange,
+                nGS,
+                depEvents,
+                nDE
+            )
+        else:
+            ret = self._populate_range(gRange, gS, nGS)
+            if ret == -1:
+                free(kargs)
+                free(kargty)
+                free(depEvents)
+                raise SyclKernelInvalidRangeError(
+                    "Range with ", nGS, " not allowed. Range can only have "
+                    "between one and three dimensions."
+                )
+            ret = self._populate_range(lRange, lS, nLS)
+            if ret == -1:
+                free(kargs)
+                free(kargty)
+                free(depEvents)
+                raise SyclKernelInvalidRangeError(
+                    "Range with ", nLS, " not allowed. Range can only have "
+                    "between one and three dimensions."
+                )
+            if nGS != nLS:
+                free(kargs)
+                free(kargty)
+                free(depEvents)
+                raise ValueError(
+                    "Local and global ranges need to have same "
+                    "number of dimensions."
+                )
+            Eref = DPCTLQueue_SubmitNDRange(
+                kernel.get_kernel_ref(),
+                self.get_queue_ref(),
+                kargs,
+                kargty,
+                len(args),
+                gRange,
+                lRange,
+                nGS,
+                depEvents,
+                nDE
+            )
+        free(kargs)
+        free(kargty)
+        free(depEvents)
+
+        if Eref is NULL:
+            raise SyclKernelSubmitError(
+                "Kernel submission to Sycl queue failed."
+            )
+
+        return SyclEvent._create(Eref)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    SUBMIT PRENDE SEMPLICEMENTE GLI ARGOMENTI, CHIAMA LA SUBMIT_ASYNC ED ATTENDE TRAMITE WAIT
+
+    cpdef SyclEvent submit(
+        self,
+        SyclKernel kernel,
+        list args,
+        list gS,
+        list lS=None,
+        list dEvents=None
+    ):
+        """
+        Submit :class:`dpctl.program.SyclKernel` for execution.
+
+        Args:
+            kernel (dpctl.program.SyclKernel):
+                SYCL kernel object
+            args (List[object]):
+                List of kernel arguments
+            gS (List[int]):
+                Global iteration range. Must be a list of length 1, 2, or 3.
+            lS (List[int], optional):
+                Local iteration range. Must be ``None`` or have the same
+                length as ``gS`` and each element of ``gS`` must be divisible
+                by respective element of ``lS``.
+            dEvents (List[dpctl.SyclEvent], optional):
+                List of events indicating ordering of this task relative
+                to tasks associated with specified events.
+
+        Returns:
+            dpctl.SyclEvent:
+                An event which is always complete. May be ignored.
+
+        .. note::
+            :meth:`dpctl.SyclQueue.submit` is a synchronizing method.
+            Use :meth:`dpctl.SyclQueue.submit_async` to avoid synchronization.
+        """
+        cdef SyclEvent e = self.submit_async(kernel, args, gS, lS, dEvents)
+        e.wait()
+        return e

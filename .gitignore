@@ -1,35 +1,4 @@
-﻿# 1. IGNORA TUTTO DI DEFAULT
-/*
-
-# 2. ECCETTO QUESTE CARTELLE (Il punto esclamativo significa "non ignorare")
-!/python/
-!/src/
-!/tests/
-!/binding/
-
-
-#Ignora questi elementi
-/python/tests
-/tmp/
-
-# (Opzionale ma molto consigliato) Mantiene anche i file di testo base della repo
-!/.gitignore
-!/README.md
-!/LICENSE
-
-# 3. REGOLE DI PULIZIA INTERNE
-# Anche dentro "python", "src" e "tests", ignora la spazzatura compilata:
-
-# Python cache
-__pycache__/
-*.pyc
-
-# File compilati C/C++ e librerie condivise
-*.o
-*.so
-*.out
-*.a
-
-# File di editor e sistema
+﻿﻿build/
 .vscode/
-.DS_Store
+.vscode-test/
+.editorconfig

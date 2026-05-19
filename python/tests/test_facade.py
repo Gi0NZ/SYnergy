@@ -208,6 +208,7 @@ def test_direct_kernel_if_available(q: SYnergyQueue) -> str:
     """
 
     print()
+    
     print("=== direct SyclKernel submit ===")
 
     try:

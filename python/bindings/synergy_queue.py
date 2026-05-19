@@ -61,7 +61,7 @@ class SYnergyQueue(dpctl.SyclQueue):
     def _ensure_synergy_properties(prop):
 
         """
-            Garantisce la costruzione della queue con proprietà utili/necessarie al profiling
+            Garantisce la costruzione della SYnergyQueue con proprietà utili/necessarie al profiling - fondamentali per SYnergy
         """
 
         if prop is None:
@@ -338,7 +338,7 @@ class SYnergyQueue(dpctl.SyclQueue):
 
             return program.get_sycl_kernel(kernel_name)
         
-        except Exception as exc: #except improvemente - check backend 
+        except Exception as exc: #except improvement - check backend 
             backend = getattr(self.sycl_device, "backend", "unknown")
             device = getattr(self.sycl_device, "name", "unknown")
 
@@ -490,7 +490,6 @@ class SYnergyQueue(dpctl.SyclQueue):
         except ModuleNotFoundError as exc:
             raise RuntimeError(
                 "Il bridge bindings._synergy_submit non è ancora disponibile. "
-                "Completa la Fase 2 per implementare la submit SYnergy reale."
             ) from exc
     
     

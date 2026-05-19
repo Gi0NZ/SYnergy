@@ -1,0 +1,218 @@
+#pragma once
+
+#include <sycl/sycl.hpp>
+
+#include "kernel.hpp"
+#include "profiling_manager.hpp"
+#include "runtime.hpp"
+#include "types.hpp"
+
+#if defined(SYNERGY_DEVICE_PROFILING) || defined(SYNERGY_KERNEL_PROFILING)
+#define SYNERGY_ENABLE_PROFILING
+#endif
+
+namespace synergy {
+
+class queue : public sycl::queue {
+public:
+#ifdef SYNERGY_ENABLE_PROFILING
+  template <typename... Rest>
+  queue(Rest&&... args)
+      : sycl::queue(synergy::queue::check_args(std::forward<Rest>(args)...)),
+        device{synergy::detail::runtime::synergy_device_from(get_device())},
+        profiling{std::make_shared<detail::profiling_manager>(device)} {
+    assert_profiling_properties();
+  }
+
+  template <typename... Rest>
+  queue(frequency uncore_frequency, frequency core_frequency, Rest&&... args)
+      : sycl::queue(synergy::queue::check_args(std::forward<Rest>(args)...)),
+        device{synergy::detail::runtime::synergy_device_from(get_device())},
+        core_target_frequency{core_frequency},
+        uncore_target_frequency{uncore_frequency},
+        profiling{std::make_shared<detail::profiling_manager>(device)} {
+    assert_profiling_properties();
+  }
+#else
+  template <typename... Rest>
+  queue(Rest&&... args)
+      : sycl::queue(synergy::queue::check_args(std::forward<Rest>(args)...)),
+        device{synergy::detail::runtime::synergy_device_from(get_device())} {}
+
+  template <typename... Rest>
+  queue(frequency uncore_frequency, frequency core_frequency, Rest&&... args)
+      : sycl::queue(synergy::queue::check_args(std::forward<Rest>(args)...)),
+        device{synergy::detail::runtime::synergy_device_from(get_device())},
+        core_target_frequency{core_frequency},
+        uncore_target_frequency{uncore_frequency} {}
+#endif
+
+  // #ifdef SYNERGY_ENABLE_PROFILING
+  //   ~queue() {
+  //     sycl::queue::wait();
+  //   }
+  // #endif
+
+  // explicitly declared to avoid clashes with the variadic constructor
+  queue(queue&) = default;
+  queue(const queue&) = default;
+  queue(queue&&) = default;
+  queue& operator=(const queue&) = default;
+  queue& operator=(queue&) = default;
+  queue& operator=(queue&&) = default;
+
+  template <typename T>
+  sycl::event submit(T cfg) {
+    sycl::event event;
+
+    energy start_energy = get_starting_energy();
+    if (has_target()) {
+      event = sycl::queue::submit(
+          [&](sycl::handler& h) {
+            try {
+              if (core_target_frequency) device.set_core_frequency(core_target_frequency);
+              if (uncore_target_frequency) device.set_uncore_frequency(uncore_target_frequency);
+            } catch (const std::exception& e) {
+              std::cerr << e.what() << '\n';
+            }
+            cfg(h);
+          }
+      );
+
+#ifdef SYNERGY_KERNEL_PROFILING
+      profiling->profile_kernel(event, start_energy);
+#endif
+      event.wait_and_throw(); // we always have to do this because kernel submit time can be different from kernel execution time
+    } else {
+      event = sycl::queue::submit(cfg);
+
+#ifdef SYNERGY_KERNEL_PROFILING
+#ifdef __HIPSYCL__
+      get_context().hipSYCL_runtime()->dag().flush_sync();
+#endif
+      profiling->profile_kernel(event, start_energy);
+      event.wait_and_throw();
+#endif
+    }
+
+    return event;
+  }
+
+  template <typename T>
+  sycl::event submit(frequency kernel_uncore_frequency, frequency kernel_core_frequency, T cfg) {
+    energy start_energy = get_starting_energy();
+    sycl::event event = sycl::queue::submit(
+        [&](sycl::handler& h) {
+          try {
+            if (kernel_core_frequency) device.set_core_frequency(kernel_core_frequency);
+            if (kernel_uncore_frequency) device.set_uncore_frequency(kernel_uncore_frequency);
+          } catch (const std::exception& e) {
+            std::cerr << e.what() << '\n';
+          }
+          cfg(h);
+        }
+    );
+
+#ifdef SYNERGY_KERNEL_PROFILING
+#ifdef __HIPSYCL__
+    get_context().hipSYCL_runtime()->dag().flush_sync();
+#endif
+    profiling->profile_kernel(event, start_energy);
+#endif
+
+    event.wait_and_throw(); // if we do frequency scaling we always wait
+    return event;
+  }
+
+  template <typename T>
+  sycl::event submit(T cfg, const queue& secondary_queue) {
+    std::cerr << "synergy::queue info: submission with secondary queue does not support energy profiling or frequency scaling\n";
+    sycl::queue::submit(cfg, secondary_queue);
+  }
+
+  inline device get_synergy_device() const {
+    return device;
+  }
+
+  inline void set_target_frequencies(frequency uncore_frequency, frequency core_frequency) {
+    core_target_frequency = core_frequency;
+    uncore_target_frequency = uncore_frequency;
+  }
+
+#ifdef SYNERGY_KERNEL_PROFILING
+  inline double kernel_energy_consumption(const sycl::event& event) const {
+    return profiling->kernel_energy(event);
+  }
+#endif
+
+#ifdef SYNERGY_DEVICE_PROFILING
+  inline double device_energy_consumption() const {
+    return profiling->device_energy();
+  }
+#ifdef SYNERGY_HOST_PROFILING
+  inline double host_energy_consumption() const {
+    return profiling->host_energy();
+  }
+#endif
+#endif
+
+private:
+  device device;
+  frequency core_target_frequency = 0;
+  frequency uncore_target_frequency = 0;
+
+#ifdef SYNERGY_ENABLE_PROFILING
+  std::shared_ptr<detail::profiling_manager> profiling;
+#endif
+
+  inline bool has_target() { return core_target_frequency != 0 || uncore_target_frequency != 0; }
+  template <typename T>
+  static constexpr bool is_property_list = std::is_same<std::decay_t<T>, sycl::property_list>::value;
+
+  template <typename... Ts>
+  static constexpr bool has_property_list = (is_property_list<Ts> || ...);
+  
+  template <typename... Args>
+  static sycl::queue check_args(Args&&... args) {
+    // Helper metafunction to detect if a sycl::property_list is among Args
+    if constexpr (has_property_list<Args...>) {
+      // If a property_list is present, forward the arguments directly
+      return sycl::queue(std::forward<Args>(args)...);
+    } 
+    else {
+      sycl::queue fake_queue = sycl::queue(std::forward<Args>(args)...);
+
+      // Otherwise, construct a default property_list with desired properties
+#ifdef SYNERGY_KERNEL_PROFILING
+      sycl::property_list props{sycl::property::queue::in_order{}, sycl::property::queue::enable_profiling{}};
+#else
+      sycl::property_list props{sycl::property::queue::in_order{}};
+#endif
+      return sycl::queue(fake_queue.get_device(), props);
+    }
+  }
+
+  inline void assert_profiling_properties() {
+#ifdef SYNERGY_KERNEL_PROFILING
+    if (!has_property<sycl::property::queue::enable_profiling>())
+      throw std::runtime_error("synergy::queue error: queue must be constructed with the enable_profiling property");
+    if (!has_property<sycl::property::queue::in_order>())
+      throw std::runtime_error("synergy::queue error: queue must be constructed with the in_order property");
+#endif
+  }
+
+  inline energy get_starting_energy() {
+#if defined(SYNERGY_KERNEL_PROFILING) && defined(SYNERGY_USE_PROFILING_ENERGY)
+    energy start_energy = device.get_energy_usage();
+    energy tmp_energy;
+    while ((tmp_energy = device.get_energy_usage()) == start_energy)
+      ;
+    start_energy = tmp_energy;
+    return start_energy; 
+#else
+    return 0;
+#endif
+  }
+};
+
+} // namespace synergy
