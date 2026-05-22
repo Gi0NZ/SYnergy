@@ -1,8 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/giovanni/HPC/dpctl/SYnergy/build/cmake_install.cmake",
-		"/home/giovanni/HPC/dpctl/SYnergy/build/samples/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
