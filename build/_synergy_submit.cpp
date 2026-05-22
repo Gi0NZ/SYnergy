@@ -3372,7 +3372,8 @@ static PyObject *indirect_contiguous = 0;
 static int __pyx_memoryview_thread_locks_used;
 static PyThread_type_lock __pyx_memoryview_thread_locks[8];
 static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueObject *, PyObject *, struct PySyclKernelObject *, PyObject *, PyObject *, PyObject *, PyObject *, int, int, int, unsigned int, unsigned int, int __pyx_skip_dispatch); /*proto*/
-static PyObject *__pyx_f_8bindings_15_synergy_submit_create_busy_kernel(PyObject *, int __pyx_skip_dispatch); /*proto*/
+static PyObject *__pyx_f_8bindings_15_synergy_submit_create_vecadd_kernel(PyObject *, int __pyx_skip_dispatch); /*proto*/
+static PyObject *__pyx_f_8bindings_15_synergy_submit_create_vecprod_kernel(PyObject *, int __pyx_skip_dispatch); /*proto*/
 static int __pyx_array_allocate_buffer(struct __pyx_array_obj *); /*proto*/
 static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, char const *, char *); /*proto*/
 static PyObject *__pyx_memoryview_new(PyObject *, int, int, __Pyx_TypeInfo const *); /*proto*/
@@ -3466,7 +3467,8 @@ static PyObject *__pyx_pf___pyx_memoryviewslice___reduce_cython__(CYTHON_UNUSED 
 static PyObject *__pyx_pf___pyx_memoryviewslice_2__setstate_cython__(CYTHON_UNUSED struct __pyx_memoryviewslice_obj *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_15View_dot_MemoryView___pyx_unpickle_Enum(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_8bindings_15_synergy_submit_submit(CYTHON_UNUSED PyObject *__pyx_self, struct PySyclQueueObject *__pyx_v_queue, PyObject *__pyx_v_adapter, struct PySyclKernelObject *__pyx_v_kernel, PyObject *__pyx_v_args, PyObject *__pyx_v_gS, PyObject *__pyx_v_lS, PyObject *__pyx_v_dEvents, int __pyx_v_use_device_profiling, int __pyx_v_use_kernel_profiling, int __pyx_v_use_frequency_scaling, unsigned int __pyx_v_uncore_frequency, unsigned int __pyx_v_core_frequency); /* proto */
-static PyObject *__pyx_pf_8bindings_15_synergy_submit_2create_busy_kernel(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_adapter); /* proto */
+static PyObject *__pyx_pf_8bindings_15_synergy_submit_2create_vecadd_kernel(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_adapter); /* proto */
+static PyObject *__pyx_pf_8bindings_15_synergy_submit_4create_vecprod_kernel(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_adapter); /* proto */
 static PyObject *__pyx_tp_new_array(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_Enum(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_memoryview(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -3532,8 +3534,8 @@ typedef struct {
   __Pyx_CachedCFunction __pyx_umethod_PyDict_Type_values;
   PyObject *__pyx_slice[1];
   PyObject *__pyx_tuple[1];
-  PyObject *__pyx_codeobj_tab[2];
-  PyObject *__pyx_string_tab[145];
+  PyObject *__pyx_codeobj_tab[3];
+  PyObject *__pyx_string_tab[149];
   PyObject *__pyx_number_tab[4];
 /* #### Code section: module_state_contents ### */
 /* CommonTypesMetaclass.module_state_decls */
@@ -3600,126 +3602,130 @@ static __pyx_mstatetype * const __pyx_mstate_global = &__pyx_mstate_global_stati
 #define __pyx_kp_u_Step_may_not_be_zero_axis_d __pyx_string_tab[22]
 #define __pyx_kp_u_Unable_to_convert_item_to_object __pyx_string_tab[23]
 #define __pyx_kp_u_Unable_to_create_native_SYnergy __pyx_string_tab[24]
-#define __pyx_kp_u_Unsupported_type_for_a_kernel_ar __pyx_string_tab[25]
-#define __pyx_kp_u__2 __pyx_string_tab[26]
-#define __pyx_kp_u__3 __pyx_string_tab[27]
-#define __pyx_kp_u__4 __pyx_string_tab[28]
-#define __pyx_kp_u__5 __pyx_string_tab[29]
-#define __pyx_kp_u__6 __pyx_string_tab[30]
-#define __pyx_kp_u_add_note __pyx_string_tab[31]
-#define __pyx_kp_u_and __pyx_string_tab[32]
-#define __pyx_kp_u_at_0x __pyx_string_tab[33]
-#define __pyx_kp_u_bindings__synergy_submit_pyx __pyx_string_tab[34]
-#define __pyx_kp_u_collections_abc __pyx_string_tab[35]
-#define __pyx_kp_u_contiguous_and_direct __pyx_string_tab[36]
-#define __pyx_kp_u_contiguous_and_indirect __pyx_string_tab[37]
-#define __pyx_kp_u_dEvents_must_be_a_sequence_of_dp __pyx_string_tab[38]
-#define __pyx_kp_u_disable __pyx_string_tab[39]
-#define __pyx_kp_u_enable __pyx_string_tab[40]
-#define __pyx_kp_u_gc __pyx_string_tab[41]
-#define __pyx_kp_u_got __pyx_string_tab[42]
-#define __pyx_kp_u_got_differing_extents_in_dimensi __pyx_string_tab[43]
-#define __pyx_kp_u_isenabled __pyx_string_tab[44]
-#define __pyx_kp_u_itemsize_0_for_cython_array __pyx_string_tab[45]
-#define __pyx_kp_u_no_default___reduce___due_to_non __pyx_string_tab[46]
-#define __pyx_kp_u_object __pyx_string_tab[47]
-#define __pyx_kp_u_strided_and_direct __pyx_string_tab[48]
-#define __pyx_kp_u_strided_and_direct_or_indirect __pyx_string_tab[49]
-#define __pyx_kp_u_strided_and_indirect __pyx_string_tab[50]
-#define __pyx_kp_u_unable_to_allocate_array_data __pyx_string_tab[51]
-#define __pyx_kp_u_unable_to_allocate_shape_and_str __pyx_string_tab[52]
-#define __pyx_n_u_ASCII __pyx_string_tab[53]
-#define __pyx_n_u_Ellipsis __pyx_string_tab[54]
-#define __pyx_n_u_Pyx_PyDict_NextRef __pyx_string_tab[55]
-#define __pyx_n_u_SYnergyBusyKernel __pyx_string_tab[56]
-#define __pyx_n_u_Sequence __pyx_string_tab[57]
-#define __pyx_n_u_View_MemoryView __pyx_string_tab[58]
-#define __pyx_n_u_abc __pyx_string_tab[59]
-#define __pyx_n_u_adapter __pyx_string_tab[60]
-#define __pyx_n_u_allocate_buffer __pyx_string_tab[61]
-#define __pyx_n_u_args __pyx_string_tab[62]
-#define __pyx_n_u_asyncio_coroutines __pyx_string_tab[63]
-#define __pyx_n_u_base __pyx_string_tab[64]
-#define __pyx_n_u_bindings__synergy_submit __pyx_string_tab[65]
-#define __pyx_n_u_c __pyx_string_tab[66]
-#define __pyx_n_u_class __pyx_string_tab[67]
-#define __pyx_n_u_class_getitem __pyx_string_tab[68]
-#define __pyx_n_u_cline_in_traceback __pyx_string_tab[69]
-#define __pyx_n_u_core_frequency __pyx_string_tab[70]
-#define __pyx_n_u_count __pyx_string_tab[71]
-#define __pyx_n_u_create_busy_kernel __pyx_string_tab[72]
-#define __pyx_n_u_dEvents __pyx_string_tab[73]
-#define __pyx_n_u_device_energy_after __pyx_string_tab[74]
-#define __pyx_n_u_device_energy_before __pyx_string_tab[75]
-#define __pyx_n_u_device_energy_consumption __pyx_string_tab[76]
-#define __pyx_n_u_device_energy_delta __pyx_string_tab[77]
-#define __pyx_n_u_dict __pyx_string_tab[78]
-#define __pyx_n_u_dtype_is_object __pyx_string_tab[79]
-#define __pyx_n_u_encode __pyx_string_tab[80]
-#define __pyx_n_u_enumerate __pyx_string_tab[81]
-#define __pyx_n_u_error __pyx_string_tab[82]
-#define __pyx_n_u_flags __pyx_string_tab[83]
-#define __pyx_n_u_format __pyx_string_tab[84]
-#define __pyx_n_u_fortran __pyx_string_tab[85]
-#define __pyx_n_u_func __pyx_string_tab[86]
-#define __pyx_n_u_gS __pyx_string_tab[87]
-#define __pyx_n_u_getstate __pyx_string_tab[88]
-#define __pyx_n_u_id __pyx_string_tab[89]
-#define __pyx_n_u_import __pyx_string_tab[90]
-#define __pyx_n_u_index __pyx_string_tab[91]
-#define __pyx_n_u_is_coroutine __pyx_string_tab[92]
-#define __pyx_n_u_items __pyx_string_tab[93]
-#define __pyx_n_u_itemsize __pyx_string_tab[94]
-#define __pyx_n_u_kernel __pyx_string_tab[95]
-#define __pyx_n_u_kernel_energy __pyx_string_tab[96]
-#define __pyx_n_u_kernel_energy_consumption __pyx_string_tab[97]
-#define __pyx_n_u_lS __pyx_string_tab[98]
-#define __pyx_n_u_main __pyx_string_tab[99]
-#define __pyx_n_u_memview __pyx_string_tab[100]
-#define __pyx_n_u_mode __pyx_string_tab[101]
-#define __pyx_n_u_module __pyx_string_tab[102]
-#define __pyx_n_u_name __pyx_string_tab[103]
-#define __pyx_n_u_name_2 __pyx_string_tab[104]
-#define __pyx_n_u_native_handle __pyx_string_tab[105]
-#define __pyx_n_u_ndim __pyx_string_tab[106]
-#define __pyx_n_u_new __pyx_string_tab[107]
-#define __pyx_n_u_obj __pyx_string_tab[108]
-#define __pyx_n_u_pack __pyx_string_tab[109]
-#define __pyx_n_u_pop __pyx_string_tab[110]
-#define __pyx_n_u_pyx_checksum __pyx_string_tab[111]
-#define __pyx_n_u_pyx_state __pyx_string_tab[112]
-#define __pyx_n_u_pyx_type __pyx_string_tab[113]
-#define __pyx_n_u_pyx_unpickle_Enum __pyx_string_tab[114]
-#define __pyx_n_u_pyx_vtable __pyx_string_tab[115]
-#define __pyx_n_u_qualname __pyx_string_tab[116]
-#define __pyx_n_u_queue __pyx_string_tab[117]
-#define __pyx_n_u_reduce __pyx_string_tab[118]
-#define __pyx_n_u_reduce_cython __pyx_string_tab[119]
-#define __pyx_n_u_reduce_ex __pyx_string_tab[120]
-#define __pyx_n_u_register __pyx_string_tab[121]
-#define __pyx_n_u_set_name __pyx_string_tab[122]
-#define __pyx_n_u_setdefault __pyx_string_tab[123]
-#define __pyx_n_u_setstate __pyx_string_tab[124]
-#define __pyx_n_u_setstate_cython __pyx_string_tab[125]
-#define __pyx_n_u_shape __pyx_string_tab[126]
-#define __pyx_n_u_size __pyx_string_tab[127]
-#define __pyx_n_u_start __pyx_string_tab[128]
-#define __pyx_n_u_step __pyx_string_tab[129]
-#define __pyx_n_u_stop __pyx_string_tab[130]
-#define __pyx_n_u_struct __pyx_string_tab[131]
-#define __pyx_n_u_submit __pyx_string_tab[132]
-#define __pyx_n_u_test __pyx_string_tab[133]
-#define __pyx_n_u_uncore_frequency __pyx_string_tab[134]
-#define __pyx_n_u_unpack __pyx_string_tab[135]
-#define __pyx_n_u_update __pyx_string_tab[136]
-#define __pyx_n_u_use_device_profiling __pyx_string_tab[137]
-#define __pyx_n_u_use_frequency_scaling __pyx_string_tab[138]
-#define __pyx_n_u_use_kernel_profiling __pyx_string_tab[139]
-#define __pyx_n_u_values __pyx_string_tab[140]
-#define __pyx_n_u_x __pyx_string_tab[141]
-#define __pyx_kp_b_iso88591_4_1A_c_a_a_1_q_a_a_xwa_c_s_c_a __pyx_string_tab[142]
-#define __pyx_kp_b_iso88591_a_q_uCq_l_1_XQfA __pyx_string_tab[143]
-#define __pyx_n_b_O __pyx_string_tab[144]
+#define __pyx_kp_u_Unable_to_crete_vecprod_kernel __pyx_string_tab[25]
+#define __pyx_kp_u_Unsupported_type_for_a_kernel_ar __pyx_string_tab[26]
+#define __pyx_kp_u__2 __pyx_string_tab[27]
+#define __pyx_kp_u__3 __pyx_string_tab[28]
+#define __pyx_kp_u__4 __pyx_string_tab[29]
+#define __pyx_kp_u__5 __pyx_string_tab[30]
+#define __pyx_kp_u__6 __pyx_string_tab[31]
+#define __pyx_kp_u_add_note __pyx_string_tab[32]
+#define __pyx_kp_u_and __pyx_string_tab[33]
+#define __pyx_kp_u_at_0x __pyx_string_tab[34]
+#define __pyx_kp_u_bindings__synergy_submit_pyx __pyx_string_tab[35]
+#define __pyx_kp_u_collections_abc __pyx_string_tab[36]
+#define __pyx_kp_u_contiguous_and_direct __pyx_string_tab[37]
+#define __pyx_kp_u_contiguous_and_indirect __pyx_string_tab[38]
+#define __pyx_kp_u_dEvents_must_be_a_sequence_of_dp __pyx_string_tab[39]
+#define __pyx_kp_u_disable __pyx_string_tab[40]
+#define __pyx_kp_u_enable __pyx_string_tab[41]
+#define __pyx_kp_u_gc __pyx_string_tab[42]
+#define __pyx_kp_u_got __pyx_string_tab[43]
+#define __pyx_kp_u_got_differing_extents_in_dimensi __pyx_string_tab[44]
+#define __pyx_kp_u_isenabled __pyx_string_tab[45]
+#define __pyx_kp_u_itemsize_0_for_cython_array __pyx_string_tab[46]
+#define __pyx_kp_u_no_default___reduce___due_to_non __pyx_string_tab[47]
+#define __pyx_kp_u_object __pyx_string_tab[48]
+#define __pyx_kp_u_strided_and_direct __pyx_string_tab[49]
+#define __pyx_kp_u_strided_and_direct_or_indirect __pyx_string_tab[50]
+#define __pyx_kp_u_strided_and_indirect __pyx_string_tab[51]
+#define __pyx_kp_u_unable_to_allocate_array_data __pyx_string_tab[52]
+#define __pyx_kp_u_unable_to_allocate_shape_and_str __pyx_string_tab[53]
+#define __pyx_n_u_ASCII __pyx_string_tab[54]
+#define __pyx_n_u_Ellipsis __pyx_string_tab[55]
+#define __pyx_n_u_Pyx_PyDict_NextRef __pyx_string_tab[56]
+#define __pyx_n_u_SYnergyVecAddKernel __pyx_string_tab[57]
+#define __pyx_n_u_SYnergyVecProdKernel __pyx_string_tab[58]
+#define __pyx_n_u_Sequence __pyx_string_tab[59]
+#define __pyx_n_u_View_MemoryView __pyx_string_tab[60]
+#define __pyx_n_u_abc __pyx_string_tab[61]
+#define __pyx_n_u_adapter __pyx_string_tab[62]
+#define __pyx_n_u_allocate_buffer __pyx_string_tab[63]
+#define __pyx_n_u_args __pyx_string_tab[64]
+#define __pyx_n_u_asyncio_coroutines __pyx_string_tab[65]
+#define __pyx_n_u_base __pyx_string_tab[66]
+#define __pyx_n_u_bindings__synergy_submit __pyx_string_tab[67]
+#define __pyx_n_u_c __pyx_string_tab[68]
+#define __pyx_n_u_class __pyx_string_tab[69]
+#define __pyx_n_u_class_getitem __pyx_string_tab[70]
+#define __pyx_n_u_cline_in_traceback __pyx_string_tab[71]
+#define __pyx_n_u_core_frequency __pyx_string_tab[72]
+#define __pyx_n_u_count __pyx_string_tab[73]
+#define __pyx_n_u_create_vecadd_kernel __pyx_string_tab[74]
+#define __pyx_n_u_create_vecprod_kernel __pyx_string_tab[75]
+#define __pyx_n_u_dEvents __pyx_string_tab[76]
+#define __pyx_n_u_device_energy_after __pyx_string_tab[77]
+#define __pyx_n_u_device_energy_before __pyx_string_tab[78]
+#define __pyx_n_u_device_energy_consumption __pyx_string_tab[79]
+#define __pyx_n_u_device_energy_delta __pyx_string_tab[80]
+#define __pyx_n_u_dict __pyx_string_tab[81]
+#define __pyx_n_u_dtype_is_object __pyx_string_tab[82]
+#define __pyx_n_u_encode __pyx_string_tab[83]
+#define __pyx_n_u_enumerate __pyx_string_tab[84]
+#define __pyx_n_u_error __pyx_string_tab[85]
+#define __pyx_n_u_flags __pyx_string_tab[86]
+#define __pyx_n_u_format __pyx_string_tab[87]
+#define __pyx_n_u_fortran __pyx_string_tab[88]
+#define __pyx_n_u_func __pyx_string_tab[89]
+#define __pyx_n_u_gS __pyx_string_tab[90]
+#define __pyx_n_u_getstate __pyx_string_tab[91]
+#define __pyx_n_u_id __pyx_string_tab[92]
+#define __pyx_n_u_import __pyx_string_tab[93]
+#define __pyx_n_u_index __pyx_string_tab[94]
+#define __pyx_n_u_is_coroutine __pyx_string_tab[95]
+#define __pyx_n_u_items __pyx_string_tab[96]
+#define __pyx_n_u_itemsize __pyx_string_tab[97]
+#define __pyx_n_u_kernel __pyx_string_tab[98]
+#define __pyx_n_u_kernel_energy __pyx_string_tab[99]
+#define __pyx_n_u_kernel_energy_consumption __pyx_string_tab[100]
+#define __pyx_n_u_lS __pyx_string_tab[101]
+#define __pyx_n_u_main __pyx_string_tab[102]
+#define __pyx_n_u_memview __pyx_string_tab[103]
+#define __pyx_n_u_mode __pyx_string_tab[104]
+#define __pyx_n_u_module __pyx_string_tab[105]
+#define __pyx_n_u_name __pyx_string_tab[106]
+#define __pyx_n_u_name_2 __pyx_string_tab[107]
+#define __pyx_n_u_native_handle __pyx_string_tab[108]
+#define __pyx_n_u_ndim __pyx_string_tab[109]
+#define __pyx_n_u_new __pyx_string_tab[110]
+#define __pyx_n_u_obj __pyx_string_tab[111]
+#define __pyx_n_u_pack __pyx_string_tab[112]
+#define __pyx_n_u_pop __pyx_string_tab[113]
+#define __pyx_n_u_pyx_checksum __pyx_string_tab[114]
+#define __pyx_n_u_pyx_state __pyx_string_tab[115]
+#define __pyx_n_u_pyx_type __pyx_string_tab[116]
+#define __pyx_n_u_pyx_unpickle_Enum __pyx_string_tab[117]
+#define __pyx_n_u_pyx_vtable __pyx_string_tab[118]
+#define __pyx_n_u_qualname __pyx_string_tab[119]
+#define __pyx_n_u_queue __pyx_string_tab[120]
+#define __pyx_n_u_reduce __pyx_string_tab[121]
+#define __pyx_n_u_reduce_cython __pyx_string_tab[122]
+#define __pyx_n_u_reduce_ex __pyx_string_tab[123]
+#define __pyx_n_u_register __pyx_string_tab[124]
+#define __pyx_n_u_set_name __pyx_string_tab[125]
+#define __pyx_n_u_setdefault __pyx_string_tab[126]
+#define __pyx_n_u_setstate __pyx_string_tab[127]
+#define __pyx_n_u_setstate_cython __pyx_string_tab[128]
+#define __pyx_n_u_shape __pyx_string_tab[129]
+#define __pyx_n_u_size __pyx_string_tab[130]
+#define __pyx_n_u_start __pyx_string_tab[131]
+#define __pyx_n_u_step __pyx_string_tab[132]
+#define __pyx_n_u_stop __pyx_string_tab[133]
+#define __pyx_n_u_struct __pyx_string_tab[134]
+#define __pyx_n_u_submit __pyx_string_tab[135]
+#define __pyx_n_u_test __pyx_string_tab[136]
+#define __pyx_n_u_uncore_frequency __pyx_string_tab[137]
+#define __pyx_n_u_unpack __pyx_string_tab[138]
+#define __pyx_n_u_update __pyx_string_tab[139]
+#define __pyx_n_u_use_device_profiling __pyx_string_tab[140]
+#define __pyx_n_u_use_frequency_scaling __pyx_string_tab[141]
+#define __pyx_n_u_use_kernel_profiling __pyx_string_tab[142]
+#define __pyx_n_u_values __pyx_string_tab[143]
+#define __pyx_n_u_x __pyx_string_tab[144]
+#define __pyx_kp_b_iso88591_4_1A_c_a_a_1_q_a_a_xwa_c_s_c_a __pyx_string_tab[145]
+#define __pyx_kp_b_iso88591_a_1_uCq_l_1_XQfA __pyx_string_tab[146]
+#define __pyx_kp_b_iso88591_a_uCq_l_1_XQfA __pyx_string_tab[147]
+#define __pyx_n_b_O __pyx_string_tab[148]
 #define __pyx_int_0 __pyx_number_tab[0]
 #define __pyx_int_neg_1 __pyx_number_tab[1]
 #define __pyx_int_1 __pyx_number_tab[2]
@@ -3776,8 +3782,8 @@ static CYTHON_SMALL_CODE int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_type___pyx_memoryviewslice);
   for (int i=0; i<1; ++i) { Py_CLEAR(clear_module_state->__pyx_slice[i]); }
   for (int i=0; i<1; ++i) { Py_CLEAR(clear_module_state->__pyx_tuple[i]); }
-  for (int i=0; i<2; ++i) { Py_CLEAR(clear_module_state->__pyx_codeobj_tab[i]); }
-  for (int i=0; i<145; ++i) { Py_CLEAR(clear_module_state->__pyx_string_tab[i]); }
+  for (int i=0; i<3; ++i) { Py_CLEAR(clear_module_state->__pyx_codeobj_tab[i]); }
+  for (int i=0; i<149; ++i) { Py_CLEAR(clear_module_state->__pyx_string_tab[i]); }
   for (int i=0; i<4; ++i) { Py_CLEAR(clear_module_state->__pyx_number_tab[i]); }
 /* #### Code section: module_state_clear_contents ### */
 /* CommonTypesMetaclass.module_state_clear */
@@ -3839,8 +3845,8 @@ static CYTHON_SMALL_CODE int __pyx_m_traverse(PyObject *m, visitproc visit, void
   Py_VISIT(traverse_module_state->__pyx_type___pyx_memoryviewslice);
   for (int i=0; i<1; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_slice[i]); }
   for (int i=0; i<1; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_tuple[i]); }
-  for (int i=0; i<2; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_codeobj_tab[i]); }
-  for (int i=0; i<145; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_string_tab[i]); }
+  for (int i=0; i<3; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_codeobj_tab[i]); }
+  for (int i=0; i<149; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_string_tab[i]); }
   for (int i=0; i<4; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_number_tab[i]); }
 /* #### Code section: module_state_traverse_contents ### */
 /* CommonTypesMetaclass.module_state_traverse */
@@ -17122,7 +17128,7 @@ static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *__
   return __pyx_r;
 }
 
-/* "bindings/_synergy_submit.pyx":56
+/* "bindings/_synergy_submit.pyx":61
  * 
  * 
  * cpdef submit(             # <<<<<<<<<<<<<<
@@ -17190,7 +17196,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("submit", 0);
 
-  /* "bindings/_synergy_submit.pyx":82
+  /* "bindings/_synergy_submit.pyx":87
  *     """
  * 
  *     cdef void** kargs = NULL             # <<<<<<<<<<<<<<
@@ -17199,7 +17205,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   __pyx_v_kargs = NULL;
 
-  /* "bindings/_synergy_submit.pyx":83
+  /* "bindings/_synergy_submit.pyx":88
  * 
  *     cdef void** kargs = NULL
  *     cdef _arg_data_type* kargty = NULL             # <<<<<<<<<<<<<<
@@ -17208,7 +17214,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   __pyx_v_kargty = NULL;
 
-  /* "bindings/_synergy_submit.pyx":84
+  /* "bindings/_synergy_submit.pyx":89
  *     cdef void** kargs = NULL
  *     cdef _arg_data_type* kargty = NULL
  *     cdef DPCTLSyclEventRef* depEvents = NULL             # <<<<<<<<<<<<<<
@@ -17217,7 +17223,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   __pyx_v_depEvents = NULL;
 
-  /* "bindings/_synergy_submit.pyx":85
+  /* "bindings/_synergy_submit.pyx":90
  *     cdef _arg_data_type* kargty = NULL
  *     cdef DPCTLSyclEventRef* depEvents = NULL
  *     cdef DPCTLSyclEventRef Eref = NULL             # <<<<<<<<<<<<<<
@@ -17226,7 +17232,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   __pyx_v_Eref = NULL;
 
-  /* "bindings/_synergy_submit.pyx":90
+  /* "bindings/_synergy_submit.pyx":95
  *     cdef size_t lRange[3]
  * 
  *     cdef size_t nArgs = len(args)             # <<<<<<<<<<<<<<
@@ -17235,12 +17241,12 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 90, __pyx_L1_error)
+    __PYX_ERR(0, 95, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyList_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyList_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 95, __pyx_L1_error)
   __pyx_v_nArgs = __pyx_t_1;
 
-  /* "bindings/_synergy_submit.pyx":91
+  /* "bindings/_synergy_submit.pyx":96
  * 
  *     cdef size_t nArgs = len(args)
  *     cdef size_t nGS = len(gS)             # <<<<<<<<<<<<<<
@@ -17249,12 +17255,12 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   if (unlikely(__pyx_v_gS == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 91, __pyx_L1_error)
+    __PYX_ERR(0, 96, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyList_GET_SIZE(__pyx_v_gS); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyList_GET_SIZE(__pyx_v_gS); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 96, __pyx_L1_error)
   __pyx_v_nGS = __pyx_t_1;
 
-  /* "bindings/_synergy_submit.pyx":92
+  /* "bindings/_synergy_submit.pyx":97
  *     cdef size_t nArgs = len(args)
  *     cdef size_t nGS = len(gS)
  *     cdef size_t nLS = 0             # <<<<<<<<<<<<<<
@@ -17263,7 +17269,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   __pyx_v_nLS = 0;
 
-  /* "bindings/_synergy_submit.pyx":93
+  /* "bindings/_synergy_submit.pyx":98
  *     cdef size_t nGS = len(gS)
  *     cdef size_t nLS = 0
  *     cdef size_t nDE = 0             # <<<<<<<<<<<<<<
@@ -17272,7 +17278,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   __pyx_v_nDE = 0;
 
-  /* "bindings/_synergy_submit.pyx":95
+  /* "bindings/_synergy_submit.pyx":100
  *     cdef size_t nDE = 0
  * 
  *     cdef int ret = 0             # <<<<<<<<<<<<<<
@@ -17281,7 +17287,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   __pyx_v_ret = 0;
 
-  /* "bindings/_synergy_submit.pyx":99
+  /* "bindings/_synergy_submit.pyx":104
  *     cdef SyclEvent event
  * 
  *     cdef object device_energy_before = None             # <<<<<<<<<<<<<<
@@ -17291,7 +17297,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
   __Pyx_INCREF(Py_None);
   __pyx_v_device_energy_before = Py_None;
 
-  /* "bindings/_synergy_submit.pyx":100
+  /* "bindings/_synergy_submit.pyx":105
  * 
  *     cdef object device_energy_before = None
  *     cdef object device_energy_after = None             # <<<<<<<<<<<<<<
@@ -17301,7 +17307,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
   __Pyx_INCREF(Py_None);
   __pyx_v_device_energy_after = Py_None;
 
-  /* "bindings/_synergy_submit.pyx":101
+  /* "bindings/_synergy_submit.pyx":106
  *     cdef object device_energy_before = None
  *     cdef object device_energy_after = None
  *     cdef object device_energy_delta = None             # <<<<<<<<<<<<<<
@@ -17311,7 +17317,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
   __Pyx_INCREF(Py_None);
   __pyx_v_device_energy_delta = Py_None;
 
-  /* "bindings/_synergy_submit.pyx":102
+  /* "bindings/_synergy_submit.pyx":107
  *     cdef object device_energy_after = None
  *     cdef object device_energy_delta = None
  *     cdef object kernel_energy = None             # <<<<<<<<<<<<<<
@@ -17321,7 +17327,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
   __Pyx_INCREF(Py_None);
   __pyx_v_kernel_energy = Py_None;
 
-  /* "bindings/_synergy_submit.pyx":104
+  /* "bindings/_synergy_submit.pyx":109
  *     cdef object kernel_energy = None
  * 
  *     if dEvents is not None:             # <<<<<<<<<<<<<<
@@ -17331,7 +17337,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
   __pyx_t_2 = (__pyx_v_dEvents != ((PyObject*)Py_None));
   if (__pyx_t_2) {
 
-    /* "bindings/_synergy_submit.pyx":105
+    /* "bindings/_synergy_submit.pyx":110
  * 
  *     if dEvents is not None:
  *         nDE = len(dEvents)             # <<<<<<<<<<<<<<
@@ -17340,12 +17346,12 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
     if (unlikely(__pyx_v_dEvents == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 105, __pyx_L1_error)
+      __PYX_ERR(0, 110, __pyx_L1_error)
     }
-    __pyx_t_1 = __Pyx_PyList_GET_SIZE(__pyx_v_dEvents); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 105, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyList_GET_SIZE(__pyx_v_dEvents); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 110, __pyx_L1_error)
     __pyx_v_nDE = __pyx_t_1;
 
-    /* "bindings/_synergy_submit.pyx":104
+    /* "bindings/_synergy_submit.pyx":109
  *     cdef object kernel_energy = None
  * 
  *     if dEvents is not None:             # <<<<<<<<<<<<<<
@@ -17354,7 +17360,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   }
 
-  /* "bindings/_synergy_submit.pyx":107
+  /* "bindings/_synergy_submit.pyx":112
  *         nDE = len(dEvents)
  * 
  *     if lS is not None:             # <<<<<<<<<<<<<<
@@ -17364,17 +17370,17 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
   __pyx_t_2 = (__pyx_v_lS != Py_None);
   if (__pyx_t_2) {
 
-    /* "bindings/_synergy_submit.pyx":108
+    /* "bindings/_synergy_submit.pyx":113
  * 
  *     if lS is not None:
  *         nLS = len(lS)             # <<<<<<<<<<<<<<
  * 
  *     adapter_handle = <uintptr_t>adapter._native_handle()
 */
-    __pyx_t_1 = PyObject_Length(__pyx_v_lS); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 108, __pyx_L1_error)
+    __pyx_t_1 = PyObject_Length(__pyx_v_lS); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 113, __pyx_L1_error)
     __pyx_v_nLS = __pyx_t_1;
 
-    /* "bindings/_synergy_submit.pyx":107
+    /* "bindings/_synergy_submit.pyx":112
  *         nDE = len(dEvents)
  * 
  *     if lS is not None:             # <<<<<<<<<<<<<<
@@ -17383,7 +17389,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   }
 
-  /* "bindings/_synergy_submit.pyx":110
+  /* "bindings/_synergy_submit.pyx":115
  *         nLS = len(lS)
  * 
  *     adapter_handle = <uintptr_t>adapter._native_handle()             # <<<<<<<<<<<<<<
@@ -17397,14 +17403,14 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
     PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
     __pyx_t_3 = __Pyx_PyObject_FastCallMethod((PyObject*)__pyx_mstate_global->__pyx_n_u_native_handle, __pyx_callargs+__pyx_t_5, (1-__pyx_t_5) | (1*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 110, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   }
-  __pyx_t_6 = __Pyx_PyLong_As_size_t(__pyx_t_3); if (unlikely((__pyx_t_6 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyLong_As_size_t(__pyx_t_3); if (unlikely((__pyx_t_6 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_adapter_handle = ((uintptr_t)__pyx_t_6);
 
-  /* "bindings/_synergy_submit.pyx":112
+  /* "bindings/_synergy_submit.pyx":117
  *     adapter_handle = <uintptr_t>adapter._native_handle()
  * 
  *     if use_device_profiling:             # <<<<<<<<<<<<<<
@@ -17413,7 +17419,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   if (__pyx_v_use_device_profiling) {
 
-    /* "bindings/_synergy_submit.pyx":113
+    /* "bindings/_synergy_submit.pyx":118
  * 
  *     if use_device_profiling:
  *         device_energy_before = adapter.device_energy_consumption()             # <<<<<<<<<<<<<<
@@ -17427,13 +17433,13 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
       __pyx_t_3 = __Pyx_PyObject_FastCallMethod((PyObject*)__pyx_mstate_global->__pyx_n_u_device_energy_consumption, __pyx_callargs+__pyx_t_5, (1-__pyx_t_5) | (1*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 113, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 118, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
     }
     __Pyx_DECREF_SET(__pyx_v_device_energy_before, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "bindings/_synergy_submit.pyx":112
+    /* "bindings/_synergy_submit.pyx":117
  *     adapter_handle = <uintptr_t>adapter._native_handle()
  * 
  *     if use_device_profiling:             # <<<<<<<<<<<<<<
@@ -17442,7 +17448,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   }
 
-  /* "bindings/_synergy_submit.pyx":115
+  /* "bindings/_synergy_submit.pyx":120
  *         device_energy_before = adapter.device_energy_consumption()
  * 
  *     try:             # <<<<<<<<<<<<<<
@@ -17451,7 +17457,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
   /*try:*/ {
 
-    /* "bindings/_synergy_submit.pyx":119
+    /* "bindings/_synergy_submit.pyx":124
  *         # 1. Allocazione array argomenti kernel
  *         # ------------------------------------------------------------
  *         if nArgs > 0:             # <<<<<<<<<<<<<<
@@ -17461,7 +17467,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
     __pyx_t_2 = (__pyx_v_nArgs > 0);
     if (__pyx_t_2) {
 
-      /* "bindings/_synergy_submit.pyx":120
+      /* "bindings/_synergy_submit.pyx":125
  *         # ------------------------------------------------------------
  *         if nArgs > 0:
  *             kargs = <void**>malloc(nArgs * sizeof(void*))             # <<<<<<<<<<<<<<
@@ -17470,7 +17476,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       __pyx_v_kargs = ((void **)malloc((__pyx_v_nArgs * (sizeof(void *)))));
 
-      /* "bindings/_synergy_submit.pyx":121
+      /* "bindings/_synergy_submit.pyx":126
  *         if nArgs > 0:
  *             kargs = <void**>malloc(nArgs * sizeof(void*))
  *             if kargs == NULL:             # <<<<<<<<<<<<<<
@@ -17480,16 +17486,16 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_2 = (__pyx_v_kargs == NULL);
       if (unlikely(__pyx_t_2)) {
 
-        /* "bindings/_synergy_submit.pyx":122
+        /* "bindings/_synergy_submit.pyx":127
  *             kargs = <void**>malloc(nArgs * sizeof(void*))
  *             if kargs == NULL:
  *                 raise MemoryError()             # <<<<<<<<<<<<<<
  * 
  *             kargty = <_arg_data_type*>malloc(nArgs * sizeof(_arg_data_type))
 */
-        PyErr_NoMemory(); __PYX_ERR(0, 122, __pyx_L7_error)
+        PyErr_NoMemory(); __PYX_ERR(0, 127, __pyx_L7_error)
 
-        /* "bindings/_synergy_submit.pyx":121
+        /* "bindings/_synergy_submit.pyx":126
  *         if nArgs > 0:
  *             kargs = <void**>malloc(nArgs * sizeof(void*))
  *             if kargs == NULL:             # <<<<<<<<<<<<<<
@@ -17498,7 +17504,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       }
 
-      /* "bindings/_synergy_submit.pyx":124
+      /* "bindings/_synergy_submit.pyx":129
  *                 raise MemoryError()
  * 
  *             kargty = <_arg_data_type*>malloc(nArgs * sizeof(_arg_data_type))             # <<<<<<<<<<<<<<
@@ -17507,7 +17513,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       __pyx_v_kargty = ((DPCTLKernelArgType *)malloc((__pyx_v_nArgs * (sizeof(DPCTLKernelArgType)))));
 
-      /* "bindings/_synergy_submit.pyx":125
+      /* "bindings/_synergy_submit.pyx":130
  * 
  *             kargty = <_arg_data_type*>malloc(nArgs * sizeof(_arg_data_type))
  *             if kargty == NULL:             # <<<<<<<<<<<<<<
@@ -17517,16 +17523,16 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_2 = (__pyx_v_kargty == NULL);
       if (unlikely(__pyx_t_2)) {
 
-        /* "bindings/_synergy_submit.pyx":126
+        /* "bindings/_synergy_submit.pyx":131
  *             kargty = <_arg_data_type*>malloc(nArgs * sizeof(_arg_data_type))
  *             if kargty == NULL:
  *                 raise MemoryError()             # <<<<<<<<<<<<<<
  * 
  *             ret = queue._populate_args(args, kargs, kargty)
 */
-        PyErr_NoMemory(); __PYX_ERR(0, 126, __pyx_L7_error)
+        PyErr_NoMemory(); __PYX_ERR(0, 131, __pyx_L7_error)
 
-        /* "bindings/_synergy_submit.pyx":125
+        /* "bindings/_synergy_submit.pyx":130
  * 
  *             kargty = <_arg_data_type*>malloc(nArgs * sizeof(_arg_data_type))
  *             if kargty == NULL:             # <<<<<<<<<<<<<<
@@ -17535,17 +17541,17 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       }
 
-      /* "bindings/_synergy_submit.pyx":128
+      /* "bindings/_synergy_submit.pyx":133
  *                 raise MemoryError()
  * 
  *             ret = queue._populate_args(args, kargs, kargty)             # <<<<<<<<<<<<<<
  *             if ret == -1:
  *                 raise TypeError("Unsupported type for a kernel argument")
 */
-      __pyx_t_7 = ((struct __pyx_vtabstruct_5dpctl_11_sycl_queue_SyclQueue *)__pyx_v_queue->__pyx_vtab)->_populate_args(__pyx_v_queue, __pyx_v_args, __pyx_v_kargs, __pyx_v_kargty); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 128, __pyx_L7_error)
+      __pyx_t_7 = ((struct __pyx_vtabstruct_5dpctl_11_sycl_queue_SyclQueue *)__pyx_v_queue->__pyx_vtab)->_populate_args(__pyx_v_queue, __pyx_v_args, __pyx_v_kargs, __pyx_v_kargty); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 133, __pyx_L7_error)
       __pyx_v_ret = __pyx_t_7;
 
-      /* "bindings/_synergy_submit.pyx":129
+      /* "bindings/_synergy_submit.pyx":134
  * 
  *             ret = queue._populate_args(args, kargs, kargty)
  *             if ret == -1:             # <<<<<<<<<<<<<<
@@ -17555,7 +17561,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_2 = (__pyx_v_ret == -1L);
       if (unlikely(__pyx_t_2)) {
 
-        /* "bindings/_synergy_submit.pyx":130
+        /* "bindings/_synergy_submit.pyx":135
  *             ret = queue._populate_args(args, kargs, kargty)
  *             if ret == -1:
  *                 raise TypeError("Unsupported type for a kernel argument")             # <<<<<<<<<<<<<<
@@ -17568,14 +17574,14 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
           PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_mstate_global->__pyx_kp_u_Unsupported_type_for_a_kernel_ar};
           __pyx_t_3 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_TypeError)), __pyx_callargs+__pyx_t_5, (2-__pyx_t_5) | (__pyx_t_5*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 130, __pyx_L7_error)
+          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_3);
         }
         __Pyx_Raise(__pyx_t_3, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __PYX_ERR(0, 130, __pyx_L7_error)
+        __PYX_ERR(0, 135, __pyx_L7_error)
 
-        /* "bindings/_synergy_submit.pyx":129
+        /* "bindings/_synergy_submit.pyx":134
  * 
  *             ret = queue._populate_args(args, kargs, kargty)
  *             if ret == -1:             # <<<<<<<<<<<<<<
@@ -17584,7 +17590,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       }
 
-      /* "bindings/_synergy_submit.pyx":119
+      /* "bindings/_synergy_submit.pyx":124
  *         # 1. Allocazione array argomenti kernel
  *         # ------------------------------------------------------------
  *         if nArgs > 0:             # <<<<<<<<<<<<<<
@@ -17593,7 +17599,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
     }
 
-    /* "bindings/_synergy_submit.pyx":135
+    /* "bindings/_synergy_submit.pyx":140
  *         # 2. Preparazione eventi dipendenti
  *         # ------------------------------------------------------------
  *         if nDE > 0:             # <<<<<<<<<<<<<<
@@ -17603,7 +17609,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
     __pyx_t_2 = (__pyx_v_nDE > 0);
     if (__pyx_t_2) {
 
-      /* "bindings/_synergy_submit.pyx":136
+      /* "bindings/_synergy_submit.pyx":141
  *         # ------------------------------------------------------------
  *         if nDE > 0:
  *             depEvents = <DPCTLSyclEventRef*>malloc(             # <<<<<<<<<<<<<<
@@ -17612,7 +17618,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       __pyx_v_depEvents = ((DPCTLSyclEventRef *)malloc((__pyx_v_nDE * (sizeof(DPCTLSyclEventRef)))));
 
-      /* "bindings/_synergy_submit.pyx":139
+      /* "bindings/_synergy_submit.pyx":144
  *                 nDE * sizeof(DPCTLSyclEventRef)
  *             )
  *             if depEvents == NULL:             # <<<<<<<<<<<<<<
@@ -17622,16 +17628,16 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_2 = (__pyx_v_depEvents == NULL);
       if (unlikely(__pyx_t_2)) {
 
-        /* "bindings/_synergy_submit.pyx":140
+        /* "bindings/_synergy_submit.pyx":145
  *             )
  *             if depEvents == NULL:
  *                 raise MemoryError()             # <<<<<<<<<<<<<<
  * 
  *             for idx, de in enumerate(dEvents):
 */
-        PyErr_NoMemory(); __PYX_ERR(0, 140, __pyx_L7_error)
+        PyErr_NoMemory(); __PYX_ERR(0, 145, __pyx_L7_error)
 
-        /* "bindings/_synergy_submit.pyx":139
+        /* "bindings/_synergy_submit.pyx":144
  *                 nDE * sizeof(DPCTLSyclEventRef)
  *             )
  *             if depEvents == NULL:             # <<<<<<<<<<<<<<
@@ -17640,7 +17646,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       }
 
-      /* "bindings/_synergy_submit.pyx":142
+      /* "bindings/_synergy_submit.pyx":147
  *                 raise MemoryError()
  * 
  *             for idx, de in enumerate(dEvents):             # <<<<<<<<<<<<<<
@@ -17654,20 +17660,20 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
           #if !CYTHON_ASSUME_SAFE_SIZE
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 142, __pyx_L7_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 147, __pyx_L7_error)
           #endif
           if (__pyx_t_8 >= __pyx_temp) break;
         }
         __pyx_t_4 = __Pyx_PyList_GetItemRefFast(__pyx_t_3, __pyx_t_8, __Pyx_ReferenceSharing_OwnStrongReference);
         ++__pyx_t_8;
-        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 142, __pyx_L7_error)
+        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_XDECREF_SET(__pyx_v_de, __pyx_t_4);
         __pyx_t_4 = 0;
         __pyx_v_idx = __pyx_t_1;
         __pyx_t_1 = (__pyx_t_1 + 1);
 
-        /* "bindings/_synergy_submit.pyx":143
+        /* "bindings/_synergy_submit.pyx":148
  * 
  *             for idx, de in enumerate(dEvents):
  *                 if isinstance(de, SyclEvent):             # <<<<<<<<<<<<<<
@@ -17677,17 +17683,17 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_de, __pyx_mstate_global->__pyx_ptype_5dpctl_11_sycl_event_SyclEvent); 
         if (likely(__pyx_t_2)) {
 
-          /* "bindings/_synergy_submit.pyx":144
+          /* "bindings/_synergy_submit.pyx":149
  *             for idx, de in enumerate(dEvents):
  *                 if isinstance(de, SyclEvent):
  *                     depEvents[idx] = (<SyclEvent>de).get_event_ref()             # <<<<<<<<<<<<<<
  *                 else:
  *                     raise TypeError(
 */
-          __pyx_t_9 = ((struct __pyx_vtabstruct_5dpctl_11_sycl_event_SyclEvent *)((struct PySyclEventObject *)__pyx_v_de)->__pyx_vtab)->get_event_ref(((struct PySyclEventObject *)__pyx_v_de)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 144, __pyx_L7_error)
+          __pyx_t_9 = ((struct __pyx_vtabstruct_5dpctl_11_sycl_event_SyclEvent *)((struct PySyclEventObject *)__pyx_v_de)->__pyx_vtab)->get_event_ref(((struct PySyclEventObject *)__pyx_v_de)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 149, __pyx_L7_error)
           (__pyx_v_depEvents[__pyx_v_idx]) = __pyx_t_9;
 
-          /* "bindings/_synergy_submit.pyx":143
+          /* "bindings/_synergy_submit.pyx":148
  * 
  *             for idx, de in enumerate(dEvents):
  *                 if isinstance(de, SyclEvent):             # <<<<<<<<<<<<<<
@@ -17697,7 +17703,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
           goto __pyx_L17;
         }
 
-        /* "bindings/_synergy_submit.pyx":146
+        /* "bindings/_synergy_submit.pyx":151
  *                     depEvents[idx] = (<SyclEvent>de).get_event_ref()
  *                 else:
  *                     raise TypeError(             # <<<<<<<<<<<<<<
@@ -17711,16 +17717,16 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
             PyObject *__pyx_callargs[2] = {__pyx_t_10, __pyx_mstate_global->__pyx_kp_u_dEvents_must_be_a_sequence_of_dp};
             __pyx_t_4 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_TypeError)), __pyx_callargs+__pyx_t_5, (2-__pyx_t_5) | (__pyx_t_5*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
             __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-            if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L7_error)
+            if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_4);
           }
           __Pyx_Raise(__pyx_t_4, 0, 0, 0);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __PYX_ERR(0, 146, __pyx_L7_error)
+          __PYX_ERR(0, 151, __pyx_L7_error)
         }
         __pyx_L17:;
 
-        /* "bindings/_synergy_submit.pyx":142
+        /* "bindings/_synergy_submit.pyx":147
  *                 raise MemoryError()
  * 
  *             for idx, de in enumerate(dEvents):             # <<<<<<<<<<<<<<
@@ -17730,7 +17736,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "bindings/_synergy_submit.pyx":135
+      /* "bindings/_synergy_submit.pyx":140
  *         # 2. Preparazione eventi dipendenti
  *         # ------------------------------------------------------------
  *         if nDE > 0:             # <<<<<<<<<<<<<<
@@ -17739,17 +17745,17 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
     }
 
-    /* "bindings/_synergy_submit.pyx":153
+    /* "bindings/_synergy_submit.pyx":158
  *         # 3. Preparazione range globale
  *         # ------------------------------------------------------------
  *         ret = queue._populate_range(gRange, gS, nGS)             # <<<<<<<<<<<<<<
  *         if ret == -1:
  *             raise ValueError(
 */
-    __pyx_t_7 = ((struct __pyx_vtabstruct_5dpctl_11_sycl_queue_SyclQueue *)__pyx_v_queue->__pyx_vtab)->_populate_range(__pyx_v_queue, __pyx_v_gRange, __pyx_v_gS, __pyx_v_nGS); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 153, __pyx_L7_error)
+    __pyx_t_7 = ((struct __pyx_vtabstruct_5dpctl_11_sycl_queue_SyclQueue *)__pyx_v_queue->__pyx_vtab)->_populate_range(__pyx_v_queue, __pyx_v_gRange, __pyx_v_gS, __pyx_v_nGS); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 158, __pyx_L7_error)
     __pyx_v_ret = __pyx_t_7;
 
-    /* "bindings/_synergy_submit.pyx":154
+    /* "bindings/_synergy_submit.pyx":159
  *         # ------------------------------------------------------------
  *         ret = queue._populate_range(gRange, gS, nGS)
  *         if ret == -1:             # <<<<<<<<<<<<<<
@@ -17759,7 +17765,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
     __pyx_t_2 = (__pyx_v_ret == -1L);
     if (unlikely(__pyx_t_2)) {
 
-      /* "bindings/_synergy_submit.pyx":155
+      /* "bindings/_synergy_submit.pyx":160
  *         ret = queue._populate_range(gRange, gS, nGS)
  *         if ret == -1:
  *             raise ValueError(             # <<<<<<<<<<<<<<
@@ -17772,14 +17778,14 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_mstate_global->__pyx_kp_u_Global_range_must_have_1_2_or_3};
         __pyx_t_3 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_ValueError)), __pyx_callargs+__pyx_t_5, (2-__pyx_t_5) | (__pyx_t_5*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L7_error)
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_3);
       }
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __PYX_ERR(0, 155, __pyx_L7_error)
+      __PYX_ERR(0, 160, __pyx_L7_error)
 
-      /* "bindings/_synergy_submit.pyx":154
+      /* "bindings/_synergy_submit.pyx":159
  *         # ------------------------------------------------------------
  *         ret = queue._populate_range(gRange, gS, nGS)
  *         if ret == -1:             # <<<<<<<<<<<<<<
@@ -17788,7 +17794,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
     }
 
-    /* "bindings/_synergy_submit.pyx":162
+    /* "bindings/_synergy_submit.pyx":167
  *         # 4. Submit Range oppure NDRange tramite SYnergy
  *         # ------------------------------------------------------------
  *         if lS is None:             # <<<<<<<<<<<<<<
@@ -17798,16 +17804,16 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
     __pyx_t_2 = (__pyx_v_lS == Py_None);
     if (__pyx_t_2) {
 
-      /* "bindings/_synergy_submit.pyx":165
+      /* "bindings/_synergy_submit.pyx":170
  *             Eref = DPCTLQueue_SubmitRangeSYnergy(
  *                 adapter_handle,
  *                 kernel.get_kernel_ref(),             # <<<<<<<<<<<<<<
  *                 kargs,
  *                 kargty,
 */
-      __pyx_t_11 = ((struct __pyx_vtabstruct_5dpctl_7program_8_program_SyclKernel *)__pyx_v_kernel->__pyx_vtab)->get_kernel_ref(__pyx_v_kernel); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 165, __pyx_L7_error)
+      __pyx_t_11 = ((struct __pyx_vtabstruct_5dpctl_7program_8_program_SyclKernel *)__pyx_v_kernel->__pyx_vtab)->get_kernel_ref(__pyx_v_kernel); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 170, __pyx_L7_error)
 
-      /* "bindings/_synergy_submit.pyx":175
+      /* "bindings/_synergy_submit.pyx":180
  *                 uncore_frequency,
  *                 core_frequency,
  *                 1 if use_frequency_scaling else 0,             # <<<<<<<<<<<<<<
@@ -17820,7 +17826,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         __pyx_t_7 = 0;
       }
 
-      /* "bindings/_synergy_submit.pyx":163
+      /* "bindings/_synergy_submit.pyx":168
  *         # ------------------------------------------------------------
  *         if lS is None:
  *             Eref = DPCTLQueue_SubmitRangeSYnergy(             # <<<<<<<<<<<<<<
@@ -17829,7 +17835,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       __pyx_v_Eref = DPCTLQueue_SubmitRangeSYnergy(__pyx_v_adapter_handle, __pyx_t_11, __pyx_v_kargs, __pyx_v_kargty, __pyx_v_nArgs, __pyx_v_gRange, __pyx_v_nGS, __pyx_v_depEvents, __pyx_v_nDE, __pyx_v_uncore_frequency, __pyx_v_core_frequency, __pyx_t_7);
 
-      /* "bindings/_synergy_submit.pyx":162
+      /* "bindings/_synergy_submit.pyx":167
  *         # 4. Submit Range oppure NDRange tramite SYnergy
  *         # ------------------------------------------------------------
  *         if lS is None:             # <<<<<<<<<<<<<<
@@ -17839,7 +17845,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       goto __pyx_L20;
     }
 
-    /* "bindings/_synergy_submit.pyx":178
+    /* "bindings/_synergy_submit.pyx":183
  *             )
  *         else:
  *             ret = queue._populate_range(lRange, <list>lS, nLS)             # <<<<<<<<<<<<<<
@@ -17847,10 +17853,10 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
  *                 raise ValueError(
 */
     /*else*/ {
-      __pyx_t_7 = ((struct __pyx_vtabstruct_5dpctl_11_sycl_queue_SyclQueue *)__pyx_v_queue->__pyx_vtab)->_populate_range(__pyx_v_queue, __pyx_v_lRange, ((PyObject*)__pyx_v_lS), __pyx_v_nLS); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 178, __pyx_L7_error)
+      __pyx_t_7 = ((struct __pyx_vtabstruct_5dpctl_11_sycl_queue_SyclQueue *)__pyx_v_queue->__pyx_vtab)->_populate_range(__pyx_v_queue, __pyx_v_lRange, ((PyObject*)__pyx_v_lS), __pyx_v_nLS); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 183, __pyx_L7_error)
       __pyx_v_ret = __pyx_t_7;
 
-      /* "bindings/_synergy_submit.pyx":179
+      /* "bindings/_synergy_submit.pyx":184
  *         else:
  *             ret = queue._populate_range(lRange, <list>lS, nLS)
  *             if ret == -1:             # <<<<<<<<<<<<<<
@@ -17860,7 +17866,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_2 = (__pyx_v_ret == -1L);
       if (unlikely(__pyx_t_2)) {
 
-        /* "bindings/_synergy_submit.pyx":180
+        /* "bindings/_synergy_submit.pyx":185
  *             ret = queue._populate_range(lRange, <list>lS, nLS)
  *             if ret == -1:
  *                 raise ValueError(             # <<<<<<<<<<<<<<
@@ -17873,14 +17879,14 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
           PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_mstate_global->__pyx_kp_u_Local_range_must_have_1_2_or_3_d};
           __pyx_t_3 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_ValueError)), __pyx_callargs+__pyx_t_5, (2-__pyx_t_5) | (__pyx_t_5*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L7_error)
+          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 185, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_3);
         }
         __Pyx_Raise(__pyx_t_3, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __PYX_ERR(0, 180, __pyx_L7_error)
+        __PYX_ERR(0, 185, __pyx_L7_error)
 
-        /* "bindings/_synergy_submit.pyx":179
+        /* "bindings/_synergy_submit.pyx":184
  *         else:
  *             ret = queue._populate_range(lRange, <list>lS, nLS)
  *             if ret == -1:             # <<<<<<<<<<<<<<
@@ -17889,7 +17895,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       }
 
-      /* "bindings/_synergy_submit.pyx":184
+      /* "bindings/_synergy_submit.pyx":189
  *                 )
  * 
  *             if nGS != nLS:             # <<<<<<<<<<<<<<
@@ -17899,7 +17905,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_2 = (__pyx_v_nGS != __pyx_v_nLS);
       if (unlikely(__pyx_t_2)) {
 
-        /* "bindings/_synergy_submit.pyx":185
+        /* "bindings/_synergy_submit.pyx":190
  * 
  *             if nGS != nLS:
  *                 raise ValueError(             # <<<<<<<<<<<<<<
@@ -17912,14 +17918,14 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
           PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_mstate_global->__pyx_kp_u_Local_and_global_ranges_must_hav};
           __pyx_t_3 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_ValueError)), __pyx_callargs+__pyx_t_5, (2-__pyx_t_5) | (__pyx_t_5*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 185, __pyx_L7_error)
+          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 190, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_3);
         }
         __Pyx_Raise(__pyx_t_3, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __PYX_ERR(0, 185, __pyx_L7_error)
+        __PYX_ERR(0, 190, __pyx_L7_error)
 
-        /* "bindings/_synergy_submit.pyx":184
+        /* "bindings/_synergy_submit.pyx":189
  *                 )
  * 
  *             if nGS != nLS:             # <<<<<<<<<<<<<<
@@ -17928,7 +17934,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       }
 
-      /* "bindings/_synergy_submit.pyx":189
+      /* "bindings/_synergy_submit.pyx":194
  *                 )
  * 
  *             for i in range(nGS):             # <<<<<<<<<<<<<<
@@ -17940,7 +17946,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
         __pyx_v_i = __pyx_t_13;
 
-        /* "bindings/_synergy_submit.pyx":190
+        /* "bindings/_synergy_submit.pyx":195
  * 
  *             for i in range(nGS):
  *                 if lRange[i] == 0 or gRange[i] % lRange[i] != 0:             # <<<<<<<<<<<<<<
@@ -17955,14 +17961,14 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         }
         if (unlikely((__pyx_v_lRange[__pyx_v_i]) == 0)) {
           PyErr_SetString(PyExc_ZeroDivisionError, "integer division or modulo by zero");
-          __PYX_ERR(0, 190, __pyx_L7_error)
+          __PYX_ERR(0, 195, __pyx_L7_error)
         }
         __pyx_t_14 = (((__pyx_v_gRange[__pyx_v_i]) % (__pyx_v_lRange[__pyx_v_i])) != 0);
         __pyx_t_2 = __pyx_t_14;
         __pyx_L26_bool_binop_done:;
         if (unlikely(__pyx_t_2)) {
 
-          /* "bindings/_synergy_submit.pyx":191
+          /* "bindings/_synergy_submit.pyx":196
  *             for i in range(nGS):
  *                 if lRange[i] == 0 or gRange[i] % lRange[i] != 0:
  *                     raise ValueError(             # <<<<<<<<<<<<<<
@@ -17975,14 +17981,14 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
             PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_mstate_global->__pyx_kp_u_Each_global_range_dimension_must};
             __pyx_t_3 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_ValueError)), __pyx_callargs+__pyx_t_15, (2-__pyx_t_15) | (__pyx_t_15*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
             __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-            if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 191, __pyx_L7_error)
+            if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 196, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_3);
           }
           __Pyx_Raise(__pyx_t_3, 0, 0, 0);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __PYX_ERR(0, 191, __pyx_L7_error)
+          __PYX_ERR(0, 196, __pyx_L7_error)
 
-          /* "bindings/_synergy_submit.pyx":190
+          /* "bindings/_synergy_submit.pyx":195
  * 
  *             for i in range(nGS):
  *                 if lRange[i] == 0 or gRange[i] % lRange[i] != 0:             # <<<<<<<<<<<<<<
@@ -17992,16 +17998,16 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         }
       }
 
-      /* "bindings/_synergy_submit.pyx":198
+      /* "bindings/_synergy_submit.pyx":203
  *             Eref = DPCTLQueue_SubmitNDRangeSYnergy(
  *                 adapter_handle,
  *                 kernel.get_kernel_ref(),             # <<<<<<<<<<<<<<
  *                 kargs,
  *                 kargty,
 */
-      __pyx_t_11 = ((struct __pyx_vtabstruct_5dpctl_7program_8_program_SyclKernel *)__pyx_v_kernel->__pyx_vtab)->get_kernel_ref(__pyx_v_kernel); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 198, __pyx_L7_error)
+      __pyx_t_11 = ((struct __pyx_vtabstruct_5dpctl_7program_8_program_SyclKernel *)__pyx_v_kernel->__pyx_vtab)->get_kernel_ref(__pyx_v_kernel); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 203, __pyx_L7_error)
 
-      /* "bindings/_synergy_submit.pyx":209
+      /* "bindings/_synergy_submit.pyx":214
  *                 uncore_frequency,
  *                 core_frequency,
  *                 1 if use_frequency_scaling else 0,             # <<<<<<<<<<<<<<
@@ -18014,7 +18020,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         __pyx_t_7 = 0;
       }
 
-      /* "bindings/_synergy_submit.pyx":196
+      /* "bindings/_synergy_submit.pyx":201
  *                     )
  * 
  *             Eref = DPCTLQueue_SubmitNDRangeSYnergy(             # <<<<<<<<<<<<<<
@@ -18025,7 +18031,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
     }
     __pyx_L20:;
 
-    /* "bindings/_synergy_submit.pyx":212
+    /* "bindings/_synergy_submit.pyx":217
  *             )
  * 
  *         if Eref == NULL:             # <<<<<<<<<<<<<<
@@ -18035,7 +18041,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
     __pyx_t_2 = (__pyx_v_Eref == NULL);
     if (unlikely(__pyx_t_2)) {
 
-      /* "bindings/_synergy_submit.pyx":213
+      /* "bindings/_synergy_submit.pyx":218
  * 
  *         if Eref == NULL:
  *             raise RuntimeError("SYnergy kernel submission failed.")             # <<<<<<<<<<<<<<
@@ -18048,14 +18054,14 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_mstate_global->__pyx_kp_u_SYnergy_kernel_submission_failed};
         __pyx_t_3 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_RuntimeError)), __pyx_callargs+__pyx_t_5, (2-__pyx_t_5) | (__pyx_t_5*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 213, __pyx_L7_error)
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 218, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_3);
       }
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __PYX_ERR(0, 213, __pyx_L7_error)
+      __PYX_ERR(0, 218, __pyx_L7_error)
 
-      /* "bindings/_synergy_submit.pyx":212
+      /* "bindings/_synergy_submit.pyx":217
  *             )
  * 
  *         if Eref == NULL:             # <<<<<<<<<<<<<<
@@ -18064,28 +18070,28 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
     }
 
-    /* "bindings/_synergy_submit.pyx":218
+    /* "bindings/_synergy_submit.pyx":223
  *         # 5. Creazione evento dpctl e wait sincrono
  *         # ------------------------------------------------------------
  *         event = SyclEvent._create(Eref)             # <<<<<<<<<<<<<<
  *         event.wait()
  * 
 */
-    __pyx_t_3 = ((PyObject *)__pyx_vtabptr_5dpctl_11_sycl_event_SyclEvent->_create(__pyx_v_Eref)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 218, __pyx_L7_error)
+    __pyx_t_3 = ((PyObject *)__pyx_vtabptr_5dpctl_11_sycl_event_SyclEvent->_create(__pyx_v_Eref)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 223, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_event = ((struct PySyclEventObject *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "bindings/_synergy_submit.pyx":219
+    /* "bindings/_synergy_submit.pyx":224
  *         # ------------------------------------------------------------
  *         event = SyclEvent._create(Eref)
  *         event.wait()             # <<<<<<<<<<<<<<
  * 
  *         # ------------------------------------------------------------
 */
-    ((struct __pyx_vtabstruct_5dpctl_11_sycl_event_SyclEvent *)__pyx_v_event->__pyx_vtab)->wait(__pyx_v_event, 0); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 219, __pyx_L7_error)
+    ((struct __pyx_vtabstruct_5dpctl_11_sycl_event_SyclEvent *)__pyx_v_event->__pyx_vtab)->wait(__pyx_v_event, 0); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 224, __pyx_L7_error)
 
-    /* "bindings/_synergy_submit.pyx":224
+    /* "bindings/_synergy_submit.pyx":229
  *         # 6. Profiling opzionale
  *         # ------------------------------------------------------------
  *         if use_device_profiling:             # <<<<<<<<<<<<<<
@@ -18094,7 +18100,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
     if (__pyx_v_use_device_profiling) {
 
-      /* "bindings/_synergy_submit.pyx":225
+      /* "bindings/_synergy_submit.pyx":230
  *         # ------------------------------------------------------------
  *         if use_device_profiling:
  *             device_energy_after = adapter.device_energy_consumption()             # <<<<<<<<<<<<<<
@@ -18108,25 +18114,25 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
         __pyx_t_3 = __Pyx_PyObject_FastCallMethod((PyObject*)__pyx_mstate_global->__pyx_n_u_device_energy_consumption, __pyx_callargs+__pyx_t_5, (1-__pyx_t_5) | (1*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 225, __pyx_L7_error)
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 230, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_3);
       }
       __Pyx_DECREF_SET(__pyx_v_device_energy_after, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "bindings/_synergy_submit.pyx":226
+      /* "bindings/_synergy_submit.pyx":231
  *         if use_device_profiling:
  *             device_energy_after = adapter.device_energy_consumption()
  *             device_energy_delta = device_energy_after - device_energy_before             # <<<<<<<<<<<<<<
  * 
  *         if use_kernel_profiling:
 */
-      __pyx_t_3 = PyNumber_Subtract(__pyx_v_device_energy_after, __pyx_v_device_energy_before); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L7_error)
+      __pyx_t_3 = PyNumber_Subtract(__pyx_v_device_energy_after, __pyx_v_device_energy_before); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF_SET(__pyx_v_device_energy_delta, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "bindings/_synergy_submit.pyx":224
+      /* "bindings/_synergy_submit.pyx":229
  *         # 6. Profiling opzionale
  *         # ------------------------------------------------------------
  *         if use_device_profiling:             # <<<<<<<<<<<<<<
@@ -18135,7 +18141,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
     }
 
-    /* "bindings/_synergy_submit.pyx":228
+    /* "bindings/_synergy_submit.pyx":233
  *             device_energy_delta = device_energy_after - device_energy_before
  * 
  *         if use_kernel_profiling:             # <<<<<<<<<<<<<<
@@ -18144,7 +18150,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
     if (__pyx_v_use_kernel_profiling) {
 
-      /* "bindings/_synergy_submit.pyx":229
+      /* "bindings/_synergy_submit.pyx":234
  * 
  *         if use_kernel_profiling:
  *             kernel_energy = adapter.kernel_energy_consumption(event)             # <<<<<<<<<<<<<<
@@ -18158,13 +18164,13 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         PyObject *__pyx_callargs[2] = {__pyx_t_4, ((PyObject *)__pyx_v_event)};
         __pyx_t_3 = __Pyx_PyObject_FastCallMethod((PyObject*)__pyx_mstate_global->__pyx_n_u_kernel_energy_consumption, __pyx_callargs+__pyx_t_5, (2-__pyx_t_5) | (1*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 229, __pyx_L7_error)
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 234, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_3);
       }
       __Pyx_DECREF_SET(__pyx_v_kernel_energy, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "bindings/_synergy_submit.pyx":228
+      /* "bindings/_synergy_submit.pyx":233
  *             device_energy_delta = device_energy_after - device_energy_before
  * 
  *         if use_kernel_profiling:             # <<<<<<<<<<<<<<
@@ -18173,22 +18179,22 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
     }
 
-    /* "bindings/_synergy_submit.pyx":232
+    /* "bindings/_synergy_submit.pyx":237
  * 
  *         profile = {
  *             "use_device_profiling": bool(use_device_profiling),             # <<<<<<<<<<<<<<
  *             "use_kernel_profiling": bool(use_kernel_profiling),
  *             "use_frequency_scaling": bool(use_frequency_scaling),
 */
-    __pyx_t_3 = __Pyx_PyDict_NewPresized(9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 232, __pyx_L7_error)
+    __pyx_t_3 = __Pyx_PyDict_NewPresized(9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 237, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_2 = __pyx_v_use_device_profiling;
-    __pyx_t_4 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 232, __pyx_L7_error)
+    __pyx_t_4 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 237, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_use_device_profiling, __pyx_t_4) < (0)) __PYX_ERR(0, 232, __pyx_L7_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_use_device_profiling, __pyx_t_4) < (0)) __PYX_ERR(0, 237, __pyx_L7_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "bindings/_synergy_submit.pyx":233
+    /* "bindings/_synergy_submit.pyx":238
  *         profile = {
  *             "use_device_profiling": bool(use_device_profiling),
  *             "use_kernel_profiling": bool(use_kernel_profiling),             # <<<<<<<<<<<<<<
@@ -18196,12 +18202,12 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
  *             "uncore_frequency": int(uncore_frequency),
 */
     __pyx_t_2 = __pyx_v_use_kernel_profiling;
-    __pyx_t_4 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 233, __pyx_L7_error)
+    __pyx_t_4 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 238, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_use_kernel_profiling, __pyx_t_4) < (0)) __PYX_ERR(0, 232, __pyx_L7_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_use_kernel_profiling, __pyx_t_4) < (0)) __PYX_ERR(0, 237, __pyx_L7_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "bindings/_synergy_submit.pyx":234
+    /* "bindings/_synergy_submit.pyx":239
  *             "use_device_profiling": bool(use_device_profiling),
  *             "use_kernel_profiling": bool(use_kernel_profiling),
  *             "use_frequency_scaling": bool(use_frequency_scaling),             # <<<<<<<<<<<<<<
@@ -18209,12 +18215,12 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
  *             "core_frequency": int(core_frequency),
 */
     __pyx_t_2 = __pyx_v_use_frequency_scaling;
-    __pyx_t_4 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 234, __pyx_L7_error)
+    __pyx_t_4 = __Pyx_PyBool_FromLong((!(!__pyx_t_2))); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 239, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_use_frequency_scaling, __pyx_t_4) < (0)) __PYX_ERR(0, 232, __pyx_L7_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_use_frequency_scaling, __pyx_t_4) < (0)) __PYX_ERR(0, 237, __pyx_L7_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "bindings/_synergy_submit.pyx":235
+    /* "bindings/_synergy_submit.pyx":240
  *             "use_kernel_profiling": bool(use_kernel_profiling),
  *             "use_frequency_scaling": bool(use_frequency_scaling),
  *             "uncore_frequency": int(uncore_frequency),             # <<<<<<<<<<<<<<
@@ -18222,7 +18228,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
  *             "device_energy_before": device_energy_before,
 */
     __pyx_t_10 = NULL;
-    __pyx_t_16 = __Pyx_PyLong_From_unsigned_int(__pyx_v_uncore_frequency); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 235, __pyx_L7_error)
+    __pyx_t_16 = __Pyx_PyLong_From_unsigned_int(__pyx_v_uncore_frequency); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 240, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_16);
     __pyx_t_5 = 1;
     {
@@ -18230,13 +18236,13 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_4 = __Pyx_PyObject_FastCall((PyObject*)(&PyLong_Type), __pyx_callargs+__pyx_t_5, (2-__pyx_t_5) | (__pyx_t_5*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 235, __pyx_L7_error)
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_4);
     }
-    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_uncore_frequency, __pyx_t_4) < (0)) __PYX_ERR(0, 232, __pyx_L7_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_uncore_frequency, __pyx_t_4) < (0)) __PYX_ERR(0, 237, __pyx_L7_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "bindings/_synergy_submit.pyx":236
+    /* "bindings/_synergy_submit.pyx":241
  *             "use_frequency_scaling": bool(use_frequency_scaling),
  *             "uncore_frequency": int(uncore_frequency),
  *             "core_frequency": int(core_frequency),             # <<<<<<<<<<<<<<
@@ -18244,7 +18250,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
  *             "device_energy_after": device_energy_after,
 */
     __pyx_t_16 = NULL;
-    __pyx_t_10 = __Pyx_PyLong_From_unsigned_int(__pyx_v_core_frequency); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 236, __pyx_L7_error)
+    __pyx_t_10 = __Pyx_PyLong_From_unsigned_int(__pyx_v_core_frequency); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 241, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_5 = 1;
     {
@@ -18252,51 +18258,51 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_4 = __Pyx_PyObject_FastCall((PyObject*)(&PyLong_Type), __pyx_callargs+__pyx_t_5, (2-__pyx_t_5) | (__pyx_t_5*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 236, __pyx_L7_error)
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 241, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_4);
     }
-    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_core_frequency, __pyx_t_4) < (0)) __PYX_ERR(0, 232, __pyx_L7_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_core_frequency, __pyx_t_4) < (0)) __PYX_ERR(0, 237, __pyx_L7_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "bindings/_synergy_submit.pyx":237
+    /* "bindings/_synergy_submit.pyx":242
  *             "uncore_frequency": int(uncore_frequency),
  *             "core_frequency": int(core_frequency),
  *             "device_energy_before": device_energy_before,             # <<<<<<<<<<<<<<
  *             "device_energy_after": device_energy_after,
  *             "device_energy_delta": device_energy_delta,
 */
-    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_device_energy_before, __pyx_v_device_energy_before) < (0)) __PYX_ERR(0, 232, __pyx_L7_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_device_energy_before, __pyx_v_device_energy_before) < (0)) __PYX_ERR(0, 237, __pyx_L7_error)
 
-    /* "bindings/_synergy_submit.pyx":238
+    /* "bindings/_synergy_submit.pyx":243
  *             "core_frequency": int(core_frequency),
  *             "device_energy_before": device_energy_before,
  *             "device_energy_after": device_energy_after,             # <<<<<<<<<<<<<<
  *             "device_energy_delta": device_energy_delta,
  *             "kernel_energy": kernel_energy,
 */
-    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_device_energy_after, __pyx_v_device_energy_after) < (0)) __PYX_ERR(0, 232, __pyx_L7_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_device_energy_after, __pyx_v_device_energy_after) < (0)) __PYX_ERR(0, 237, __pyx_L7_error)
 
-    /* "bindings/_synergy_submit.pyx":239
+    /* "bindings/_synergy_submit.pyx":244
  *             "device_energy_before": device_energy_before,
  *             "device_energy_after": device_energy_after,
  *             "device_energy_delta": device_energy_delta,             # <<<<<<<<<<<<<<
  *             "kernel_energy": kernel_energy,
  *         }
 */
-    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_device_energy_delta, __pyx_v_device_energy_delta) < (0)) __PYX_ERR(0, 232, __pyx_L7_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_device_energy_delta, __pyx_v_device_energy_delta) < (0)) __PYX_ERR(0, 237, __pyx_L7_error)
 
-    /* "bindings/_synergy_submit.pyx":240
+    /* "bindings/_synergy_submit.pyx":245
  *             "device_energy_after": device_energy_after,
  *             "device_energy_delta": device_energy_delta,
  *             "kernel_energy": kernel_energy,             # <<<<<<<<<<<<<<
  *         }
  * 
 */
-    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_kernel_energy, __pyx_v_kernel_energy) < (0)) __PYX_ERR(0, 232, __pyx_L7_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_kernel_energy, __pyx_v_kernel_energy) < (0)) __PYX_ERR(0, 237, __pyx_L7_error)
     __pyx_v_profile = ((PyObject*)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "bindings/_synergy_submit.pyx":243
+    /* "bindings/_synergy_submit.pyx":248
  *         }
  * 
  *         return event, profile             # <<<<<<<<<<<<<<
@@ -18304,20 +18310,20 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
  *     finally:
 */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 243, __pyx_L7_error)
+    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 248, __pyx_L7_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF((PyObject *)__pyx_v_event);
     __Pyx_GIVEREF((PyObject *)__pyx_v_event);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)__pyx_v_event)) != (0)) __PYX_ERR(0, 243, __pyx_L7_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)__pyx_v_event)) != (0)) __PYX_ERR(0, 248, __pyx_L7_error);
     __Pyx_INCREF(__pyx_v_profile);
     __Pyx_GIVEREF(__pyx_v_profile);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_profile) != (0)) __PYX_ERR(0, 243, __pyx_L7_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_profile) != (0)) __PYX_ERR(0, 248, __pyx_L7_error);
     __pyx_r = __pyx_t_3;
     __pyx_t_3 = 0;
     goto __pyx_L6_return;
   }
 
-  /* "bindings/_synergy_submit.pyx":246
+  /* "bindings/_synergy_submit.pyx":251
  * 
  *     finally:
  *         if kargs != NULL:             # <<<<<<<<<<<<<<
@@ -18347,7 +18353,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         __pyx_t_2 = (__pyx_v_kargs != NULL);
         if (__pyx_t_2) {
 
-          /* "bindings/_synergy_submit.pyx":247
+          /* "bindings/_synergy_submit.pyx":252
  *     finally:
  *         if kargs != NULL:
  *             free(kargs)             # <<<<<<<<<<<<<<
@@ -18356,7 +18362,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
           free(__pyx_v_kargs);
 
-          /* "bindings/_synergy_submit.pyx":246
+          /* "bindings/_synergy_submit.pyx":251
  * 
  *     finally:
  *         if kargs != NULL:             # <<<<<<<<<<<<<<
@@ -18365,7 +18371,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
         }
 
-        /* "bindings/_synergy_submit.pyx":249
+        /* "bindings/_synergy_submit.pyx":254
  *             free(kargs)
  * 
  *         if kargty != NULL:             # <<<<<<<<<<<<<<
@@ -18375,7 +18381,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         __pyx_t_2 = (__pyx_v_kargty != NULL);
         if (__pyx_t_2) {
 
-          /* "bindings/_synergy_submit.pyx":250
+          /* "bindings/_synergy_submit.pyx":255
  * 
  *         if kargty != NULL:
  *             free(kargty)             # <<<<<<<<<<<<<<
@@ -18384,7 +18390,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
           free(__pyx_v_kargty);
 
-          /* "bindings/_synergy_submit.pyx":249
+          /* "bindings/_synergy_submit.pyx":254
  *             free(kargs)
  * 
  *         if kargty != NULL:             # <<<<<<<<<<<<<<
@@ -18393,7 +18399,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
         }
 
-        /* "bindings/_synergy_submit.pyx":252
+        /* "bindings/_synergy_submit.pyx":257
  *             free(kargty)
  * 
  *         if depEvents != NULL:             # <<<<<<<<<<<<<<
@@ -18403,7 +18409,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
         __pyx_t_2 = (__pyx_v_depEvents != NULL);
         if (__pyx_t_2) {
 
-          /* "bindings/_synergy_submit.pyx":253
+          /* "bindings/_synergy_submit.pyx":258
  * 
  *         if depEvents != NULL:
  *             free(depEvents)             # <<<<<<<<<<<<<<
@@ -18412,7 +18418,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
           free(__pyx_v_depEvents);
 
-          /* "bindings/_synergy_submit.pyx":252
+          /* "bindings/_synergy_submit.pyx":257
  *             free(kargty)
  * 
  *         if depEvents != NULL:             # <<<<<<<<<<<<<<
@@ -18437,7 +18443,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_24 = __pyx_r;
       __pyx_r = 0;
 
-      /* "bindings/_synergy_submit.pyx":246
+      /* "bindings/_synergy_submit.pyx":251
  * 
  *     finally:
  *         if kargs != NULL:             # <<<<<<<<<<<<<<
@@ -18447,7 +18453,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_2 = (__pyx_v_kargs != NULL);
       if (__pyx_t_2) {
 
-        /* "bindings/_synergy_submit.pyx":247
+        /* "bindings/_synergy_submit.pyx":252
  *     finally:
  *         if kargs != NULL:
  *             free(kargs)             # <<<<<<<<<<<<<<
@@ -18456,7 +18462,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
         free(__pyx_v_kargs);
 
-        /* "bindings/_synergy_submit.pyx":246
+        /* "bindings/_synergy_submit.pyx":251
  * 
  *     finally:
  *         if kargs != NULL:             # <<<<<<<<<<<<<<
@@ -18465,7 +18471,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       }
 
-      /* "bindings/_synergy_submit.pyx":249
+      /* "bindings/_synergy_submit.pyx":254
  *             free(kargs)
  * 
  *         if kargty != NULL:             # <<<<<<<<<<<<<<
@@ -18475,7 +18481,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_2 = (__pyx_v_kargty != NULL);
       if (__pyx_t_2) {
 
-        /* "bindings/_synergy_submit.pyx":250
+        /* "bindings/_synergy_submit.pyx":255
  * 
  *         if kargty != NULL:
  *             free(kargty)             # <<<<<<<<<<<<<<
@@ -18484,7 +18490,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
         free(__pyx_v_kargty);
 
-        /* "bindings/_synergy_submit.pyx":249
+        /* "bindings/_synergy_submit.pyx":254
  *             free(kargs)
  * 
  *         if kargty != NULL:             # <<<<<<<<<<<<<<
@@ -18493,7 +18499,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
       }
 
-      /* "bindings/_synergy_submit.pyx":252
+      /* "bindings/_synergy_submit.pyx":257
  *             free(kargty)
  * 
  *         if depEvents != NULL:             # <<<<<<<<<<<<<<
@@ -18503,7 +18509,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
       __pyx_t_2 = (__pyx_v_depEvents != NULL);
       if (__pyx_t_2) {
 
-        /* "bindings/_synergy_submit.pyx":253
+        /* "bindings/_synergy_submit.pyx":258
  * 
  *         if depEvents != NULL:
  *             free(depEvents)             # <<<<<<<<<<<<<<
@@ -18512,7 +18518,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
 */
         free(__pyx_v_depEvents);
 
-        /* "bindings/_synergy_submit.pyx":252
+        /* "bindings/_synergy_submit.pyx":257
  *             free(kargty)
  * 
  *         if depEvents != NULL:             # <<<<<<<<<<<<<<
@@ -18526,7 +18532,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_submit(struct PySyclQueueOb
     }
   }
 
-  /* "bindings/_synergy_submit.pyx":56
+  /* "bindings/_synergy_submit.pyx":61
  * 
  * 
  * cpdef submit(             # <<<<<<<<<<<<<<
@@ -18606,92 +18612,92 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_queue,&__pyx_mstate_global->__pyx_n_u_adapter,&__pyx_mstate_global->__pyx_n_u_kernel,&__pyx_mstate_global->__pyx_n_u_args,&__pyx_mstate_global->__pyx_n_u_gS,&__pyx_mstate_global->__pyx_n_u_lS,&__pyx_mstate_global->__pyx_n_u_dEvents,&__pyx_mstate_global->__pyx_n_u_use_device_profiling,&__pyx_mstate_global->__pyx_n_u_use_kernel_profiling,&__pyx_mstate_global->__pyx_n_u_use_frequency_scaling,&__pyx_mstate_global->__pyx_n_u_uncore_frequency,&__pyx_mstate_global->__pyx_n_u_core_frequency,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 56, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 61, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case 12:
         values[11] = __Pyx_ArgRef_FASTCALL(__pyx_args, 11);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[11])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[11])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case 11:
         values[10] = __Pyx_ArgRef_FASTCALL(__pyx_args, 10);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[10])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[10])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case 10:
         values[9] = __Pyx_ArgRef_FASTCALL(__pyx_args, 9);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[9])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[9])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  9:
         values[8] = __Pyx_ArgRef_FASTCALL(__pyx_args, 8);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[8])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[8])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  8:
         values[7] = __Pyx_ArgRef_FASTCALL(__pyx_args, 7);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[7])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[7])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  7:
         values[6] = __Pyx_ArgRef_FASTCALL(__pyx_args, 6);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  6:
         values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  5:
         values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  4:
         values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  3:
         values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  2:
         values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 61, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "submit", 0) < (0)) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "submit", 0) < (0)) __PYX_ERR(0, 61, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 12; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("submit", 1, 12, 12, i); __PYX_ERR(0, 56, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("submit", 1, 12, 12, i); __PYX_ERR(0, 61, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 12)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 61, __pyx_L3_error)
       values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 61, __pyx_L3_error)
       values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 61, __pyx_L3_error)
       values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 61, __pyx_L3_error)
       values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 61, __pyx_L3_error)
       values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 61, __pyx_L3_error)
       values[6] = __Pyx_ArgRef_FASTCALL(__pyx_args, 6);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 61, __pyx_L3_error)
       values[7] = __Pyx_ArgRef_FASTCALL(__pyx_args, 7);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[7])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[7])) __PYX_ERR(0, 61, __pyx_L3_error)
       values[8] = __Pyx_ArgRef_FASTCALL(__pyx_args, 8);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[8])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[8])) __PYX_ERR(0, 61, __pyx_L3_error)
       values[9] = __Pyx_ArgRef_FASTCALL(__pyx_args, 9);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[9])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[9])) __PYX_ERR(0, 61, __pyx_L3_error)
       values[10] = __Pyx_ArgRef_FASTCALL(__pyx_args, 10);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[10])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[10])) __PYX_ERR(0, 61, __pyx_L3_error)
       values[11] = __Pyx_ArgRef_FASTCALL(__pyx_args, 11);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[11])) __PYX_ERR(0, 56, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[11])) __PYX_ERR(0, 61, __pyx_L3_error)
     }
     __pyx_v_queue = ((struct PySyclQueueObject *)values[0]);
     __pyx_v_adapter = values[1];
@@ -18700,15 +18706,15 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
     __pyx_v_gS = ((PyObject*)values[4]);
     __pyx_v_lS = values[5];
     __pyx_v_dEvents = ((PyObject*)values[6]);
-    __pyx_v_use_device_profiling = __Pyx_PyObject_IsTrue(values[7]); if (unlikely((__pyx_v_use_device_profiling == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
-    __pyx_v_use_kernel_profiling = __Pyx_PyObject_IsTrue(values[8]); if (unlikely((__pyx_v_use_kernel_profiling == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 65, __pyx_L3_error)
-    __pyx_v_use_frequency_scaling = __Pyx_PyObject_IsTrue(values[9]); if (unlikely((__pyx_v_use_frequency_scaling == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 66, __pyx_L3_error)
-    __pyx_v_uncore_frequency = __Pyx_PyLong_As_unsigned_int(values[10]); if (unlikely((__pyx_v_uncore_frequency == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 67, __pyx_L3_error)
-    __pyx_v_core_frequency = __Pyx_PyLong_As_unsigned_int(values[11]); if (unlikely((__pyx_v_core_frequency == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 68, __pyx_L3_error)
+    __pyx_v_use_device_profiling = __Pyx_PyObject_IsTrue(values[7]); if (unlikely((__pyx_v_use_device_profiling == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 69, __pyx_L3_error)
+    __pyx_v_use_kernel_profiling = __Pyx_PyObject_IsTrue(values[8]); if (unlikely((__pyx_v_use_kernel_profiling == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L3_error)
+    __pyx_v_use_frequency_scaling = __Pyx_PyObject_IsTrue(values[9]); if (unlikely((__pyx_v_use_frequency_scaling == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L3_error)
+    __pyx_v_uncore_frequency = __Pyx_PyLong_As_unsigned_int(values[10]); if (unlikely((__pyx_v_uncore_frequency == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L3_error)
+    __pyx_v_core_frequency = __Pyx_PyLong_As_unsigned_int(values[11]); if (unlikely((__pyx_v_core_frequency == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 73, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("submit", 1, 12, 12, __pyx_nargs); __PYX_ERR(0, 56, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("submit", 1, 12, 12, __pyx_nargs); __PYX_ERR(0, 61, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -18719,11 +18725,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_queue), __pyx_mstate_global->__pyx_ptype_5dpctl_11_sycl_queue_SyclQueue, 1, "queue", 0))) __PYX_ERR(0, 57, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_kernel), __pyx_mstate_global->__pyx_ptype_5dpctl_7program_8_program_SyclKernel, 1, "kernel", 0))) __PYX_ERR(0, 59, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_args), (&PyList_Type), 1, "args", 1))) __PYX_ERR(0, 60, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gS), (&PyList_Type), 1, "gS", 1))) __PYX_ERR(0, 61, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dEvents), (&PyList_Type), 1, "dEvents", 1))) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_queue), __pyx_mstate_global->__pyx_ptype_5dpctl_11_sycl_queue_SyclQueue, 1, "queue", 0))) __PYX_ERR(0, 62, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_kernel), __pyx_mstate_global->__pyx_ptype_5dpctl_7program_8_program_SyclKernel, 1, "kernel", 0))) __PYX_ERR(0, 64, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_args), (&PyList_Type), 1, "args", 1))) __PYX_ERR(0, 65, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gS), (&PyList_Type), 1, "gS", 1))) __PYX_ERR(0, 66, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dEvents), (&PyList_Type), 1, "dEvents", 1))) __PYX_ERR(0, 68, __pyx_L1_error)
   __pyx_r = __pyx_pf_8bindings_15_synergy_submit_submit(__pyx_self, __pyx_v_queue, __pyx_v_adapter, __pyx_v_kernel, __pyx_v_args, __pyx_v_gS, __pyx_v_lS, __pyx_v_dEvents, __pyx_v_use_device_profiling, __pyx_v_use_kernel_profiling, __pyx_v_use_frequency_scaling, __pyx_v_uncore_frequency, __pyx_v_core_frequency);
 
   /* function exit code */
@@ -18752,7 +18758,7 @@ static PyObject *__pyx_pf_8bindings_15_synergy_submit_submit(CYTHON_UNUSED PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("submit", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_8bindings_15_synergy_submit_submit(__pyx_v_queue, __pyx_v_adapter, __pyx_v_kernel, __pyx_v_args, __pyx_v_gS, __pyx_v_lS, __pyx_v_dEvents, __pyx_v_use_device_profiling, __pyx_v_use_kernel_profiling, __pyx_v_use_frequency_scaling, __pyx_v_uncore_frequency, __pyx_v_core_frequency, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8bindings_15_synergy_submit_submit(__pyx_v_queue, __pyx_v_adapter, __pyx_v_kernel, __pyx_v_args, __pyx_v_gS, __pyx_v_lS, __pyx_v_dEvents, __pyx_v_use_device_profiling, __pyx_v_use_kernel_profiling, __pyx_v_use_frequency_scaling, __pyx_v_uncore_frequency, __pyx_v_core_frequency, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -18769,22 +18775,22 @@ static PyObject *__pyx_pf_8bindings_15_synergy_submit_submit(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "bindings/_synergy_submit.pyx":256
+/* "bindings/_synergy_submit.pyx":261
  * 
  * 
- * cpdef create_busy_kernel(object adapter):             # <<<<<<<<<<<<<<
+ * cpdef create_vecadd_kernel(object adapter):             # <<<<<<<<<<<<<<
  *     """
  *     Crea un dpctl.program.SyclKernel di test, compilato nativamente nel modulo
 */
 
-static PyObject *__pyx_pw_8bindings_15_synergy_submit_3create_busy_kernel(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_8bindings_15_synergy_submit_3create_vecadd_kernel(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyObject *__pyx_f_8bindings_15_synergy_submit_create_busy_kernel(PyObject *__pyx_v_adapter, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static PyObject *__pyx_f_8bindings_15_synergy_submit_create_vecadd_kernel(PyObject *__pyx_v_adapter, CYTHON_UNUSED int __pyx_skip_dispatch) {
   uintptr_t __pyx_v_adapter_handle;
   DPCTLSyclKernelRef __pyx_v_KRef;
   PyObject *__pyx_r = NULL;
@@ -18797,14 +18803,14 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_create_busy_kernel(PyObject
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("create_busy_kernel", 0);
+  __Pyx_RefNannySetupContext("create_vecadd_kernel", 0);
 
-  /* "bindings/_synergy_submit.pyx":267
+  /* "bindings/_synergy_submit.pyx":272
  *     cdef DPCTLSyclKernelRef KRef
  * 
  *     adapter_handle = <uintptr_t>adapter._native_handle()             # <<<<<<<<<<<<<<
  * 
- *     KRef = SYnergyTest_CreateBusyKernel(adapter_handle)
+ *     KRef = SYnergyTest_CreateVecAddKernel(adapter_handle)
 */
   __pyx_t_2 = __pyx_v_adapter;
   __Pyx_INCREF(__pyx_t_2);
@@ -18813,24 +18819,24 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_create_busy_kernel(PyObject
     PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCallMethod((PyObject*)__pyx_mstate_global->__pyx_n_u_native_handle, __pyx_callargs+__pyx_t_3, (1-__pyx_t_3) | (1*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
-  __pyx_t_4 = __Pyx_PyLong_As_size_t(__pyx_t_1); if (unlikely((__pyx_t_4 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 267, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyLong_As_size_t(__pyx_t_1); if (unlikely((__pyx_t_4 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_adapter_handle = ((uintptr_t)__pyx_t_4);
 
-  /* "bindings/_synergy_submit.pyx":269
+  /* "bindings/_synergy_submit.pyx":274
  *     adapter_handle = <uintptr_t>adapter._native_handle()
  * 
- *     KRef = SYnergyTest_CreateBusyKernel(adapter_handle)             # <<<<<<<<<<<<<<
+ *     KRef = SYnergyTest_CreateVecAddKernel(adapter_handle)             # <<<<<<<<<<<<<<
  * 
  *     if KRef == NULL:
 */
-  __pyx_v_KRef = SYnergyTest_CreateBusyKernel(__pyx_v_adapter_handle);
+  __pyx_v_KRef = SYnergyTest_CreateVecAddKernel(__pyx_v_adapter_handle);
 
-  /* "bindings/_synergy_submit.pyx":271
- *     KRef = SYnergyTest_CreateBusyKernel(adapter_handle)
+  /* "bindings/_synergy_submit.pyx":276
+ *     KRef = SYnergyTest_CreateVecAddKernel(adapter_handle)
  * 
  *     if KRef == NULL:             # <<<<<<<<<<<<<<
  *         raise RuntimeError("Unable to create native SYnergy busy kernel.")
@@ -18839,12 +18845,12 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_create_busy_kernel(PyObject
   __pyx_t_5 = (__pyx_v_KRef == NULL);
   if (unlikely(__pyx_t_5)) {
 
-    /* "bindings/_synergy_submit.pyx":272
+    /* "bindings/_synergy_submit.pyx":277
  * 
  *     if KRef == NULL:
  *         raise RuntimeError("Unable to create native SYnergy busy kernel.")             # <<<<<<<<<<<<<<
  * 
- *     return SyclKernel._create(KRef, "SYnergyBusyKernel")
+ *     return SyclKernel._create(KRef, "SYnergyVecAddKernel")
 */
     __pyx_t_2 = NULL;
     __pyx_t_3 = 1;
@@ -18852,15 +18858,15 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_create_busy_kernel(PyObject
       PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_mstate_global->__pyx_kp_u_Unable_to_create_native_SYnergy};
       __pyx_t_1 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_RuntimeError)), __pyx_callargs+__pyx_t_3, (2-__pyx_t_3) | (__pyx_t_3*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 277, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
     }
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 272, __pyx_L1_error)
+    __PYX_ERR(0, 277, __pyx_L1_error)
 
-    /* "bindings/_synergy_submit.pyx":271
- *     KRef = SYnergyTest_CreateBusyKernel(adapter_handle)
+    /* "bindings/_synergy_submit.pyx":276
+ *     KRef = SYnergyTest_CreateVecAddKernel(adapter_handle)
  * 
  *     if KRef == NULL:             # <<<<<<<<<<<<<<
  *         raise RuntimeError("Unable to create native SYnergy busy kernel.")
@@ -18868,22 +18874,24 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_create_busy_kernel(PyObject
 */
   }
 
-  /* "bindings/_synergy_submit.pyx":274
+  /* "bindings/_synergy_submit.pyx":279
  *         raise RuntimeError("Unable to create native SYnergy busy kernel.")
  * 
- *     return SyclKernel._create(KRef, "SYnergyBusyKernel")             # <<<<<<<<<<<<<<
+ *     return SyclKernel._create(KRef, "SYnergyVecAddKernel")             # <<<<<<<<<<<<<<
+ * 
+ * 
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = ((PyObject *)__pyx_vtabptr_5dpctl_7program_8_program_SyclKernel->_create(__pyx_v_KRef, __pyx_mstate_global->__pyx_n_u_SYnergyBusyKernel)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_vtabptr_5dpctl_7program_8_program_SyclKernel->_create(__pyx_v_KRef, __pyx_mstate_global->__pyx_n_u_SYnergyVecAddKernel)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "bindings/_synergy_submit.pyx":256
+  /* "bindings/_synergy_submit.pyx":261
  * 
  * 
- * cpdef create_busy_kernel(object adapter):             # <<<<<<<<<<<<<<
+ * cpdef create_vecadd_kernel(object adapter):             # <<<<<<<<<<<<<<
  *     """
  *     Crea un dpctl.program.SyclKernel di test, compilato nativamente nel modulo
 */
@@ -18892,7 +18900,7 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_create_busy_kernel(PyObject
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("bindings._synergy_submit.create_busy_kernel", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bindings._synergy_submit.create_vecadd_kernel", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -18901,16 +18909,16 @@ static PyObject *__pyx_f_8bindings_15_synergy_submit_create_busy_kernel(PyObject
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8bindings_15_synergy_submit_3create_busy_kernel(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_8bindings_15_synergy_submit_3create_vecadd_kernel(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_8bindings_15_synergy_submit_2create_busy_kernel, "\n    Crea un dpctl.program.SyclKernel di test, compilato nativamente nel modulo\n    SYCL/C++ per il backend corrente.\n\n    Questo kernel serve solo per validare che SYnergyQueue.submit(...)\n    arrivi davvero al backend synergy::queue.\n    ");
-static PyMethodDef __pyx_mdef_8bindings_15_synergy_submit_3create_busy_kernel = {"create_busy_kernel", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8bindings_15_synergy_submit_3create_busy_kernel, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_8bindings_15_synergy_submit_2create_busy_kernel};
-static PyObject *__pyx_pw_8bindings_15_synergy_submit_3create_busy_kernel(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_8bindings_15_synergy_submit_2create_vecadd_kernel, "\n    Crea un dpctl.program.SyclKernel di test, compilato nativamente nel modulo\n    SYCL/C++ per il backend corrente.\n\n    Questo kernel serve solo per validare che SYnergyQueue.submit(...)\n    arrivi davvero al backend synergy::queue.\n    ");
+static PyMethodDef __pyx_mdef_8bindings_15_synergy_submit_3create_vecadd_kernel = {"create_vecadd_kernel", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8bindings_15_synergy_submit_3create_vecadd_kernel, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_8bindings_15_synergy_submit_2create_vecadd_kernel};
+static PyObject *__pyx_pw_8bindings_15_synergy_submit_3create_vecadd_kernel(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -18928,7 +18936,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("create_busy_kernel (wrapper)", 0);
+  __Pyx_RefNannySetupContext("create_vecadd_kernel (wrapper)", 0);
   #if !CYTHON_METH_FASTCALL
   #if CYTHON_ASSUME_SAFE_SIZE
   __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
@@ -18940,43 +18948,43 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_adapter,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 256, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 261, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 256, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 261, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "create_busy_kernel", 0) < (0)) __PYX_ERR(0, 256, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "create_vecadd_kernel", 0) < (0)) __PYX_ERR(0, 261, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 1; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("create_busy_kernel", 1, 1, 1, i); __PYX_ERR(0, 256, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("create_vecadd_kernel", 1, 1, 1, i); __PYX_ERR(0, 261, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 256, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 261, __pyx_L3_error)
     }
     __pyx_v_adapter = values[0];
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("create_busy_kernel", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 256, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("create_vecadd_kernel", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 261, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("bindings._synergy_submit.create_busy_kernel", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bindings._synergy_submit.create_vecadd_kernel", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_8bindings_15_synergy_submit_2create_busy_kernel(__pyx_self, __pyx_v_adapter);
+  __pyx_r = __pyx_pf_8bindings_15_synergy_submit_2create_vecadd_kernel(__pyx_self, __pyx_v_adapter);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -18986,16 +18994,16 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8bindings_15_synergy_submit_2create_busy_kernel(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_adapter) {
+static PyObject *__pyx_pf_8bindings_15_synergy_submit_2create_vecadd_kernel(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_adapter) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("create_busy_kernel", 0);
+  __Pyx_RefNannySetupContext("create_vecadd_kernel", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_8bindings_15_synergy_submit_create_busy_kernel(__pyx_v_adapter, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_8bindings_15_synergy_submit_create_vecadd_kernel(__pyx_v_adapter, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -19004,7 +19012,249 @@ static PyObject *__pyx_pf_8bindings_15_synergy_submit_2create_busy_kernel(CYTHON
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("bindings._synergy_submit.create_busy_kernel", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bindings._synergy_submit.create_vecadd_kernel", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "bindings/_synergy_submit.pyx":282
+ * 
+ * 
+ * cpdef create_vecprod_kernel(object adapter):             # <<<<<<<<<<<<<<
+ *     cdef uintptr_t adapter_handle
+ *     cdef DPCTLSyclKernelRef KRef
+*/
+
+static PyObject *__pyx_pw_8bindings_15_synergy_submit_5create_vecprod_kernel(PyObject *__pyx_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+); /*proto*/
+static PyObject *__pyx_f_8bindings_15_synergy_submit_create_vecprod_kernel(PyObject *__pyx_v_adapter, CYTHON_UNUSED int __pyx_skip_dispatch) {
+  uintptr_t __pyx_v_adapter_handle;
+  DPCTLSyclKernelRef __pyx_v_KRef;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  size_t __pyx_t_3;
+  uintptr_t __pyx_t_4;
+  int __pyx_t_5;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("create_vecprod_kernel", 0);
+
+  /* "bindings/_synergy_submit.pyx":286
+ *     cdef DPCTLSyclKernelRef KRef
+ * 
+ *     adapter_handle = <uintptr_t>adapter._native_handle()             # <<<<<<<<<<<<<<
+ * 
+ *     KRef = SYnergyTest_CreateVecprodKernel(adapter_handle)
+*/
+  __pyx_t_2 = __pyx_v_adapter;
+  __Pyx_INCREF(__pyx_t_2);
+  __pyx_t_3 = 0;
+  {
+    PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
+    __pyx_t_1 = __Pyx_PyObject_FastCallMethod((PyObject*)__pyx_mstate_global->__pyx_n_u_native_handle, __pyx_callargs+__pyx_t_3, (1-__pyx_t_3) | (1*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 286, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+  }
+  __pyx_t_4 = __Pyx_PyLong_As_size_t(__pyx_t_1); if (unlikely((__pyx_t_4 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 286, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_adapter_handle = ((uintptr_t)__pyx_t_4);
+
+  /* "bindings/_synergy_submit.pyx":288
+ *     adapter_handle = <uintptr_t>adapter._native_handle()
+ * 
+ *     KRef = SYnergyTest_CreateVecprodKernel(adapter_handle)             # <<<<<<<<<<<<<<
+ * 
+ *     if KRef == NULL:
+*/
+  __pyx_v_KRef = SYnergyTest_CreateVecprodKernel(__pyx_v_adapter_handle);
+
+  /* "bindings/_synergy_submit.pyx":290
+ *     KRef = SYnergyTest_CreateVecprodKernel(adapter_handle)
+ * 
+ *     if KRef == NULL:             # <<<<<<<<<<<<<<
+ *         raise RuntimeError("Unable to crete vecprod kernel")
+ * 
+*/
+  __pyx_t_5 = (__pyx_v_KRef == NULL);
+  if (unlikely(__pyx_t_5)) {
+
+    /* "bindings/_synergy_submit.pyx":291
+ * 
+ *     if KRef == NULL:
+ *         raise RuntimeError("Unable to crete vecprod kernel")             # <<<<<<<<<<<<<<
+ * 
+ *     return SyclKernel._create(KRef, "SYnergyVecProdKernel")
+*/
+    __pyx_t_2 = NULL;
+    __pyx_t_3 = 1;
+    {
+      PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_mstate_global->__pyx_kp_u_Unable_to_crete_vecprod_kernel};
+      __pyx_t_1 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_RuntimeError)), __pyx_callargs+__pyx_t_3, (2-__pyx_t_3) | (__pyx_t_3*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
+      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 291, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+    }
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __PYX_ERR(0, 291, __pyx_L1_error)
+
+    /* "bindings/_synergy_submit.pyx":290
+ *     KRef = SYnergyTest_CreateVecprodKernel(adapter_handle)
+ * 
+ *     if KRef == NULL:             # <<<<<<<<<<<<<<
+ *         raise RuntimeError("Unable to crete vecprod kernel")
+ * 
+*/
+  }
+
+  /* "bindings/_synergy_submit.pyx":293
+ *         raise RuntimeError("Unable to crete vecprod kernel")
+ * 
+ *     return SyclKernel._create(KRef, "SYnergyVecProdKernel")             # <<<<<<<<<<<<<<
+*/
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((PyObject *)__pyx_vtabptr_5dpctl_7program_8_program_SyclKernel->_create(__pyx_v_KRef, __pyx_mstate_global->__pyx_n_u_SYnergyVecProdKernel)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 293, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "bindings/_synergy_submit.pyx":282
+ * 
+ * 
+ * cpdef create_vecprod_kernel(object adapter):             # <<<<<<<<<<<<<<
+ *     cdef uintptr_t adapter_handle
+ *     cdef DPCTLSyclKernelRef KRef
+*/
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("bindings._synergy_submit.create_vecprod_kernel", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_8bindings_15_synergy_submit_5create_vecprod_kernel(PyObject *__pyx_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+); /*proto*/
+static PyMethodDef __pyx_mdef_8bindings_15_synergy_submit_5create_vecprod_kernel = {"create_vecprod_kernel", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8bindings_15_synergy_submit_5create_vecprod_kernel, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_8bindings_15_synergy_submit_5create_vecprod_kernel(PyObject *__pyx_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+) {
+  PyObject *__pyx_v_adapter = 0;
+  #if !CYTHON_METH_FASTCALL
+  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
+  #endif
+  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
+  PyObject* values[1] = {0};
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("create_vecprod_kernel (wrapper)", 0);
+  #if !CYTHON_METH_FASTCALL
+  #if CYTHON_ASSUME_SAFE_SIZE
+  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
+  #else
+  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
+  #endif
+  #endif
+  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
+  {
+    PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_adapter,0};
+    const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 282, __pyx_L3_error)
+    if (__pyx_kwds_len > 0) {
+      switch (__pyx_nargs) {
+        case  1:
+        values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 282, __pyx_L3_error)
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      const Py_ssize_t kwd_pos_args = __pyx_nargs;
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "create_vecprod_kernel", 0) < (0)) __PYX_ERR(0, 282, __pyx_L3_error)
+      for (Py_ssize_t i = __pyx_nargs; i < 1; i++) {
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("create_vecprod_kernel", 1, 1, 1, i); __PYX_ERR(0, 282, __pyx_L3_error) }
+      }
+    } else if (unlikely(__pyx_nargs != 1)) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 282, __pyx_L3_error)
+    }
+    __pyx_v_adapter = values[0];
+  }
+  goto __pyx_L6_skip;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("create_vecprod_kernel", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 282, __pyx_L3_error)
+  __pyx_L6_skip:;
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
+    Py_XDECREF(values[__pyx_temp]);
+  }
+  __Pyx_AddTraceback("bindings._synergy_submit.create_vecprod_kernel", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_8bindings_15_synergy_submit_4create_vecprod_kernel(__pyx_self, __pyx_v_adapter);
+
+  /* function exit code */
+  for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
+    Py_XDECREF(values[__pyx_temp]);
+  }
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_8bindings_15_synergy_submit_4create_vecprod_kernel(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_adapter) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("create_vecprod_kernel", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_f_8bindings_15_synergy_submit_create_vecprod_kernel(__pyx_v_adapter, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("bindings._synergy_submit.create_vecprod_kernel", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -21001,34 +21251,49 @@ __Pyx_RefNannySetupContext("PyInit__synergy_submit", 0);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_pyx_unpickle_Enum, __pyx_t_4) < (0)) __PYX_ERR(1, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "bindings/_synergy_submit.pyx":56
+  /* "bindings/_synergy_submit.pyx":61
  * 
  * 
  * cpdef submit(             # <<<<<<<<<<<<<<
  *     SyclQueue queue,
  *     object adapter,
 */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_8bindings_15_synergy_submit_1submit, 0, __pyx_mstate_global->__pyx_n_u_submit, NULL, __pyx_mstate_global->__pyx_n_u_bindings__synergy_submit, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[0])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_8bindings_15_synergy_submit_1submit, 0, __pyx_mstate_global->__pyx_n_u_submit, NULL, __pyx_mstate_global->__pyx_n_u_bindings__synergy_submit, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[0])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_4);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_submit, __pyx_t_4) < (0)) __PYX_ERR(0, 56, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_submit, __pyx_t_4) < (0)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "bindings/_synergy_submit.pyx":256
+  /* "bindings/_synergy_submit.pyx":261
  * 
  * 
- * cpdef create_busy_kernel(object adapter):             # <<<<<<<<<<<<<<
+ * cpdef create_vecadd_kernel(object adapter):             # <<<<<<<<<<<<<<
  *     """
  *     Crea un dpctl.program.SyclKernel di test, compilato nativamente nel modulo
 */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_8bindings_15_synergy_submit_3create_busy_kernel, 0, __pyx_mstate_global->__pyx_n_u_create_busy_kernel, NULL, __pyx_mstate_global->__pyx_n_u_bindings__synergy_submit, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_8bindings_15_synergy_submit_3create_vecadd_kernel, 0, __pyx_mstate_global->__pyx_n_u_create_vecadd_kernel, NULL, __pyx_mstate_global->__pyx_n_u_bindings__synergy_submit, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_4);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_create_busy_kernel, __pyx_t_4) < (0)) __PYX_ERR(0, 256, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_create_vecadd_kernel, __pyx_t_4) < (0)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+  /* "bindings/_synergy_submit.pyx":282
+ * 
+ * 
+ * cpdef create_vecprod_kernel(object adapter):             # <<<<<<<<<<<<<<
+ *     cdef uintptr_t adapter_handle
+ *     cdef DPCTLSyclKernelRef KRef
+*/
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_8bindings_15_synergy_submit_5create_vecprod_kernel, 0, __pyx_mstate_global->__pyx_n_u_create_vecprod_kernel, NULL, __pyx_mstate_global->__pyx_n_u_bindings__synergy_submit, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[2])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 282, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
+  PyUnstable_Object_EnableDeferredRefcount(__pyx_t_4);
+  #endif
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_create_vecprod_kernel, __pyx_t_4) < (0)) __PYX_ERR(0, 282, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "bindings/_synergy_submit.pyx":1
@@ -21078,7 +21343,7 @@ __Pyx_RefNannySetupContext("PyInit__synergy_submit", 0);
 
 static int __Pyx_InitCachedBuiltins(__pyx_mstatetype *__pyx_mstate) {
   CYTHON_UNUSED_VAR(__pyx_mstate);
-  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 142, __pyx_L1_error)
+  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 147, __pyx_L1_error)
   __pyx_builtin___import__ = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_import); if (!__pyx_builtin___import__) __PYX_ERR(1, 101, __pyx_L1_error)
   __pyx_builtin_Ellipsis = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_Ellipsis); if (!__pyx_builtin_Ellipsis) __PYX_ERR(1, 409, __pyx_L1_error)
   __pyx_builtin_id = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_id); if (!__pyx_builtin_id) __PYX_ERR(1, 619, __pyx_L1_error)
@@ -21174,34 +21439,34 @@ static int __Pyx_InitCachedConstants(__pyx_mstatetype *__pyx_mstate) {
 static int __Pyx_InitConstants(__pyx_mstatetype *__pyx_mstate) {
   CYTHON_UNUSED_VAR(__pyx_mstate);
   {
-    const struct { const unsigned int length: 10; } index[] = {{2},{68},{35},{54},{37},{60},{24},{52},{26},{89},{34},{44},{29},{33},{45},{22},{54},{43},{15},{179},{37},{33},{30},{32},{44},{38},{1},{1},{1},{1},{1},{8},{5},{6},{28},{15},{23},{25},{45},{7},{6},{2},{6},{35},{9},{30},{50},{8},{20},{32},{22},{30},{37},{5},{8},{20},{17},{8},{15},{3},{7},{15},{4},{18},{4},{24},{1},{9},{17},{18},{14},{5},{18},{7},{19},{20},{25},{19},{8},{15},{6},{9},{5},{5},{6},{7},{8},{2},{12},{2},{10},{5},{13},{5},{8},{6},{13},{25},{2},{8},{7},{4},{10},{4},{8},{14},{4},{7},{3},{4},{3},{14},{11},{10},{19},{14},{12},{5},{10},{17},{13},{8},{12},{10},{12},{19},{5},{4},{5},{4},{4},{6},{6},{8},{16},{6},{6},{20},{21},{20},{6},{1},{818},{54},{1}};
-    #if (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (1950 bytes) */
-const char* const cstring = "BZh91AY&SYM\225?\207\000\001V\177\377\377\377\377\367\377\367\377\367\377\357\377\350\277\377\377\360\300@@@@@@@@\000@@@\000@\000`\007<+\033Y\203\350\026e\001\220:\3300jdB\236\247\242zj\217\031\023i\252h=F\324\364\324=A\372\221\265\036\246\233\325\003CM\036S\311\032d4\320\365=M\351\020\364\320\236\206\240\320\232&&\204\312\237\251\2244\365\032z\217P\323\312\032=M\000\000\000\000\000\000\000\000\006\200A\200\002`\000&\000\000\000\000\000\000\000\000\000\000\000\000\tM\020&\223M\010\236\232h\032\230\204\231\250\032\017P\r\000\000\000\000\000\000\032zG\265M\246\221\006\000\t\200\000\230\000\000\000\000\000\000\000\000\000\000\000\0004I\243P\365\031&\324\323\324\323M\r4dh\000\000\000\000\000\000\000\000\000\000\r\276\256\214V\225\214(P\232?\003\036\303y\217\372\273\235.\343\331\223\3733\037\377\n\265y\372\030=\014\032\302\207{\333\032\356\026!\252U\t\214l\301\246a\355\270Z\n\005S!\002L6\361\252\024\007\342bL\300s\304\006P\214\314\214\241\221\324\300I\004\010(\317--]4'\\\355\211\245\024\213`\330\021#\260\325\3176\223\027a\220M2\300\244%4\024D\034\374~\306\021x'\np\026\346\247\003\003D0\017QY\021\0337\3440\237,\343\004\254>TTw<R\222\257\305\301\302\343\377w\363\322\370\274=t\021\023\227\372\302\244O\316\014e$|f~\250\307k\247\236a\315\177\316w\274\007R\021\033[\202\301\r,\260K\361\007\032\211\242\250\241\207\241k\2244\356-R\n\363\205\235 \337\333\335t\202hJ5\316\214\246&\214\200\203lSG1\246\n\023=\313\242U{\352\242k\247\233\231\204l\214\306\31791\003\316\031\0211\300@\032Y\360\250.H\350\000\261\222\354\r\034\314\335y\254\201\216\304RT\005f\2722h\016d\242\266\036]]\230\352j\354:\327\010s\205\351\332H\231\341\267\206\\GG8\346\315\247\003co\205\324\363JT-\3160\302\263!\327\270\260X\022\013'U5\244F\225\332\355R\244\006\315\225<\021\255q\2652n\345L\222\240\220z}J\3744\321\3000\312\332*\213\344\027W_\252Y\370k\024Y\t%\222\217\226i\352\213 kx\350fW\221|\352\321I`\232\252\211l\213\306M\245\242\201\000\370W\026\336ux\215&\272\023,\214XD\350m`h\215\360\302\203\306\215\235\377'\216""\324\2265\346\234NM{p\370\217!,V^G\276\010\330A;\264\031\310u\002nD\2209$\350JnN\030\2424\321\347W`\242\n\271\3726\312\363N\346\206\304\236o@K\025<\272|\332\314\316/\335\247_G\037u0B=\241\3622\365\277\244\365\353\017[\305R\303\020\354@zo\001\314\3637\034\232v\361\004\364,\0146\353I`\316\357\211.(\314\343,\337\260\272\265Q\333\327\337B=/HwF\237\204\332\373Dq\010\t\022\025%\360\014(\200P\n\001F\014\327QC\035\347\220\262l\311i\013( \032\205\247\2264\224y\251\256\331\375|G\256\267=Ca\347\234\270K\004\332\3643\031\010H\340\265`P\300\177M\271\r\361V\020\337\266\351\307PA\3049\352\366=;'\243K\356&\312Z\226r9z\257\246h\025\035\014C\260\354\231\025\207\204\"P\021l\3724u\370\017B\307\235Ml\247\003\262\224\232w\3272\274,\362X\024\r\370K\r\265\302\251)\342\246\362\212\305\224\024Uv\027\031~;Js\031;\350L{H\024\3260\370hn\035\350\245\336\257\016\030\275g\377\034\325*Qlp&\225[Q\345\023;,\365e\260\232lw\rP\023\254\230i\001U\315\225JL\0305Ca\302 \231E\344d\".\014\374v\304h\241hq\346\327k\312&f\213\002\027\310\242a\005\246/\217\251\352\252!\237b\230\312! \"\341[\211\324\346\325I7\002`\305`\014\202\020@\216\0221\215\242P6\223\t\010\205\331\312\024\000\202\004\232Hm\033\272h\354?/\257\273\031\030\273\024;\222BS\265\333=\246\331\342\206/\233V\261\tt\2102\231L\226\224I\265\031\rFL%\022\030\355\0134\256J3\314\276v\235\006\331\357>9\002\224\312\245\257\254\2464\027 X\253\270&h\031v\2065\010%\006\335N\034\220\017\243\274\230\353[\257\315\r\262\2732/GU\237\223\253\337\3209|\253m\232ZL/\033\032;1rt6\362\337\006\023\0216bf\300\226\371\331\232\2243\206\240\312\346\024t\231'\2152\2110\235\322\251\334P\300\315`\247#zt\330\014[\266\355(r\020Jc\331f\301\347k1\200\245t\026a\rpv'm\211!!\024\271Fk3\025s(\222\206M\232\310\214\271\230\272\014\263l\214\2174$\335F\345\276\214\\\222\261\013\324F)\301\035\n_,vj\215,\246\335L\244>\t\332l\346,\316n\305\222\022\033\334n\346-\310\330\342u\234\233}\3364\343\266<\311\010\360'\243\313\256S\256\206\0372 G\0178\344(\004\311\013+F\21016`\2619{\217\006`\200\370\310""\300\2423\016\0204\024b4\204\212\000\"\304\004\022\330p\033TD\375\227D\002 \260G1\t`\020X\255dU\224\304\303\321\331\265|l\216~W7\010\253\254!s\252<\251\"\0228$\357I$\215S\236\272\350;1m8aqY\270\261\206\211\317@\223\006\316f\323U%q\253\210\320i.\211ao#!\323Nk\246\355+`\327\241\275\315z\326l\233p\231\331Km\211\310\301c\252L\335(u[\305\355yK\3076/\027\252\254\223$\315\206\003\224b/\357\260\205\263~\253\0265\263w\330\311\265k)\201\216\250t\254\301\243\034\310\201\274\013\022\212\315H\246\010\266\367~p\342\364b5\003\005y1\232\360\036dOQl\372\023\231\364\235\224\330\232g\220\212\017\262\024\207\026\020\0047(\226\322!\004\240\303\202\201\020\316B\215\244\t\301\306\312Z\371|U`\250\2247\206\013$\220}\344\372\001\007\026y\363M\345\004w\237\217\234k\005\245$$\202(\320)P\206\t\230p\001^\264A\361?\222\n(Q\2736(\350\227\314\003\232z\204D\202\031\277;\243\341\3719~\241\264\244H3\004\214\031Gu\341\021NH\337\013\213\030c\270B\010\315)A#\356-\355\327\372\r\201\2704\262\317\272\223\"@\236-_\252\t\351\245\355\335v\264\340\220\366\001g\353;\017\027\366\177&\370~<8\221\016\207\017\270hj\276|\2427\376\327\250\013G\304O\363Qz\215\254Pb\200\201\332\033t\362q\337F\325qv\217\234]\t\2429l\n\331u|\016\313\253Ne\177\033v\321\303\263\027\007M\274p\251\361/\222\306\264\372\224\377\321C\217\364\355\235\207=\032h\316\207\267\273\247W\271\326\351\025@N\251$\232\212\013*\234\306\024i\013\221\020J\306\207\177<\211\244\200\"\223\207zNs*Y\312\217*\326R\223\216D<Lt\321\021\\\310\247\326\372\225%|%\007\377\027rE8P\220M\225?\207";
-    PyObject *data = __Pyx_DecompressString(cstring, 1950, 2);
+    const struct { const unsigned int length: 10; } index[] = {{2},{68},{35},{54},{37},{60},{24},{52},{26},{89},{34},{44},{29},{33},{45},{22},{54},{43},{15},{179},{37},{33},{30},{32},{44},{30},{38},{1},{1},{1},{1},{1},{8},{5},{6},{28},{15},{23},{25},{45},{7},{6},{2},{6},{35},{9},{30},{50},{8},{20},{32},{22},{30},{37},{5},{8},{20},{19},{20},{8},{15},{3},{7},{15},{4},{18},{4},{24},{1},{9},{17},{18},{14},{5},{20},{21},{7},{19},{20},{25},{19},{8},{15},{6},{9},{5},{5},{6},{7},{8},{2},{12},{2},{10},{5},{13},{5},{8},{6},{13},{25},{2},{8},{7},{4},{10},{4},{8},{14},{4},{7},{3},{4},{3},{14},{11},{10},{19},{14},{12},{5},{10},{17},{13},{8},{12},{10},{12},{19},{5},{4},{5},{4},{4},{6},{6},{8},{16},{6},{6},{20},{21},{20},{6},{1},{818},{54},{54},{1}};
+    #if (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (1980 bytes) */
+const char* const cstring = "BZh91AY&SY\237\272\373\361\000\001b\377\377\377\377\377\367\377\367\377\367\377\357\377\350\277\377\377\360\300@@@@@@@@\000@@@\000@\000`\007]\361\332[\234\342\346\241i\2335\035\262\242\260`\320\223J\237\252x\241\372\217P\361\023\321\252d\336\224~\244h\331OS\324\036\223\322\036\220h\030\323$\017I\210\036\210\375D\031\241=L\324\032\2324\230\230F\223H&\231\001\352\006 \000\032h\000\017P\000\000\032h\323A\243L\020\0100\000L\000\004\300\000\000\000\000\000\000\000\000\000\000\000\001\210A\032&\2413M\032\230\2324\236\211\223j4\032\000\000\000\000\000\000\003@\r\251\223B\014\000\023\000\0010\000\000\000\000\000\000\000\000\000\000\000\000I\020L\220\311\2224\031\032\230\223\023 \r\r\000\000\000\000\000\000\000\000\r6\246{\272x2\314\254\351\323\242\376\341\037\311\353\017\355q\262\\c\256\272\360?\307ARm.\310\007\254\203\004L\333\345\025\256\212(\005\205\2140\262\321\005\322\016Q\302\204\t\205\214\230`fB\337\025\2014>\204E 5\302\001\232\014^f3\020Ll@E\202\003\004\323\306\345e\323%e\364\310\\\304\341J\252\250D\3443\353\026\203@\245\216\004\3670m\205o\006D'\233\2404\206pV\222\264K>\376\233\00700&\371\267\236\327up\243\377\022{\222\250lf\246\3148b\025<\013\230\013\303u[\261;\354\316\324X\007e\236\203\230\024\373\341J\222\013\242\257\324r-\241\357`\3547\360\366\264\n$\022\225\316\200nI&\313\001\303Q\314%\205\322i0\242\326\266\203\013*\316\250\003i:\316\340_\355\264` 'Z\024\315\351|\327\246{\205\322\326\204\323y\"n\245g\034\210\207\255r\3063\256\177+\232x\270\231\207p\355\320\r\332A\273x?aR\243\302\276\024I\262\344\t;N\303\303\342\353\375\3355\016_\033,\003\265\267\223.\243\013=\264Ka\356b\351\310\320o$d\034*A\014\246zA\200\261\023Q1\210 \307\010\034tP\030e5GA\026k@\266CP\240i\216\215_~\262\302\301\221\313\322U)\222)\231}\230\242\003^\313\017\002\361xj6\271C\002Wba@\261\225\366\304\247d/>\340\205[F\300\036\326\314\350p\257LF\307A6B\234\306>\252T@\225\204QU\337q\346\236\025\002@l\333UH;\217p\340[\277! \340\327N\225\317E6\017A5vC\016H\010\353\023;\373\247\005\337K\220\234tP\326\317""\324\350\326qji\223\312\r\365\345w\355\001+,z\215}\310k\007\225\345\306P\0318G]$\003\010L\202Ra\2309\024A\244\3216 Q\001F\037&x\276I\232\201`l'\223Q\000\211\344\270\343jL<\\\031\222\236-\272\2648\201\017\340LDr\376K\234\300\313\333\2604 )\321\000\350\274\003S\310\3357.\323\240%\225\252WN\014\315T\354\346B:#y\264Q|\245\255K\030\346\361\3610\307C\240\235\330\273\250\260\346\232\214\301\301\301g\025\002\026\010\260,\002\210\333\235\311\323a\263\262\357\201\314\216\022\030\034@I\324\366\2370\233IIpK\323\260j`\347H\304\352\312<\310\327 \353\r\217\004\213\206\031\216cai\"\321\372+t\325\013\020\201\372s\331\2342\200\343`0\351\346nej\314\247\216]'\022\023*Z\253R\006\337*\331I\000\246\310\020\354C\024P\243\263\240\2048\017]M\334y\235\240\354\253n).D\367\307\004\347$\315\253!M\372\264+\204\310\323t\013\266iu\022R\262\223C\321\352\236j\214B\327\027\353\326%12Y\372\302\221\213\006#\375@*\254\035\256\304\362\363\274\360j3\260f{%\374\271\204g6\320\351\022f\261`~\343'M\237\034\332\t2\311\274+\001hY\n\022\031\276\2221\314\201\002ej\250\004\035\344h\202B,|0\365\362\030wC\323V\014\237kT\255vhJ\250\341J\326\034\332c\204\376\033\256\275\035\3161cm\031B\331\227\315N\356\225\367)r?!\330\342\020\253\241\307\231\225\216\312FZ\264\224\023\202\323\221W09T\214 p\321\2736!\266\277}\026\201f\"c\232\222\tJ\267\234\263\214\362\262\004_\221\245\035\322\335\010\014d'\212\314\204\035A\2103(\204\236\001\034\000T\305\342\037-\216)ZQ%\277\005\264\360A\241\206h\307\232\030I\025\270\014\211\326\206,\014KB\226\224\004\304\244\331\331\033\220\0072\355\260\270\333v\335PX\331\216b\331\273Y.\216\316\234\303{\366m4Q\270\255\260\305C\220\310\344\246i\336\266\250dBI\0221\010\357\312\211Ne\360S\023Z.\233$Rg\315\017\004&d\2508\314\305\303%r\224\r\264\310\334\010\257\005\3460r\014\021\220\364k\301uB\210\250\321\265\202\210aZ\016\211S\026f\t\004'x\2315$Q\206/\t\3129,C\343\244\033\320\030\344q\030\216\263\244hw\206\205\267B B\250u\320B\311\200CqG\216\030\232\003\030\310\357\025\001\256LdXX\226\032,R\t\003\317\321""\244Wd\332\303\2266s\361Zz\365\266\224\202\031F\214\243\031\031.8\024\322\304\246\304\340\353m\363\345\222\310S\250\311\005GF\221\304.<\0270\006\2150p\263\031\320\316\267\323D\211\2026\361\021\033\213\306\237\n\255'\240\264\026A.\026\207 \341\341\243u\322\025*a\020\324bu|,\206\346\333\r\240\205\031\\\353qM\242p\035!\276\2234\341$5\245.E0\034\0269\256\272\360\252v,\345\345,\002D1\326\256\261\242\326\212\314\202\201qk\021\255:\211\207e)6\313Ti[fjs\rU\221Gh\"\305Fz\211@\271[R\t\336A\225/{\353|Gm\"/{\350\251\026M\007\002\265\034\232!oN\260lw\363\320\241\202\\h\271g\300\235L\227\301\331\250#.K\310@\\\346\310M\250\247\t\325\212o\273\353\r\035l\202\230U\255\212/nq\3751,\345/\340g;\276~\346{\315.\364Z\370*Ea#`\257\217\212\306\302\362y\315l\206:\027H\3160\"CP\343\024\332\347P\201@\223\236\027\025I =\244\330\000\200\306\373\365I\343\002\033O\265\254\347\312\302\003#c\034n\365R\317h\274\t\242\212\274B\333,7#\305-\272\224~\304\033\322\264Fdb1\261t{\266\320b\217H\332`\246\"\003-\376\202]|X9\252\034\001\221\237zMc\020\310\212Q\031}E\277\236v\310\270_\202\2619+\251\014\310M\032\273\275poc\036\246\363\264\303\341A\355\362\263\362~\367\037\362o \340\020Iz\370\035\272\334V\305m8\023\224\244\203\351\271\216-'\031\300\341nO\264/\320\277@\302Z\032\021\312\301\272[U\256\317\363\025\320\251\374\270\225\305''\014\316\373\357\273\231\033\325\2640\355\227\026\275\216\032-\340\252\304%\215\311_\331\007V?\355\212\270>\356\331\0270\274\372%\330\253S{G7\247\233\224}`n\303\247\350\301\224v\273\024\206q4\220y1f\354@\222H\000\036rvi\312R\024\025a@\321JD@wr\301\331\344\031\027w\246A\304\375/B\202/\272\034\177\342\356H\247\n\022\023\367_~ ";
+    PyObject *data = __Pyx_DecompressString(cstring, 1980, 2);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (1818 bytes) */
-const char* const cstring = "x\332\215UKw\333\306\025\226j)\221k\271\021MYur\372\030Y\225i\347\310\254e\253j\353\343\270\225e9\321i\352XU\355\266\247\2139C`HM\004\002 f@\211\336$K.\261\304\022K.\271\324\322?\201K.\365\023\374\023\372\335\001(\201q_\347\210\320`\346\316\334\373=\356\3401\333\361<\346\252\266\364\265\n|\315\302H:\322U~\353r\222\255\273\254\035k\303\032\222)\337\225\247\322e\302w\231\037\030\246=\205\360gq\263)#\326U\362\204\271\201\324vI\236\206\201\226L\233H\271R\357\n\237\005\276\327cN$\205\221L\260F\276\311\034\t\303\224fN\340\033\325\212\203X#\tk\313v\020\365\352\330EG\t\255U\313g&`\330\354\336\267\347\344\021\224\262\010*\016>\211\224\021\rO\026\001yQ\315(h\377\267\275\026\026;Q\346\210\231^(Y\255\2307\221\360\265\205q\271%\017\303\016\005\252L\211\273\347e\302TNB\036\264'\234#\326\362\202\206\360\030Nl\311\022\271\023f]\325UZQ\341\215\036H\221 $\212$\222\373V\r/p>\334\\\337k\207\246\307\364\221@\315&\016\261\271\031D\314\351\231#,\212(\022\275/\313Ym\256#\321\225ls\203=d\010}T\252\277\276oY\010b\303\202&k\004\261\357jvW\234\002\312\272{o\377C\300\271\003\3420\014\"#\335}\277+<\005\253\004\256\334 \365\021\014\247\324\234\032%\252\2410b\263\266\301Z\3305\t\316K\207\3406\315\327\026$y\253L\226.\325M\304h\321\226\345\262\277.Q\363?\020>\371\263\225\361\r\311\010\214/\003#s\003\356Z\312H5Wz\252!#X\tF!\363\002\205u\251\317^\355\275\272\277\365\273-[`$\277\005>\r\370\r\307\203?Q%\221\026+\317\000\r\231H\327\331~\223\365\202\230\371\022<\300\274!\342\312\033\000\306gZ\032\213\252f\035'\014\352\344\330\016\315k\205{\024\341\016\330\013\341iY\377fJ\035\224\\\264\221p\034\251'r\035\376\303\227Q\253\307\216e\344K\217R\266\225\266nk\n\345I\267~hd\310\332\242g\025\204\371\336\312(\270\224\372\265o\033\0109\321\224]\031\241?\214l\323{\320 \324\245\365\274\347|a\213\234\244m\304z\222\273\376\332\2770H\336ZdP1\251LD\255\030\342\230\372\323\332\275?\010\327\345>)B\3742\210\362\340\264\241\254\373\365\257\271\356\331\263\271\305b\352a\357\324\t<\217\330!]E\303yR\272@\350\200\234\273\247?""\234\236\364\355Sw\257\213\304\372\242\377\004\224\350\304\322w$\361\353\206\216\361\352\207=\307\263a\256\322\004YZ\340-\207\335%\017\267l\177\023\373\324\240\362\324\330\363\240\376es+\235oq\211@\255\336J\366\344\013\366\340\203&\365\003\330\256)b\3170\316#\351\306\216\344\234\271\261\345\330\017\374\373\260aW\301\344\234;\312W\006\213\271\022O\237\344\327\253;\005\371\3039j\204\013\344S\353\027\263\361\205\250\302\243\313\206t\240\332\230+\214\250\377\233\325\274u\351\214\342\212\257\357\034\356\356\357\357y\236\n\265\322\234\277\352\235\342\367\034\r\304_\202\235\277\310fa\220g\360\307\237\254\001\016\013\312\251!\353\227\275\t9\205+B4\336$\033\317m\016\277h\001+8*\250\343~\304U\245|\251\033B\313\211S\352?p\212\003\312\250\3358\237\014Z\322\220\032\364\212\315\\\241\335\"\341\310\206p\216q\244\344\315(/\252\347\240\307L\356pN\226\346\271i\013\343\270\262\213O\037\227y2\321D\261\323S\r\t\231\345\364\034\314\250c\334\331\360\306\364\002n\035#8w\211,\356R\243pP\230\213\214Zp\245J\037\235B\327\222\214\242 jz\242\245q~[\230\342b\345\274\031\373@\333:\344\004Q\033*\233+\027\2776\365\037\376\323\365N\307^0\227\273\262\260f\216.\177\026eM\275\224\213\367\220\244-@\035\307w\221>\212t\351\343%pc\017\377}\334\320\223'\317/\007\216\013\324\365$D\002\363\276<\341\004.\004\347a\020r\216v\346\316\221t\216\221 \177+\352\247\241e\303\216b?T\31612\354\371\223\270\256\375\330\223\272\235XxyJ\310\027\313\313F\272\030\345-W\232\000\035\030\266\224\206x\234\343&.j\306\250\350G;.j)\215''\331\036 \3620\035aM\206\332\004\370E1\276\r\326\177\234\033,r\224>m.@\001\3708Dw\311XK^\330!\214\202\246\202/[4w\021\3145\276p\305d\241\311E \276\243\261\324\247\337\317\276\337\232\231\3774\235\035\317\335\316V\307sw\007\371\350\375\217i\366J\272\231\356\214\347V\022'\255\244\2534\020\366q>WM6\337/\314\314\337\315:\343\271;\231(\036,\233=\237\373\370\373\323\376\t\002\027~\322w\222J\262J3\272_K*\245\231\233\311?\263\217\263\357\206\202\026;\343\205_\246'\243;\177|\207\335\3638\366\352b\177;\271\221l""\216\027\227\223\257\322\027\331j\266=\2701\300\353'\375nr\210Z\227*\347\2137G7\357d\315\301\316\340\315\360\341\360\200\326N\250L\273v#YO\276\313D\326\035\374m\270CK&\331J:\343\245\225D\245\235l\026\340\220b\253\037\241\246\305[\243[\033\203\027\303\325\361\322r\362\014\320\020\3756\255\0026\035\264\224\314'o\322\337g;\331\301x\251\232<N\017R\0274-\377\034\203\243\354xX\035\276|\267z\276\374Yz/\333\034\337\372\364\375\342\314\325O\372rT]\3136\263\257\006\317\207\263\343\205kHd\010\313\215\344s{*\005-\366\037\021\025\343\305\352\250\372`H\200\250\270\200\262T\376\363\037 #\370\375G3\327\253\311\372\350\247\265\2543X\030~4t\317V\2470~\233\315\216\227oR\330\022&\037A\212\251\311\n0\275NW\323MB\264\ra\327\322\303\354G\331Z\366f\2609\330\035D\303\225a\347\354\312\331\24331\006\260\317\263\035\002\2660s}yT}H4\375_\245\226\253\005\332\337$Wr\n6R\221v\210\377\317\322[Y\005T.\\\357\277NVsE\020q;\253\215\356\355\276\243\321\350\366\366\260q6{\016\006\361\372\263\364\313\321\332\027g\007g\342|\341\352x\361W\331\363\301\354\240R\032\254g\177\035T\006`\202eW\300>d\377E\352\330\024\210\301\033$)\036\020\217\252Z\"\227\346\345m'\325\004!K\311lR\241|\277M\326\222\203\322\373c\353\272\374\035\035\26323\277ri\340k\243k\244\204u~\334\337\355w\310\347\036\021L>\377;\234\322\314v\276\371\027`\306\374\227";
-    PyObject *data = __Pyx_DecompressString(cstring, 1818, 1);
+    #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (1858 bytes) */
+const char* const cstring = "x\332\215VMs\033\307\021\025#\312\246\"*&\004\212\221]\371\030\210\241 \252(D\224\030&Q\311Jh\212\262Yqd1\214\230\244r\230\032\354\016\3001\027\273\213\235Y\220\320\305>\342\270\307=\356\021G\034y\324O\300\021G\376\004\376\004\277\236]\220\200\2248\251\022\2263==\323\375^\277\236\321S\266\345y\314U-\351k\025\370\232\205\221t\244\253\374\346\245\221\255\270\254\025k\303\352\222)\337\225'\322e\302w\231\037\030\246=\005\367/\342FCF\254\243\3441s\003\251\355\222<\t\003-\2316\221r\245\336\026>\013|\257\313\234H\n#\231`\365|\2239\024\206)\315\234\3007\252\031\007\261F\020\326\222\255 \352\326\260\213\216\022Z\253\246\317L\300\260\331}h\317\311=(d\341T\034|\034)#\352\236,\034\362\244\032Q\320\372\261\275\026\026;V\346\220\231n(Y\265\260\233H\370\332\302\270\334\222\273a\207\002Uf\202\273\027\223\204\251\234\204\334iG8\207\254\351\005u\3411\234\330\224\023\344\216\231uUGiE\211\327\273 E\202\220(\222\010\356\333jx\201\363\341\346\332N+4]\246\017\005r6q\210\315\215 bN\327\034bQD\221\350~9\031\325\306:\024\035\311\326\327\330c\006\327'\023\371\327v-\013AlX\320`\365 \366]\315\356\213\023@YqWw?\004\234+ \016\303 2\322\335\365;\302S\220J\340\3125\252>\234\241\224\252S\245@U$FlV\327X\023\273\306\316y\352(\270\r\363\265\005I\332\232$KO\344M\304h\321\222\223i\177=A\315\377@\370\354\257\266\214\007TF`|\025\030\231\013p\333RFUs\245\247\3522\202\224 \024\022/PX\225\372\354\365\316\353\207\033\177\330\260\tF\362[\340\323\200_w<\350\023Y\022i\261\362\014\320\220\210t\215\3556X7\210\231/\301\003\304\033\302or\003\300\370LKcQU\255\342\204A\236\034\333Q\363j\241\036E\270\003\366RxZ\326\276\231\252\016R.\332H8\216\324\343r\355\377\313\227Q\263\313\216d\344K\217B\266\224\266jk\010\345I\267\266od\310Z\242k+\010\361\275\225QpY\3527\276m \304DSvd\204\3760\262E\363\240N\250'\326\363\236\363\205Mr\034\266\036\353q\354\332\224/\\;\322\t\243\300-\226\337\370\027\362\311\033\217\344+\306y\213\250\031\243t\246\366\274\272\372'\341\272\334\247z\021\373\014%{tRW\2667\364o\271\356\332\310\334\"5\265\260{""\342\004\236G\334Q\325E\335y6q\275\320\0019\263\317\3377\217\273\372\271\273\323A`}\321\235\002uj\307\322w$\261\357\206\216\361j\373]\307\263n\256\322\004RZ\250M\207\335'\2057m\367Sm\250}\345\211\261\347A\033\227\255\257t\276\305%z\265z+\331\263\317\331\243\017Z\330\017 \312\206\210=\3038\217\244\033;\222s\346\306\226U?\360\037B\244\035\205\026\340\334Q\2762X\314\353\364\374Y~\371\272S\220?\264Q\233\\ \237Z\277\260\306\027e\024\036]ET\007\312\215\271\302\210\332\177X\315\033\233\316(\036\200\332\326\376\366\356\356\216\347\251P+\315\371\353\356\t~/\320^\374\025\330\371\233l\024\3629\220\316\226\353\376\305J\340\322\364\032\242)lE!\250\211k\227\375\214\"\013W\204h\326q\016<o\r\250H\013\010\304QA\rw*\2567\345K]\027Z\216\365S{O?\016\210\244\026\345|<hJC5\242)6s\205\026\215\204#\353\3029\302\221\2227\242<\251\256\203\2764yWpH\235D\233\213\371\322F\362/\214\205\312\\\331\301+\312e\236\203h\000\303\264\251.\241\t9m\203ru\214\353\037B\232^\300\005f\004\347.1\313]\352*\016\276sE E\334\316\322G[\321\r'\243(\210\032\236hj\234\337\022\246\270\2439o\304>Hh\356sB\256\re\316\225\213_\213\232\025\177\351\245\240c/\010\315%\\\3508G\227\177\213\264\246&\223\311{\010\322\022`\224\343\211\245\367\225\336\017L\0027\366\360\327\307e?\376\362\374\236\341\270\213]O\242v(\210/\2179\201\013Q\2120\0109G\357s\347P:G\010\220\317\212\374ih\331\260\243\330\017\225s\204\010;\376\330\257c\377\337@Eo\307\302\313C\242\252\261\274\354\272\213Q\336\237\023\006\320\201aSi\024\217s\\\352E\316\030\025\315k\307E.\023\343\361I\266a\210<\230#\254\311P\233\000\277(\3063ce\311\271\301\"G\352\323\232\003\024\200\217C\264\242\214\265\344\205\034\240\263\206\202\\\233d\273p\346\032\217ea,jr\341\210'9\226\372\344\373\231\363\215+\327>MgF\263w\263\312h\366~?\037\235\377\224\254W\323\365tk4\273\2248i)\255\320@\330\317\331l9Y?\237\273r\355~\326\036\315\336\313D\361a\331\314\331\354\307\337\237\364\216\3418\367\263\236\223\224\222\nYt\257\232\224&,\267\223\177g\037g\337\r\004-\266Gs\277N\217\207\367\376\374\016\273""\257\341\330\353\363\275\315\344V\262>\232_L\276J_f\225l\263\177\253\217\351'\275N\262\217\\\027Jg\363\267\207\267\357e\215\376V\377`\360x\260Gk\307\224\246]\273\225\254$\337e\"\353\364\3771\330\242%\223l$\355\321\302R\242\322v6\003p\010\261\321\213\220\323\374\235\341\235\265\376\313Ae\264\260\230|\001h\360~\233\226\001\233\016ZH\256%\007\351\037\263\255lo\264PN\236\246{\251\013\232\026\177\211\301av4(\017^\275\253\234-~\226\256f\353\243;\237\236\317_\271\376IO\016\313\313\331z\366U\377\305`f4w\003\201\014a\271\225<\260\247\222\323|\357\tQ1\232/\017\313\217\006\004\210\222\013(J\351\277\377\003d8\237\177t\345f9Y\031\376\274\232\265\373s\203\217\006\356ie\n\343\267\331\314h\3616\271-\300\370\004\245\2302\226\200\351MZI\327\t\321&\n\273\234\356g?\311\226\263\203\376z\177\273\037\r\226\006\355\323\253\247ON\305\010\300\036d[\004l\356\312\315\305a\3711\321\364\177\245:\231-\320\376.\271\232S\260\226\212\264M\374\177\226\336\311J\240r\356f\357MR\311+\002\217\273Yu\270\272\375\216F\303\273\233\203\372\351\314\031\030\304\364\027\351\227\303\345\317O\367N\305\331\334\365\321\374o\262\027\375\231~ib\260\222\375\275_\352\203\t\226]\005\373(\373\257R\307\206\200\017f(I\361A\361(\253\005Ri\236\336fRN\340\262\220\314$%\212\367\373d9\331\233\230?\265\252\313\347\350\030\010\177\351R\3007\2067\036\364+\375u\222r\334\333\356\265I\347\036\021L:\377'\224\322\310\266\260k\351\375]\253\224\357\217\356\372\346\007te.\001";
+    PyObject *data = __Pyx_DecompressString(cstring, 1858, 1);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #else /* compression: none (3378 bytes) */
-const char* const bytes = ": All dimensions preceding dimension %d must be indexed and not slicedBuffer view does not expose stridesCan only create a buffer that is contiguous in memory.Cannot assign to read-only memoryviewCannot create writable memory view from read-only memoryviewCannot index with type 'Cannot transpose memoryview with indirect dimensionsDimension %d is not directEach global range dimension must be divisible by the corresponding local range dimension.Empty shape tuple for cython.arrayGlobal range must have 1, 2 or 3 dimensions.Index out of bounds (axis %d)Indirect dimensions not supportedInvalid mode, expected 'c' or 'fortran', got Invalid shape in axis Local and global ranges must have the same dimensions.Local range must have 1, 2 or 3 dimensions.<MemoryView of Note that Cython is deliberately stricter than PEP-484 and rejects subclasses of builtin types. If you need to pass subclasses then set the 'annotation_typing' directive to False.Out of bounds on buffer access (axis SYnergy kernel submission failed.Step may not be zero (axis %d)Unable to convert item to objectUnable to create native SYnergy busy kernel.Unsupported type for a kernel argument.>')?add_note and  at 0xbindings/_synergy_submit.pyxcollections.abc<contiguous and direct><contiguous and indirect>dEvents must be a sequence of dpctl.SyclEventdisableenablegc (got got differing extents in dimension isenableditemsize <= 0 for cython.arrayno default __reduce__ due to non-trivial __cinit__ object><strided and direct><strided and direct or indirect><strided and indirect>unable to allocate array data.unable to allocate shape and strides.ASCIIEllipsis__Pyx_PyDict_NextRefSYnergyBusyKernelSequenceView.MemoryViewabcadapterallocate_bufferargsasyncio.coroutinesbasebindings._synergy_submitc__class____class_getitem__cline_in_tracebackcore_frequencycountcreate_busy_kerneldEventsdevice_energy_afterdevice_energy_beforedevice_energy_consumptiondevice_energy_delta__dict__dtype_is_objectencodeenumerateerrorflagsformatfortran__func""__gS__getstate__id__import__index_is_coroutineitemsitemsizekernelkernel_energykernel_energy_consumptionlS__main__memviewmode__module__name__name___native_handlendim__new__objpackpop__pyx_checksum__pyx_state__pyx_type__pyx_unpickle_Enum__pyx_vtable____qualname__queue__reduce____reduce_cython____reduce_ex__register__set_name__setdefault__setstate____setstate_cython__shapesizestartstepstopstructsubmit__test__uncore_frequencyunpackupdateuse_device_profilinguse_frequency_scalinguse_kernel_profilingvaluesx\200\001\3604\000\005\031\230\001\330\004\"\240!\330\004(\250\001\330\004\"\240!\360\n\000\005\031\230\003\2301\230A\330\004\026\220c\230\021\230!\330\004\026\220a\330\004\026\220a\340\004\023\2201\360\010\000\005(\240q\330\004&\240a\330\004&\240a\330\004 \240\001\340\004\007\200x\210w\220a\330\010\016\210c\220\021\220!\340\004\007\200s\210'\220\021\330\010\016\210c\220\021\220!\340\004\025\220[\240\007\240\177\260a\340\004\007\200q\330\010\037\230w\320&@\300\001\340\004\005\360\010\000\t\014\2106\220\022\2201\330\014\024\220H\230F\240!\2406\250\022\2501\330\014\017\210v\220S\230\001\330\020\021\340\014\025\320\025&\240f\250A\250V\2602\260Q\330\014\017\210w\220c\230\021\330\020\021\340\014\022\220%\220\177\240a\240v\250W\260A\330\014\017\210t\2204\220q\330\020\026\220i\230q\240\001\360\n\000\t\014\2104\210r\220\021\330\014\030\320\030,\250F\260!\330\020\024\220B\220a\340\014\017\210z\230\023\230A\330\020\021\340\014\020\220\005\220V\2309\240A\240Q\330\020\023\220:\230Q\230d\240!\330\024\035\230Q\230h\240k\260\023\260N\300!\340\024\032\230)\2401\330\030\031\360\014\000\t\017\210e\320\023#\2401\240H\250D\260\001\330\010\013\2104\210t\2201\330\014\022\220*\230A\330\020\021\360\014\000\t\014\2103\210c\220\021\330\014\023\320\0230\260\001\330\020\021\330\020\026\220o\240Q\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\025\320\0250\260\001\360\006\000\r\023\220%\320\027'\240q\250\010\260\006\260d\270!\330""\014\017\210t\2204\220q\330\020\026\220j\240\001\330\024\025\360\006\000\r\020\210t\2203\220a\330\020\026\220j\240\001\330\024\025\360\006\000\r\021\220\005\220U\230!\2301\330\020\023\2206\230\021\230#\230S\240\002\240#\240V\2501\250C\250r\260\026\260q\270\003\2703\270a\330\024\032\230*\240A\330\030\031\360\010\000\r\024\320\0232\260!\330\020\021\330\020\026\220o\240Q\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\025\320\0250\260\001\360\006\000\t\014\2105\220\003\2201\330\014\022\220,\230a\230q\360\n\000\t\032\230\030\240\021\240!\330\010\r\210U\220!\360\n\000\t\014\2101\330\014\"\240'\320)C\3001\330\014\"\320\"6\260b\270\001\340\010\013\2101\330\014\034\230G\320#=\270Q\270a\340\010\t\330\014$\240D\250\001\250\021\330\014$\240D\250\001\250\021\330\014%\240T\250\021\250!\330\014 \240\003\2401\240A\330\014\036\230c\240\021\240!\330\014$\240A\330\014#\2401\330\014#\2401\330\014\035\230Q\360\006\000\t\020\210w\220a\360\006\000\t\014\2106\220\023\220A\330\014\020\220\001\220\021\340\010\013\2107\220#\220Q\330\014\020\220\001\220\021\340\010\013\210:\220S\230\001\330\014\020\220\001\220\021\200\001\360\026\000\005\026\220[\240\007\240\177\260a\340\004\013\320\013'\240q\250\001\340\004\007\200u\210C\210q\330\010\016\210l\230!\2301\340\004\025\220X\230Q\230f\240AO";
+    #else /* compression: none (3507 bytes) */
+const char* const bytes = ": All dimensions preceding dimension %d must be indexed and not slicedBuffer view does not expose stridesCan only create a buffer that is contiguous in memory.Cannot assign to read-only memoryviewCannot create writable memory view from read-only memoryviewCannot index with type 'Cannot transpose memoryview with indirect dimensionsDimension %d is not directEach global range dimension must be divisible by the corresponding local range dimension.Empty shape tuple for cython.arrayGlobal range must have 1, 2 or 3 dimensions.Index out of bounds (axis %d)Indirect dimensions not supportedInvalid mode, expected 'c' or 'fortran', got Invalid shape in axis Local and global ranges must have the same dimensions.Local range must have 1, 2 or 3 dimensions.<MemoryView of Note that Cython is deliberately stricter than PEP-484 and rejects subclasses of builtin types. If you need to pass subclasses then set the 'annotation_typing' directive to False.Out of bounds on buffer access (axis SYnergy kernel submission failed.Step may not be zero (axis %d)Unable to convert item to objectUnable to create native SYnergy busy kernel.Unable to crete vecprod kernelUnsupported type for a kernel argument.>')?add_note and  at 0xbindings/_synergy_submit.pyxcollections.abc<contiguous and direct><contiguous and indirect>dEvents must be a sequence of dpctl.SyclEventdisableenablegc (got got differing extents in dimension isenableditemsize <= 0 for cython.arrayno default __reduce__ due to non-trivial __cinit__ object><strided and direct><strided and direct or indirect><strided and indirect>unable to allocate array data.unable to allocate shape and strides.ASCIIEllipsis__Pyx_PyDict_NextRefSYnergyVecAddKernelSYnergyVecProdKernelSequenceView.MemoryViewabcadapterallocate_bufferargsasyncio.coroutinesbasebindings._synergy_submitc__class____class_getitem__cline_in_tracebackcore_frequencycountcreate_vecadd_kernelcreate_vecprod_kerneldEventsdevice_energy_afterdevice_energy_beforedevice_energy_consumptiondevice_ener""gy_delta__dict__dtype_is_objectencodeenumerateerrorflagsformatfortran__func__gS__getstate__id__import__index_is_coroutineitemsitemsizekernelkernel_energykernel_energy_consumptionlS__main__memviewmode__module__name__name___native_handlendim__new__objpackpop__pyx_checksum__pyx_state__pyx_type__pyx_unpickle_Enum__pyx_vtable____qualname__queue__reduce____reduce_cython____reduce_ex__register__set_name__setdefault__setstate____setstate_cython__shapesizestartstepstopstructsubmit__test__uncore_frequencyunpackupdateuse_device_profilinguse_frequency_scalinguse_kernel_profilingvaluesx\200\001\3604\000\005\031\230\001\330\004\"\240!\330\004(\250\001\330\004\"\240!\360\n\000\005\031\230\003\2301\230A\330\004\026\220c\230\021\230!\330\004\026\220a\330\004\026\220a\340\004\023\2201\360\010\000\005(\240q\330\004&\240a\330\004&\240a\330\004 \240\001\340\004\007\200x\210w\220a\330\010\016\210c\220\021\220!\340\004\007\200s\210'\220\021\330\010\016\210c\220\021\220!\340\004\025\220[\240\007\240\177\260a\340\004\007\200q\330\010\037\230w\320&@\300\001\340\004\005\360\010\000\t\014\2106\220\022\2201\330\014\024\220H\230F\240!\2406\250\022\2501\330\014\017\210v\220S\230\001\330\020\021\340\014\025\320\025&\240f\250A\250V\2602\260Q\330\014\017\210w\220c\230\021\330\020\021\340\014\022\220%\220\177\240a\240v\250W\260A\330\014\017\210t\2204\220q\330\020\026\220i\230q\240\001\360\n\000\t\014\2104\210r\220\021\330\014\030\320\030,\250F\260!\330\020\024\220B\220a\340\014\017\210z\230\023\230A\330\020\021\340\014\020\220\005\220V\2309\240A\240Q\330\020\023\220:\230Q\230d\240!\330\024\035\230Q\230h\240k\260\023\260N\300!\340\024\032\230)\2401\330\030\031\360\014\000\t\017\210e\320\023#\2401\240H\250D\260\001\330\010\013\2104\210t\2201\330\014\022\220*\230A\330\020\021\360\014\000\t\014\2103\210c\220\021\330\014\023\320\0230\260\001\330\020\021\330\020\026\220o\240Q\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\025\320\0250""\260\001\360\006\000\r\023\220%\320\027'\240q\250\010\260\006\260d\270!\330\014\017\210t\2204\220q\330\020\026\220j\240\001\330\024\025\360\006\000\r\020\210t\2203\220a\330\020\026\220j\240\001\330\024\025\360\006\000\r\021\220\005\220U\230!\2301\330\020\023\2206\230\021\230#\230S\240\002\240#\240V\2501\250C\250r\260\026\260q\270\003\2703\270a\330\024\032\230*\240A\330\030\031\360\010\000\r\024\320\0232\260!\330\020\021\330\020\026\220o\240Q\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\021\330\020\025\320\0250\260\001\360\006\000\t\014\2105\220\003\2201\330\014\022\220,\230a\230q\360\n\000\t\032\230\030\240\021\240!\330\010\r\210U\220!\360\n\000\t\014\2101\330\014\"\240'\320)C\3001\330\014\"\320\"6\260b\270\001\340\010\013\2101\330\014\034\230G\320#=\270Q\270a\340\010\t\330\014$\240D\250\001\250\021\330\014$\240D\250\001\250\021\330\014%\240T\250\021\250!\330\014 \240\003\2401\240A\330\014\036\230c\240\021\240!\330\014$\240A\330\014#\2401\330\014#\2401\330\014\035\230Q\360\006\000\t\020\210w\220a\360\006\000\t\014\2106\220\023\220A\330\014\020\220\001\220\021\340\010\013\2107\220#\220Q\330\014\020\220\001\220\021\340\010\013\210:\220S\230\001\330\014\020\220\001\220\021\200\001\360\010\000\005\026\220[\240\007\240\177\260a\340\004\013\320\013*\250!\2501\340\004\007\200u\210C\210q\330\010\016\210l\230!\2301\340\004\025\220X\230Q\230f\240A\200\001\360\026\000\005\026\220[\240\007\240\177\260a\340\004\013\320\013)\250\021\250!\340\004\007\200u\210C\210q\330\010\016\210l\230!\2301\340\004\025\220X\230Q\230f\240AO";
     PyObject *data = NULL;
     CYTHON_UNUSED_VAR(__Pyx_DecompressString);
     #endif
     PyObject **stringtab = __pyx_mstate->__pyx_string_tab;
     Py_ssize_t pos = 0;
-    for (int i = 0; i < 142; i++) {
+    for (int i = 0; i < 145; i++) {
       Py_ssize_t bytes_length = index[i].length;
       PyObject *string = PyUnicode_DecodeUTF8(bytes + pos, bytes_length, NULL);
-      if (likely(string) && i >= 53) PyUnicode_InternInPlace(&string);
+      if (likely(string) && i >= 54) PyUnicode_InternInPlace(&string);
       if (unlikely(!string)) {
         Py_XDECREF(data);
         __PYX_ERR(0, 1, __pyx_L1_error)
@@ -21209,7 +21474,7 @@ const char* const bytes = ": All dimensions preceding dimension %d must be index
       stringtab[i] = string;
       pos += bytes_length;
     }
-    for (int i = 142; i < 145; i++) {
+    for (int i = 145; i < 149; i++) {
       Py_ssize_t bytes_length = index[i].length;
       PyObject *string = PyBytes_FromStringAndSize(bytes + pos, bytes_length);
       stringtab[i] = string;
@@ -21220,15 +21485,15 @@ const char* const bytes = ": All dimensions preceding dimension %d must be index
       }
     }
     Py_XDECREF(data);
-    for (Py_ssize_t i = 0; i < 145; i++) {
+    for (Py_ssize_t i = 0; i < 149; i++) {
       if (unlikely(PyObject_Hash(stringtab[i]) == -1)) {
         __PYX_ERR(0, 1, __pyx_L1_error)
       }
     }
     #if CYTHON_IMMORTAL_CONSTANTS
     {
-      PyObject **table = stringtab + 142;
-      for (Py_ssize_t i=0; i<3; ++i) {
+      PyObject **table = stringtab + 145;
+      for (Py_ssize_t i=0; i<4; ++i) {
         #if CYTHON_COMPILING_IN_CPYTHON_FREETHREADING
         #if PY_VERSION_HEX < 0x030E0000
         if (_Py_IsOwnedByCurrentThread(table[i]) && Py_REFCNT(table[i]) == 1)
@@ -21301,14 +21566,19 @@ static int __Pyx_CreateCodeObjects(__pyx_mstatetype *__pyx_mstate) {
   PyObject* tuple_dedup_map = PyDict_New();
   if (unlikely(!tuple_dedup_map)) return -1;
   {
-    const __Pyx_PyCode_New_function_description descr = {12, 0, 0, 12, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 56};
+    const __Pyx_PyCode_New_function_description descr = {12, 0, 0, 12, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 61};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_queue, __pyx_mstate->__pyx_n_u_adapter, __pyx_mstate->__pyx_n_u_kernel, __pyx_mstate->__pyx_n_u_args, __pyx_mstate->__pyx_n_u_gS, __pyx_mstate->__pyx_n_u_lS, __pyx_mstate->__pyx_n_u_dEvents, __pyx_mstate->__pyx_n_u_use_device_profiling, __pyx_mstate->__pyx_n_u_use_kernel_profiling, __pyx_mstate->__pyx_n_u_use_frequency_scaling, __pyx_mstate->__pyx_n_u_uncore_frequency, __pyx_mstate->__pyx_n_u_core_frequency};
     __pyx_mstate_global->__pyx_codeobj_tab[0] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_bindings__synergy_submit_pyx, __pyx_mstate->__pyx_n_u_submit, __pyx_mstate->__pyx_kp_b_iso88591_4_1A_c_a_a_1_q_a_a_xwa_c_s_c_a, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[0])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 1, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 256};
+    const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 1, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 261};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_adapter};
-    __pyx_mstate_global->__pyx_codeobj_tab[1] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_bindings__synergy_submit_pyx, __pyx_mstate->__pyx_n_u_create_busy_kernel, __pyx_mstate->__pyx_kp_b_iso88591_a_q_uCq_l_1_XQfA, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[1])) goto bad;
+    __pyx_mstate_global->__pyx_codeobj_tab[1] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_bindings__synergy_submit_pyx, __pyx_mstate->__pyx_n_u_create_vecadd_kernel, __pyx_mstate->__pyx_kp_b_iso88591_a_uCq_l_1_XQfA, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[1])) goto bad;
+  }
+  {
+    const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 1, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 282};
+    PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_adapter};
+    __pyx_mstate_global->__pyx_codeobj_tab[2] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_bindings__synergy_submit_pyx, __pyx_mstate->__pyx_n_u_create_vecprod_kernel, __pyx_mstate->__pyx_kp_b_iso88591_a_1_uCq_l_1_XQfA, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[2])) goto bad;
   }
   Py_DECREF(tuple_dedup_map);
   return 0;

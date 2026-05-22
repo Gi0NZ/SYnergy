@@ -1,13 +1,10 @@
 CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o: \
-  /home/giovanni/HPC/SYnergy/binding/gpu_synergy_profiling_binding.cpp \
-  /home/giovanni/miniconda3/include/pybind11/pybind11.h \
-  /home/giovanni/miniconda3/include/pybind11/detail/class.h \
-  /home/giovanni/miniconda3/include/pybind11/attr.h \
-  /home/giovanni/miniconda3/include/pybind11/detail/common.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/optional \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/experimental/optional \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/variant \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/string_view \
+  /home/giovanni/HPC/dpctl/SYnergy/binding/gpu_synergy_profiling_binding.cpp \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/pybind11.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/class.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/attr.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/common.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/conduit/wrap_include_python_h.h \
   /home/giovanni/miniconda3/envs/dev_dpctl/include/python3.12/Python.h \
   /home/giovanni/miniconda3/envs/dev_dpctl/include/python3.12/patchlevel.h \
   /home/giovanni/miniconda3/envs/dev_dpctl/include/python3.12/pyconfig.h \
@@ -300,6 +297,13 @@ CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o: \
   /home/giovanni/miniconda3/envs/dev_dpctl/include/python3.12/tracemalloc.h \
   /home/giovanni/miniconda3/envs/dev_dpctl/include/python3.12/frameobject.h \
   /home/giovanni/miniconda3/envs/dev_dpctl/include/python3.12/cpython/frameobject.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/pybind11_namespace_macros.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/filesystem \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/barrier \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/optional \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/experimental/optional \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/variant \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/string_view \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstddef \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/__stddef_header_macro.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/__stddef_ptrdiff_t.h \
@@ -395,11 +399,10 @@ CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o: \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_bvector.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/vector.tcc \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/version \
-  /home/giovanni/miniconda3/include/pybind11/cast.h \
-  /home/giovanni/miniconda3/include/pybind11/detail/descr.h \
-  /home/giovanni/miniconda3/include/pybind11/detail/type_caster_base.h \
-  /home/giovanni/miniconda3/include/pybind11/pytypes.h \
-  /home/giovanni/miniconda3/include/pybind11/buffer_info.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/cast.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/argument_vector.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/pytypes.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/buffer_info.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/iterator \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stream_iterator.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/streambuf_iterator.h \
@@ -412,12 +415,33 @@ CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o: \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/streambuf.tcc \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/utility \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_relops.h \
-  /home/giovanni/miniconda3/include/pybind11/detail/cpp_conduit.h \
-  /home/giovanni/miniconda3/include/pybind11/detail/internals.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/algorithm \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_algo.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/algorithmfwd.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_heap.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/uniform_int_dist.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/pstl/glue_algorithm_defs.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/array \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/compare \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/descr.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/holder_caster_foreign_helpers.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/gil.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/internals.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/conduit/pybind11_platform_abi_id.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/gil_simple.h \
+  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/stl_wrappers/cassert \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cassert \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/trampoline_self_life_support.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/using_smart_holder.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/struct_smart_holder.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/functional \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/std_function.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/value_and_holder.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/atomic \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/mutex \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/chrono.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/ratio \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/ctime \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/parse_numbers.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/std_mutex.h \
@@ -425,28 +449,41 @@ CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o: \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/thread \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/std_thread.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/this_thread_sleep.h \
-  /home/giovanni/miniconda3/include/pybind11/detail/typeid.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/native_enum_data.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/../pytypes.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/sstream \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/istream \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/ios \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/basic_ios.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/locale_facets.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cwctype \
+  /usr/include/wctype.h \
+  /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/locale_facets.tcc \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/basic_ios.tcc \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/ostream \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/ostream.tcc \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/istream.tcc \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/sstream.tcc \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/type_caster_base.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/cpp_conduit.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/dynamic_raw_ptr_cast_if_possible.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/typeid.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cxxabi.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/x86_64-linux-gnu/c++/13/bits/cxxabi_tweaks.h \
-  /home/giovanni/miniconda3/include/pybind11/detail/value_and_holder.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/array \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/compare \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/functional \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/std_function.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_algo.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/algorithmfwd.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_heap.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/uniform_int_dist.h \
-  /home/giovanni/miniconda3/include/pybind11/options.h \
-  /home/giovanni/miniconda3/include/pybind11/detail/exception_translation.h \
-  /home/giovanni/miniconda3/include/pybind11/detail/init.h \
-  /home/giovanni/miniconda3/include/pybind11/gil.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/stl_wrappers/cassert \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cassert \
-  /home/giovanni/miniconda3/include/pybind11/gil_safe_call_once.h \
-  /home/giovanni/miniconda3/include/pybind11/typing.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/algorithm \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/pstl/glue_algorithm_defs.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/options.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/exception_translation.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/function_record_pyobject.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/detail/init.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/gil_safe_call_once.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/lib/python3.12/site-packages/pybind11/include/pybind11/typing.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/stack \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/deque \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_deque.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/deque.tcc \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_stack.h \
   /home/giovanni/HPC/dpctl/dpctl/include/dpctl4pybind11.hpp \
   /home/giovanni/HPC/dpctl/dpctl/include/dpctl_capi.h \
   /home/giovanni/HPC/dpctl/dpctl/include/syclinterface/dpctl_sycl_types.h \
@@ -472,22 +509,6 @@ CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o: \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/stl_wrappers/complex \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../opt/compiler/include/complex \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/complex \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/sstream \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/istream \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/ios \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/basic_ios.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/locale_facets.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cwctype \
-  /usr/include/wctype.h \
-  /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/locale_facets.tcc \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/basic_ios.tcc \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/ostream \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/ostream.tcc \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/istream.tcc \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/sstream.tcc \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/__spirv/spirv_ops.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/__spirv/spirv_types.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/defines.hpp \
@@ -501,7 +522,6 @@ CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o: \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/aliases.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/helpers.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/memory_enums.hpp \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/atomic \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/type_traits.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/type_traits/vec_marray_traits.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/multi_ptr.hpp \
@@ -621,14 +641,14 @@ CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o: \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/ext/oneapi/experimental/work_group_memory.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/handler.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/cl.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl_version.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl_platform.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl_version.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl_platform.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/xmmintrin.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/mmintrin.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/mm_malloc.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/emmintrin.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl_ext.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl_ext.h \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/id_queries_fit_in_int.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/kernel_launch_helper.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/ext/intel/experimental/fp_control_kernel_properties.hpp \
@@ -766,7 +786,6 @@ CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o: \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/x86_64-linux-gnu/c++/13/bits/c++io.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/fstream.tcc \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/filesystem \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/fs_fwd.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/fs_path.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/locale \
@@ -801,23 +820,24 @@ CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o: \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/khr/group_interface.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/khr/static_addrspace_cast.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/khr/work_item_queries.hpp \
-  /home/giovanni/HPC/SYnergy/binding/synergy_queue_adapter.hpp \
-  /home/giovanni/HPC/SYnergy/include/synergy.hpp \
-  /home/giovanni/HPC/SYnergy/include/queue.hpp \
-  /home/giovanni/HPC/SYnergy/include/kernel.hpp \
-  /home/giovanni/HPC/SYnergy/include/profiling_manager.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/binding/synergy_queue_adapter.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/synergy.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/queue.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/kernel.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/profiling_manager.hpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/future \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/condition_variable \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/atomic_futex.h \
-  /home/giovanni/HPC/SYnergy/include/device.hpp \
-  /home/giovanni/HPC/SYnergy/include/device_impl.hpp \
-  /home/giovanni/HPC/SYnergy/include/management_wrapper.hpp \
-  /home/giovanni/HPC/SYnergy/include/types.hpp \
-  /home/giovanni/HPC/SYnergy/include/profilers.hpp \
-  /home/giovanni/HPC/SYnergy/include/runtime.hpp \
-  /home/giovanni/HPC/SYnergy/include/vendor_implementations.hpp \
-  /home/giovanni/HPC/SYnergy/include/vendors/nvml_wrapper.hpp \
-  /usr/include/nvml.h \
-  /home/giovanni/HPC/SYnergy/include/vendors/../management_wrapper.hpp \
-  /home/giovanni/HPC/SYnergy/include/profiling/sycl_profiler.hpp \
-  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/chrono
+  /home/giovanni/HPC/dpctl/SYnergy/include/device.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/device_impl.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/management_wrapper.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/types.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/profilers.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/runtime.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/vendor_implementations.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/vendors/nvml_wrapper.hpp \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/nvml.h \
+  /home/giovanni/HPC/dpctl/SYnergy/include/vendors/../management_wrapper.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/profiling/sycl_profiler.hpp \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/chrono \
+  /home/giovanni/HPC/dpctl/SYnergy/binding/synergy_device_adapter.hpp

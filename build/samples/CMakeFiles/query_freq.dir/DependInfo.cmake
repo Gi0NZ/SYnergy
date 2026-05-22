@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/giovanni/HPC/SYnergy/samples/query_freq/query_freq.cpp" "samples/CMakeFiles/query_freq.dir/query_freq/query_freq.cpp.o" "gcc" "samples/CMakeFiles/query_freq.dir/query_freq/query_freq.cpp.o.d"
+  "/home/giovanni/HPC/dpctl/SYnergy/samples/query_freq/query_freq.cpp" "samples/CMakeFiles/query_freq.dir/query_freq/query_freq.cpp.o" "gcc" "samples/CMakeFiles/query_freq.dir/query_freq/query_freq.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

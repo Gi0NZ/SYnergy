@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/giovanni/HPC/SYnergy/samples/freq_scale/freq_scale.cpp" "samples/CMakeFiles/freq_scale.dir/freq_scale/freq_scale.cpp.o" "gcc" "samples/CMakeFiles/freq_scale.dir/freq_scale/freq_scale.cpp.o.d"
+  "/home/giovanni/HPC/dpctl/SYnergy/samples/freq_scale/freq_scale.cpp" "samples/CMakeFiles/freq_scale.dir/freq_scale/freq_scale.cpp.o" "gcc" "samples/CMakeFiles/freq_scale.dir/freq_scale/freq_scale.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

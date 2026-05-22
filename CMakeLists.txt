@@ -239,6 +239,34 @@ target_compile_options(_synergy_submit PRIVATE
 
 target_link_libraries(_synergy_submit PRIVATE synergy)
 
+set(DPCTL_SYCL_INTERFACE_LIB
+    "${DPCTL_ROOT}/dpctl/libDPCTLSyclInterface.so"
+)
+
+if(NOT EXISTS "${DPCTL_SYCL_INTERFACE_LIB}")
+    message(FATAL_ERROR
+        "libDPCTLSyclInterface.so not found at ${DPCTL_SYCL_INTERFACE_LIB}"
+    )
+endif()
+
+target_link_libraries(_synergy_submit PRIVATE
+    "${DPCTL_SYCL_INTERFACE_LIB}"
+)
+
+set_target_properties(_synergy_submit PROPERTIES
+    BUILD_RPATH "${DPCTL_ROOT}/dpctl"
+    INSTALL_RPATH "${DPCTL_ROOT}/dpctl"
+)
+
+target_link_libraries(_synergy_native PRIVATE
+    "${DPCTL_SYCL_INTERFACE_LIB}"
+)
+
+set_target_properties(_synergy_native PROPERTIES
+    BUILD_RPATH "${DPCTL_ROOT}/dpctl"
+    INSTALL_RPATH "${DPCTL_ROOT}/dpctl"
+)
+
 target_compile_definitions(_synergy_submit PRIVATE
     SYNERGY_DEVICE_PROFILING
     SYNERGY_KERNEL_PROFILING

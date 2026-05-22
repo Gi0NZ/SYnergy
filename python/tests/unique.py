@@ -60,8 +60,9 @@ def check_result(q: SYnergyQueue, c_dev, c_host, expected_value: float = 3.0) ->
 def main() -> int:
     print("=== Creating SYnergyQueue ===")
 
-    q = dpctl.SyclQueue(
-        DEVICE_SELECTOR
+    q = SYnergyQueue(
+        DEVICE_SELECTOR, 
+        execution_backend="synergy"
     )
 
     print("Device:", q.synergy_device_name)
@@ -70,14 +71,14 @@ def main() -> int:
     print()
 
    
-    if not hasattr(synergy_submit, "create_busy_kernel"):
+    if not hasattr(synergy_submit, "create_vecadd_kernel"):
         raise RuntimeError(
-            "bindings._synergy_submit does not expose create_busy_kernel(). "
+            "bindings._synergy_submit does not expose create_vecadd_kernel(). "
             "Make sure _synergy_submit has been compiled correctly."
         )
     
     #Creation of SyclKernel - needed for submit
-    kernel = synergy_submit.create_busy_kernel(q._adapter)
+    kernel = synergy_submit.create_vecadd_kernel(q._adapter)
 
     print("Kernel:", kernel)
 

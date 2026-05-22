@@ -1,5 +1,5 @@
 samples/CMakeFiles/learningtests.dir/learningtests/learningtests.cpp.o: \
-  /home/giovanni/HPC/SYnergy/samples/learningtests/learningtests.cpp \
+  /home/giovanni/HPC/dpctl/SYnergy/samples/learningtests/learningtests.cpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/sycl.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/core.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/accessor.hpp \
@@ -395,15 +395,15 @@ samples/CMakeFiles/learningtests.dir/learningtests/learningtests.cpp.o: \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/ext/oneapi/experimental/work_group_memory.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/handler.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/cl.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl_version.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl_platform.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl_version.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl_platform.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/xmmintrin.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/mmintrin.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/mm_malloc.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/stdlib.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/emmintrin.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl_ext.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl_ext.h \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/id_queries_fit_in_int.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/kernel_launch_helper.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/ext/intel/experimental/fp_control_kernel_properties.hpp \

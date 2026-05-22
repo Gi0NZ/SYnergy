@@ -21,6 +21,7 @@ class SYnergyQueue(dpctl.SyclQueue):
     **kwargs,
     ):
         property = cls._ensure_synergy_properties(property)
+        args, _ = cls._unwrap_synergy_device_args(args)
         return super().__new__(cls, *args, property=property, **kwargs)
 
     def __init__(
@@ -35,12 +36,16 @@ class SYnergyQueue(dpctl.SyclQueue):
             raise ValueError(
                 "execution_backend must be one of: 'synergy', 'dpctl', 'auto'."
             )
+        args, synergy_device = self._unwrap_synergy_device_args(args)
+        self._synergy_device = synergy_device
 
         self._adapter = None
         self._adapter_error = None
         self._execution_backend = execution_backend
         self._last_event = None
         self._profile_log = []
+
+        
 
         if execution_backend == "dpctl":
             return
@@ -499,10 +504,21 @@ class SYnergyQueue(dpctl.SyclQueue):
             self._adapter.wait()
 
     @property
+    def synergy_device(self):
+        if self._synergy_device is not None:
+            return self._synergy_device
+
+        try:
+            from .synergy_device import SYnergyDevice
+        except ImportError:
+            from bindings.synergy_device import SYnergyDevice
+
+        self._synergy_device = SYnergyDevice(self.sycl_device)
+        return self._synergy_device
+    
+    @property
     def synergy_device_name(self):
-        if self._adapter is not None:
-            return self._adapter.device_name()
-        return self.sycl_device.name
+        return self.synergy_device.name
 
 
     @property
@@ -556,3 +572,21 @@ class SYnergyQueue(dpctl.SyclQueue):
             )
         return self._adapter.kernel_energy_consumption(event)
     
+
+    @staticmethod
+    def _unwrap_synergy_device_args(args):
+        if not args:
+            return args, None
+
+        try:
+            from .synergy_device import SYnergyDevice
+        except ImportError:
+            from bindings.synergy_device import SYnergyDevice
+
+        first = args[0]
+
+        if isinstance(first, SYnergyDevice):
+            return (first.dpctl_device,) + args[1:], first
+
+        return args, None
+        

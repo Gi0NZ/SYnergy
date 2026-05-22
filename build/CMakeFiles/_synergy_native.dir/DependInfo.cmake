@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/giovanni/HPC/SYnergy/binding/gpu_synergy_profiling_binding.cpp" "CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o" "gcc" "CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o.d"
+  "/home/giovanni/HPC/dpctl/SYnergy/binding/gpu_synergy_profiling_binding.cpp" "CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o" "gcc" "CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

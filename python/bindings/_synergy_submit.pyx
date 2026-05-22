@@ -48,7 +48,12 @@ cdef extern from "syclinterface/dpctl_sycl_synergy_queue_interface.h":
         int UseFrequencyScaling
     )
 cdef extern from "synergy_test_kernels.hpp":
-    DPCTLSyclKernelRef SYnergyTest_CreateBusyKernel(
+    DPCTLSyclKernelRef SYnergyTest_CreateVecAddKernel(
+        uintptr_t AdapterHandle
+    )
+
+cdef extern from "synergy_test_kernels.hpp":
+    DPCTLSyclKernelRef SYnergyTest_CreateVecprodKernel(
         uintptr_t AdapterHandle
     )
 
@@ -253,7 +258,7 @@ cpdef submit(
             free(depEvents)
 
 
-cpdef create_busy_kernel(object adapter):
+cpdef create_vecadd_kernel(object adapter):
     """
     Crea un dpctl.program.SyclKernel di test, compilato nativamente nel modulo
     SYCL/C++ per il backend corrente.
@@ -266,9 +271,23 @@ cpdef create_busy_kernel(object adapter):
 
     adapter_handle = <uintptr_t>adapter._native_handle()
 
-    KRef = SYnergyTest_CreateBusyKernel(adapter_handle)
+    KRef = SYnergyTest_CreateVecAddKernel(adapter_handle)
 
     if KRef == NULL:
         raise RuntimeError("Unable to create native SYnergy busy kernel.")
 
-    return SyclKernel._create(KRef, "SYnergyBusyKernel")
+    return SyclKernel._create(KRef, "SYnergyVecAddKernel")
+
+
+cpdef create_vecprod_kernel(object adapter):
+    cdef uintptr_t adapter_handle
+    cdef DPCTLSyclKernelRef KRef
+
+    adapter_handle = <uintptr_t>adapter._native_handle()
+
+    KRef = SYnergyTest_CreateVecprodKernel(adapter_handle)
+
+    if KRef == NULL:
+        raise RuntimeError("Unable to crete vecprod kernel")
+
+    return SyclKernel._create(KRef, "SYnergyVecProdKernel")

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/giovanni/HPC/SYnergy/python/bindings/_synergy_native.cpython-312-x86_64-linux-gnu.so"
-  "/home/giovanni/HPC/SYnergy/python/bindings/_synergy_native.pdb"
+  "/home/giovanni/HPC/dpctl/SYnergy/python/bindings/_synergy_native.cpython-312-x86_64-linux-gnu.so"
+  "/home/giovanni/HPC/dpctl/SYnergy/python/bindings/_synergy_native.pdb"
   "CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o"
   "CMakeFiles/_synergy_native.dir/binding/gpu_synergy_profiling_binding.cpp.o.d"
 )

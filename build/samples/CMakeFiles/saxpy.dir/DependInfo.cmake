@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/giovanni/HPC/SYnergy/samples/saxpy/saxpy.cpp" "samples/CMakeFiles/saxpy.dir/saxpy/saxpy.cpp.o" "gcc" "samples/CMakeFiles/saxpy.dir/saxpy/saxpy.cpp.o.d"
+  "/home/giovanni/HPC/dpctl/SYnergy/samples/saxpy/saxpy.cpp" "samples/CMakeFiles/saxpy.dir/saxpy/saxpy.cpp.o" "gcc" "samples/CMakeFiles/saxpy.dir/saxpy/saxpy.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

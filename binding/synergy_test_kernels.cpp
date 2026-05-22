@@ -1,5 +1,7 @@
 #include "synergy_test_kernels.hpp"
 #include "synergy_queue_adapter.hpp"
+#include "kernels/vecprod_kernel.hpp"
+#include "kernels/vecadd_kernel.hpp"
 
 #include <sycl/sycl.hpp>
 #include <syclinterface/dpctl_sycl_type_casters.hpp>
@@ -8,7 +10,8 @@
 #include <iostream>
 #include <stdexcept>
 
-class SYnergyBusyKernel;
+class SYnergyVecAddKernel;
+class SYnergyVecProdKernel;
 
 /*
  * Functor esplicito per evitare problemi con l'ordine delle catture
@@ -22,36 +25,13 @@ class SYnergyBusyKernel;
  *   3. uint32_t n
  *   4. uint32_t repeat
  */
-struct SYnergyVectorAddFunctor {
-    float* a;
-    float* b;
-    float* c;
-    std::uint32_t n;
-    std::uint32_t repeat;
 
-    void operator()(sycl::id<1> idx) const {
-        std::uint32_t i = static_cast<std::uint32_t>(idx[0]);
-
-        if (i < n) {
-            float x = a[i];
-            float y = b[i];
-
-            float acc = 0.0f;
-
-            for (std::uint32_t r = 0; r < repeat; ++r) {
-                acc += x + y;
-            }
-
-            c[i] = acc / static_cast<float>(repeat);
-        }
-    }
-};
 
 /*
  * Questa funzione serve solo a far compilare il kernel nella device image.
  * La submit vera verrà fatta da Python passando il sycl::kernel a SYnergyQueue.submit().
  */
-void __synergy_define_busy_kernel(
+void __synergy_define_vecadd_kernel(
     sycl::queue& q,
     float* a,
     float* b,
@@ -68,7 +48,30 @@ void __synergy_define_busy_kernel(
     };
 
     q.submit([&](sycl::handler& h) {
-        h.parallel_for<SYnergyBusyKernel>(
+        h.parallel_for<SYnergyVecAddKernel>(
+            sycl::range<1>{n},
+            functor
+        );
+    });
+}
+
+void __synergy_define_vecprod_kernel(
+    sycl::queue& q,
+    float* a,
+    float* b,
+    float* c,
+    std::uint32_t n,
+    std::uint32_t repeat
+){
+    SYnergyVecProdFunctor functor{
+        a,
+        b,
+        c,
+        n,
+        repeat
+    };
+    q.submit([&](sycl::handler& h) {
+        h.parallel_for<SYnergyVecProdKernel>(
             sycl::range<1>{n},
             functor
         );
@@ -87,7 +90,7 @@ SYnergy_Queue_Adapter* adapter_from_handle(std::uintptr_t handle) {
 
 } // namespace
 
-extern "C" DPCTLSyclKernelRef SYnergyTest_CreateBusyKernel(
+extern "C" DPCTLSyclKernelRef SYnergyTest_CreateVecAddKernel(
     std::uintptr_t AdapterHandle
 ) {
     try {
@@ -97,7 +100,7 @@ extern "C" DPCTLSyclKernelRef SYnergyTest_CreateBusyKernel(
         auto ctx = q.get_context();
         auto dev = q.get_device();
 
-        auto kernel_id = sycl::get_kernel_id<SYnergyBusyKernel>();
+        auto kernel_id = sycl::get_kernel_id<SYnergyVecAddKernel>();
 
         auto bundle =
             sycl::get_kernel_bundle<sycl::bundle_state::executable>(
@@ -111,12 +114,46 @@ extern "C" DPCTLSyclKernelRef SYnergyTest_CreateBusyKernel(
             new sycl::kernel(kernel)
         );
     } catch (const std::exception& e) {
-        std::cerr << "SYnergyTest_CreateBusyKernel failed: "
+        std::cerr << "SYnergyTest_CreateVecAddKernel failed: "
                   << e.what()
                   << std::endl;
         return nullptr;
     } catch (...) {
-        std::cerr << "SYnergyTest_CreateBusyKernel failed: unknown exception"
+        std::cerr << "SYnergyTest_CreateVecAddKernel failed: unknown exception"
+                  << std::endl;
+        return nullptr;
+    }
+}
+
+extern "C" DPCTLSyclKernelRef SYnergyTest_CreateVecprodKernel(
+    std::uintptr_t AdapterHandle
+){
+    try { 
+        auto* adapter = adapter_from_handle(AdapterHandle);
+        
+        auto& q = adapter->native_queue();
+        auto ctx = q.get_context();
+        auto dev = q.get_device();
+
+        auto kernel_id = sycl::get_kernel_id<SYnergyVecProdKernel>();
+
+        auto bundle = 
+            sycl::get_kernel_bundle<sycl::bundle_state::executable>(
+                ctx,
+                {dev}
+            );
+        sycl::kernel kernel = bundle.get_kernel(kernel_id);
+
+        return ::dpctl::syclinterface::wrap<sycl::kernel>(
+            new sycl::kernel(kernel)
+        );
+    }catch (const std::exception& e){
+        std::cerr << "SYnergyTest_CreateVecprodKernel failed:"
+                  << e.what()
+                  << std::endl;
+        return nullptr;
+    }catch(...){
+        std::cerr << "SYnergyTest_CreateVecprodKernel failed"
                   << std::endl;
         return nullptr;
     }

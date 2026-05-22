@@ -9,7 +9,7 @@ from pathlib import Path
 import numpy as np
 import dpctl.memory as dpm
 
-from bindings import SYnergyQueue
+from bindings import SYnergyQueue, SYnergyDevice
 
 
 VECTOR_ADD_OPENCL_SOURCE = r"""
@@ -202,7 +202,7 @@ def test_direct_kernel_if_available(q: SYnergyQueue) -> str:
     """
     Temporary direct-kernel check.
 
-    This uses the existing create_busy_kernel helper only to verify the direct
+    This uses the existing create_vecadd_kernel helper only to verify the direct
     SyclKernel submit path while SPIR-V/OpenCL runtime creation is unsupported
     on the current CUDA-only setup.
     """
@@ -214,11 +214,11 @@ def test_direct_kernel_if_available(q: SYnergyQueue) -> str:
     try:
         import bindings._synergy_submit as synergy_submit
 
-        if not hasattr(synergy_submit, "create_busy_kernel"):
-            print("[SKIP] create_busy_kernel not available.")
+        if not hasattr(synergy_submit, "create_vecadd_kernel"):
+            print("[SKIP] create_vecadd_kernel not available.")
             return "SKIP"
 
-        kernel = synergy_submit.create_busy_kernel(q._adapter)
+        kernel = synergy_submit.create_vecadd_kernel(q._adapter)
 
         return run_vector_add_submit(
             "direct SyclKernel submit",
@@ -269,8 +269,16 @@ def test_opencl_source_submit(q: SYnergyQueue) -> str:
 
 
 def main():
+
+    """
     qg = SYnergyQueue("cuda:gpu:0", execution_backend="synergy")
     qc = SYnergyQueue("opencl:cpu:0", execution_backend="dpctl")
+    """
+    qg_dev = SYnergyDevice("cuda:gpu:0")
+    qc_dev = SYnergyDevice("opencl:cpu:0")
+
+    qg = SYnergyQueue(qg_dev, execution_backend="synergy")
+    qc = SYnergyQueue(qc_dev, execution_backend="dpctl")
 
     print("=== Queue GPU info ===")
     print("Device:", qg.synergy_device_name)

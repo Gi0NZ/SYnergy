@@ -1,11 +1,11 @@
 CMakeFiles/_synergy_submit.dir/binding/synergy_test_kernels.cpp.o: \
-  /home/giovanni/HPC/SYnergy/binding/synergy_test_kernels.cpp \
+  /home/giovanni/HPC/dpctl/SYnergy/binding/synergy_test_kernels.cpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/defines_elementary.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/kernel_desc.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/export.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/ext/oneapi/experimental/free_function_traits.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/access/access.hpp \
-  /home/giovanni/HPC/SYnergy/binding/synergy_test_kernels.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/binding/synergy_test_kernels.hpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/x86_64-linux-gnu/c++/13/bits/c++config.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -31,7 +31,7 @@ CMakeFiles/_synergy_submit.dir/binding/synergy_test_kernels.cpp.o: \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /home/giovanni/HPC/dpctl/dpctl/include/syclinterface/dpctl_sycl_types.h \
   /home/giovanni/HPC/dpctl/dpctl/include/syclinterface/Support/ExternC.h \
-  /home/giovanni/HPC/SYnergy/binding/synergy_queue_adapter.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/binding/synergy_queue_adapter.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/sycl.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/core.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/accessor.hpp \
@@ -399,15 +399,15 @@ CMakeFiles/_synergy_submit.dir/binding/synergy_test_kernels.cpp.o: \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/ext/oneapi/experimental/work_group_memory.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/handler.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/cl.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl_version.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl_platform.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl_version.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl_platform.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/xmmintrin.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/mmintrin.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/mm_malloc.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/stdlib.h \
   /opt/intel/oneapi/compiler/2025.3/lib/clang/21/include/emmintrin.h \
-  /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/CL/cl_ext.h \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/CL/cl_ext.h \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/id_queries_fit_in_int.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/detail/kernel_launch_helper.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/ext/intel/experimental/fp_control_kernel_properties.hpp \
@@ -592,28 +592,30 @@ CMakeFiles/_synergy_submit.dir/binding/synergy_test_kernels.cpp.o: \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/khr/group_interface.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/khr/static_addrspace_cast.hpp \
   /opt/intel/oneapi/compiler/2025.3/bin/compiler/../../include/sycl/khr/work_item_queries.hpp \
-  /home/giovanni/HPC/SYnergy/include/synergy.hpp \
-  /home/giovanni/HPC/SYnergy/include/queue.hpp \
-  /home/giovanni/HPC/SYnergy/include/kernel.hpp \
-  /home/giovanni/HPC/SYnergy/include/profiling_manager.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/synergy.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/queue.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/kernel.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/profiling_manager.hpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/future \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/condition_variable \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/atomic_futex.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/std_thread.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/thread \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/this_thread_sleep.h \
-  /home/giovanni/HPC/SYnergy/include/device.hpp \
-  /home/giovanni/HPC/SYnergy/include/device_impl.hpp \
-  /home/giovanni/HPC/SYnergy/include/management_wrapper.hpp \
-  /home/giovanni/HPC/SYnergy/include/types.hpp \
-  /home/giovanni/HPC/SYnergy/include/profilers.hpp \
-  /home/giovanni/HPC/SYnergy/include/runtime.hpp \
-  /home/giovanni/HPC/SYnergy/include/vendor_implementations.hpp \
-  /home/giovanni/HPC/SYnergy/include/vendors/nvml_wrapper.hpp \
-  /usr/include/nvml.h \
-  /home/giovanni/HPC/SYnergy/include/vendors/../management_wrapper.hpp \
-  /home/giovanni/HPC/SYnergy/include/profiling/sycl_profiler.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/device.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/device_impl.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/management_wrapper.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/types.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/profilers.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/runtime.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/vendor_implementations.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/vendors/nvml_wrapper.hpp \
+  /home/giovanni/miniconda3/envs/dev_dpctl/targets/x86_64-linux/include/nvml.h \
+  /home/giovanni/HPC/dpctl/SYnergy/include/vendors/../management_wrapper.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/include/profiling/sycl_profiler.hpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/chrono \
+  /home/giovanni/HPC/dpctl/SYnergy/binding/kernels/vecprod_kernel.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/binding/kernels/vecadd_kernel.hpp \
   /home/giovanni/HPC/dpctl/dpctl/include/syclinterface/dpctl_sycl_type_casters.hpp \
   /home/giovanni/HPC/dpctl/dpctl/include/syclinterface/dpctl_device_selection.hpp \
   /home/giovanni/HPC/dpctl/dpctl/include/syclinterface/Support/DllExport.h \

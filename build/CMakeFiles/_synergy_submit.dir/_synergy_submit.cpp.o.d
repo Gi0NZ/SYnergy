@@ -1,5 +1,5 @@
 CMakeFiles/_synergy_submit.dir/_synergy_submit.cpp.o: \
-  /home/giovanni/HPC/SYnergy/build/_synergy_submit.cpp \
+  /home/giovanni/HPC/dpctl/SYnergy/build/_synergy_submit.cpp \
   /home/giovanni/miniconda3/envs/dev_dpctl/include/python3.12/Python.h \
   /home/giovanni/miniconda3/envs/dev_dpctl/include/python3.12/patchlevel.h \
   /home/giovanni/miniconda3/envs/dev_dpctl/include/python3.12/pyconfig.h \
@@ -320,7 +320,7 @@ CMakeFiles/_synergy_submit.dir/_synergy_submit.cpp.o: \
   /home/giovanni/HPC/dpctl/dpctl/include/syclinterface/dpctl_sycl_synergy_queue_interface.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstddef \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint \
-  /home/giovanni/HPC/SYnergy/binding/synergy_test_kernels.hpp \
+  /home/giovanni/HPC/dpctl/SYnergy/binding/synergy_test_kernels.hpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/atomic \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/atomic_base.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/new \

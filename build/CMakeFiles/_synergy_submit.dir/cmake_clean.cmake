@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/giovanni/HPC/SYnergy/python/bindings/_synergy_submit.cpython-312-x86_64-linux-gnu.so"
-  "/home/giovanni/HPC/SYnergy/python/bindings/_synergy_submit.pdb"
+  "/home/giovanni/HPC/dpctl/SYnergy/python/bindings/_synergy_submit.cpython-312-x86_64-linux-gnu.so"
+  "/home/giovanni/HPC/dpctl/SYnergy/python/bindings/_synergy_submit.pdb"
   "CMakeFiles/_synergy_submit.dir/_synergy_submit.cpp.o"
   "CMakeFiles/_synergy_submit.dir/_synergy_submit.cpp.o.d"
   "CMakeFiles/_synergy_submit.dir/binding/synergy_test_kernels.cpp.o"
