@@ -1,0 +1,24 @@
+site_name: SYnergy Python Bindings
+theme:
+  name: material
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths:
+            - python
+          options:
+            docstring_style: numpy
+            show_source: true
+            show_signature_annotations: true
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Quickstart: quickstart.md
+  - Device Profiling: device_profiling.md
+  - Frequency Scaling: frequency_scaling.md
+  - Examples: examples.md
+  - API Reference: api.md

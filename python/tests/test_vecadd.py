@@ -21,7 +21,7 @@ def main():
     kernel = synergy_submit.create_vecadd_kernel(q._adapter)
 
     print("Kernel:", kernel.get_function_name())
-
+    a_host = np.full(n, 2.0, dtype=np.float32)
     b_host = np.full(n, 3.0, dtype=np.float32)
     c_host = np.zeros(n, dtype=np.float32)
 

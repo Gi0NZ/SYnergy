@@ -1,3 +1,17 @@
+"""
+Internal Cython bridge for SYnergy kernel submission.
+
+This module connects the Python ``SYnergyQueue`` facade with the native
+DPCTL/SYnergy submit interface. It is responsible for translating Python-side
+kernel arguments, execution ranges, dependency events, and profiling flags into
+the native structures expected by the C++ backend.
+
+This module is considered internal. End users should normally interact with
+``SYnergyQueue.submit()``, ``SYnergyQueue.submit_spirv()``, or
+``SYnergyQueue.submit_opencl_source()`` instead of importing this module
+directly.
+"""
+
 # distutils: language = c++
 # cython: language_level=3
 
@@ -51,8 +65,7 @@ cdef extern from "synergy_test_kernels.hpp":
     DPCTLSyclKernelRef SYnergyTest_CreateVecAddKernel(
         uintptr_t AdapterHandle
     )
-
-cdef extern from "synergy_test_kernels.hpp":
+    
     DPCTLSyclKernelRef SYnergyTest_CreateVecprodKernel(
         uintptr_t AdapterHandle
     )
@@ -70,15 +83,50 @@ cpdef submit(
     bint use_kernel_profiling,
     ):
     """
-    Submit sincrono tramite backend SYnergy.
+    Submit a kernel through the native SYnergy backend.
 
-    Questo bridge:
-    - riusa _populate_args di dpctl;
-    - riusa _populate_range di dpctl;
-    - non chiama la submit originale di dpctl;
-    - chiama invece SYnergyQueue_SubmitRange oppure SYnergyQueue_SubmitNDRange;
-    - attende il completamento dell'evento;
-    - raccoglie opzionalmente device/kernel energy profiling.
+    This function is the internal implementation used by
+    ``SYnergyQueue.submit`` when the queue is configured with
+    ``execution_backend="synergy"``. It converts Python-level objects into the
+    native DPCTL/SYCL references required by the C++ submit interface.
+
+    Parameters
+    ----------
+    queue : dpctl.SyclQueue
+        Python queue object associated with the submission.
+    adapter : object
+        Native SYnergy queue adapter associated with ``queue``.
+    kernel : dpctl.program.SyclKernel
+        Kernel to submit.
+    args : list
+        Kernel arguments.
+    gS : list[int]
+        Global execution range.
+    lS : list[int] or None
+        Local execution range. If None, a range submit is used; otherwise an
+        NDRange submit is used.
+    dEvents : list
+        Dependency events.
+    use_device_profiling : bool
+        Enable device-level energy profiling.
+    use_kernel_profiling : bool
+        Enable kernel-level energy profiling.
+
+    Returns
+    -------
+    tuple
+        Pair ``(event, profile)`` where ``event`` is a ``dpctl.SyclEvent`` and
+        ``profile`` is a dictionary containing profiling metadata.
+
+    Notes
+    -----
+    This function does not perform frequency scaling. Device frequencies are
+    managed separately through ``SYnergyDevice``.
+
+    The native C interface still accepts frequency-scaling parameters for
+    compatibility with the underlying SYnergy submit functions, but this bridge
+    always forwards ``0, 0, 0`` so that Python-level frequency control remains
+    separated from kernel submission.
     """
 
     cdef void** kargs = NULL
@@ -116,7 +164,7 @@ cpdef submit(
 
     try:
         # ------------------------------------------------------------
-        # 1. Allocazione array argomenti kernel
+        # 1. Allocate kernel arguments
         # ------------------------------------------------------------
         if nArgs > 0:
             kargs = <void**>malloc(nArgs * sizeof(void*))
@@ -132,7 +180,7 @@ cpdef submit(
                 raise TypeError("Unsupported type for a kernel argument")
 
         # ------------------------------------------------------------
-        # 2. Preparazione eventi dipendenti
+        # 2. Prepare dependency events
         # ------------------------------------------------------------
         if nDE > 0:
             depEvents = <DPCTLSyclEventRef*>malloc(
@@ -150,7 +198,7 @@ cpdef submit(
                     )
 
         # ------------------------------------------------------------
-        # 3. Preparazione range globale
+        # 3. Prepare global execution range
         # ------------------------------------------------------------
         ret = queue._populate_range(gRange, gS, nGS)
         if ret == -1:
@@ -159,7 +207,7 @@ cpdef submit(
             )
 
         # ------------------------------------------------------------
-        # 4. Submit Range oppure NDRange tramite SYnergy
+        # 4. Submit Range or NDRange via SYnergy
         # ------------------------------------------------------------
         if lS is None:
             Eref = DPCTLQueue_SubmitRangeSYnergy(
@@ -215,13 +263,13 @@ cpdef submit(
             raise RuntimeError("SYnergy kernel submission failed.")
 
         # ------------------------------------------------------------
-        # 5. Creazione evento dpctl e wait sincrono
+        # 5. Wrap the native event as dpctl.SyclEvent and wait
         # ------------------------------------------------------------
         event = SyclEvent._create(Eref)
         event.wait()
 
         # ------------------------------------------------------------
-        # 6. Profiling opzionale
+        # 6. Optional profile informations
         # ------------------------------------------------------------
         if use_device_profiling:
             device_energy_after = adapter.device_energy_consumption()
@@ -254,11 +302,21 @@ cpdef submit(
 
 cpdef create_vecadd_kernel(object adapter):
     """
-    Crea un dpctl.program.SyclKernel di test, compilato nativamente nel modulo
-    SYCL/C++ per il backend corrente.
+    Create the native test vector-add kernel.
 
-    Questo kernel serve solo per validare che SYnergyQueue.submit(...)
-    arrivi davvero al backend synergy::queue.
+    This helper is used by tests and examples to obtain a precompiled
+    ``dpctl.program.SyclKernel`` backed by the native SYnergy test kernel.
+
+    Parameters
+    ----------
+    adapter : object
+        Native SYnergy queue adapter used to recover the underlying SYCL
+        context and device.
+
+    Returns
+    -------
+    dpctl.program.SyclKernel
+        Wrapped vector-add kernel.
     """
     cdef uintptr_t adapter_handle
     cdef DPCTLSyclKernelRef KRef
@@ -268,12 +326,36 @@ cpdef create_vecadd_kernel(object adapter):
     KRef = SYnergyTest_CreateVecAddKernel(adapter_handle)
 
     if KRef == NULL:
-        raise RuntimeError("Unable to create native SYnergy busy kernel.")
+        raise RuntimeError("Unable to create native SYnergy vector-add kernel.")
 
     return SyclKernel._create(KRef, "SYnergyVecAddKernel")
 
 
 cpdef create_vecprod_kernel(object adapter):
+    """
+    Create the native vector-product test kernel.
+
+    This helper returns a precompiled ``dpctl.program.SyclKernel`` backed by
+    the native SYnergy vector-product test kernel. It is mainly intended for
+    internal tests and benchmarking experiments that require a simple native
+    GPU workload.
+
+    Parameters
+    ----------
+    adapter : object
+        Native SYnergy queue adapter used to recover the underlying SYCL
+        context and device.
+
+    Returns
+    -------
+    dpctl.program.SyclKernel
+        Wrapped vector-product kernel.
+
+    Raises
+    ------
+    RuntimeError
+        If the native backend cannot create or wrap the vector-product kernel.
+    """
     cdef uintptr_t adapter_handle
     cdef DPCTLSyclKernelRef KRef
 
