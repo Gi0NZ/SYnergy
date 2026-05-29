@@ -12,6 +12,7 @@
 
 class SYnergyVecAddKernel;
 class SYnergyVecProdKernel;
+class SYnergyMatrixMulKernel;
 
 /*
  * Functor esplicito per evitare problemi con l'ordine delle catture
@@ -77,6 +78,7 @@ void __synergy_define_vecprod_kernel(
         );
     });
 }
+
 
 namespace {
 

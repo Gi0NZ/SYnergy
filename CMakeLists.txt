@@ -169,17 +169,17 @@ target_compile_definitions(_synergy_native PRIVATE
     SYNERGY_USE_PROFILING_ENERGY
 )
 
-# Compilazione SYCL per NVIDIA CUDA, RTX 3070 Laptop = sm_86
+# Compilazione SYCL per NVIDIA CUDA, RTX 3070 Laptop = sm_86 - ATTENZIONE: IMPOSTA IL VALORE CORRETTO PER LA TUA GPU
 target_compile_options(_synergy_native PRIVATE
     -fsycl
     -fsycl-targets=nvptx64-nvidia-cuda
-    "SHELL:-Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_86"
+    "SHELL:-Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_70"
 )
 
 target_link_options(_synergy_native PRIVATE
     -fsycl
     -fsycl-targets=nvptx64-nvidia-cuda
-    "SHELL:-Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_86"
+    "SHELL:-Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_70"
     ${DPCTL_LIBRARY_FLAGS}
 )
 
@@ -276,13 +276,13 @@ target_compile_definitions(_synergy_submit PRIVATE
 target_compile_options(_synergy_submit PRIVATE
     -fsycl
     -fsycl-targets=nvptx64-nvidia-cuda
-    "SHELL:-Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_86"
+    "SHELL:-Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_70"
 )
 
 target_link_options(_synergy_submit PRIVATE
     -fsycl
     -fsycl-targets=nvptx64-nvidia-cuda
-    "SHELL:-Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_86"
+    "SHELL:-Xsycl-target-backend=nvptx64-nvidia-cuda --cuda-gpu-arch=sm_70"
     ${DPCTL_LIBRARY_FLAGS}
 )
 

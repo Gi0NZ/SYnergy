@@ -31,7 +31,7 @@ n = 8192 * 8192
 def test_opencl_cpu():
     
     print("\n \n TESTING OPENCL \n \n ")
-    dev = SYnergyDevice("cpu")
+    dev = SYnergyDevice("opencl:cpu")
     q = SYnergyQueue(dev, execution_backend="dpctl")
 
     print("Device:", dev)

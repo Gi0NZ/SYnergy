@@ -1,5 +1,6 @@
 #include <pybind11/pybind11.h>
 #include <dpctl4pybind11.hpp>
+#include <pybind11/stl.h>
 #include "synergy_queue_adapter.hpp"
 #include "synergy_device_adapter.hpp"
 

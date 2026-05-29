@@ -57,6 +57,11 @@ cdef extern from "synergy_test_kernels.hpp":
         uintptr_t AdapterHandle
     )
 
+cdef extern from "synergy_test_kernels.hpp":
+    DPCTLSyclKernelRef SYnergyTest_CreateMatrixMulKernel(
+        uintptr_t AdapterHandle
+    )
+
 
 cpdef submit(
     SyclQueue queue,
@@ -291,3 +296,15 @@ cpdef create_vecprod_kernel(object adapter):
         raise RuntimeError("Unable to crete vecprod kernel")
 
     return SyclKernel._create(KRef, "SYnergyVecProdKernel")
+
+cpdef create_matrix_mul_kernel(object adapter):
+    cdef uintptr_t adapter_handle = <uintptr_t>adapter._native_handle()
+
+    cdef DPCTLSyclKernelRef KRef = SYnergyTest_CreateMatrixMulKernel(
+        adapter_handle
+    )
+
+    if KRef == NULL:
+        raise RuntimeError("Unable to create SYnergy matrix multiplication kernel.")
+
+    return SyclKernel._create(KRef, "SYnergyMatrixMulKernel")

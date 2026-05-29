@@ -4,3 +4,9 @@
 .editorconfig
 
 __pycache__/
+
+dpctl_study/
+
+.venv/
+venv/
+env/
