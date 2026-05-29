@@ -1,14 +1,59 @@
+#pragma once
+
 #include <sycl/sycl.hpp>
 #include <cstdint>
 
 
+/**
+ * @brief Functor implementing a simple vector-add workload.
+ *
+ * This functor is used to instantiate a native SYCL kernel that computes:
+ *
+ * ``c[i] = a[i] + b[i]``
+ *
+ * The operation is repeated ``repeat`` times inside each work-item and then
+ * averaged. This makes the kernel more useful for profiling and frequency
+ * scaling experiments, because the amount of computation can be increased
+ * without changing the output value.
+ *
+ * Expected kernel arguments:
+ * - ``a``: first input vector
+ * - ``b``: second input vector
+ * - ``c``: output vector
+ * - ``n``: number of elements
+ * - ``repeat``: number of repeated additions per work-item
+ */
 struct SYnergyVectorAddFunctor {
+    /**
+     * @brief Pointer to the first input vector.
+     */
     float* a;
+
+    /**
+     * @brief Pointer to the second input vector.
+     */
     float* b;
+
+    /**
+     * @brief Pointer to the output vector.
+     */
     float* c;
+
+    /**
+     * @brief Number of elements processed by the kernel.
+     */
     std::uint32_t n;
+
+    /**
+     * @brief Number of repeated additions performed by each work-item.
+     */
     std::uint32_t repeat;
 
+    /**
+     * @brief Execute the vector-add operation for a single work-item.
+     *
+     * @param idx One-dimensional SYCL work-item id.
+     */
     void operator()(sycl::id<1> idx) const {
         std::uint32_t i = static_cast<std::uint32_t>(idx[0]);
 
