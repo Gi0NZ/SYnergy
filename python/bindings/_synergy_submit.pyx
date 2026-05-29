@@ -57,11 +57,6 @@ cdef extern from "synergy_test_kernels.hpp":
         uintptr_t AdapterHandle
     )
 
-cdef extern from "synergy_test_kernels.hpp":
-    DPCTLSyclKernelRef SYnergyTest_CreateMatrixMulKernel(
-        uintptr_t AdapterHandle
-    )
-
 
 cpdef submit(
     SyclQueue queue,
@@ -73,10 +68,7 @@ cpdef submit(
     list dEvents,
     bint use_device_profiling,
     bint use_kernel_profiling,
-    bint use_frequency_scaling,
-    unsigned int uncore_frequency,
-    unsigned int core_frequency,
-):
+    ):
     """
     Submit sincrono tramite backend SYnergy.
 
@@ -180,9 +172,9 @@ cpdef submit(
                 nGS,
                 depEvents,
                 nDE,
-                uncore_frequency,
-                core_frequency,
-                1 if use_frequency_scaling else 0,
+                0,
+                0,
+                0,
             )
         else:
             ret = queue._populate_range(lRange, <list>lS, nLS)
@@ -214,9 +206,9 @@ cpdef submit(
                 nGS,
                 depEvents,
                 nDE,
-                uncore_frequency,
-                core_frequency,
-                1 if use_frequency_scaling else 0,
+                0,
+                0,
+                0,
             )
 
         if Eref == NULL:
@@ -241,9 +233,6 @@ cpdef submit(
         profile = {
             "use_device_profiling": bool(use_device_profiling),
             "use_kernel_profiling": bool(use_kernel_profiling),
-            "use_frequency_scaling": bool(use_frequency_scaling),
-            "uncore_frequency": int(uncore_frequency),
-            "core_frequency": int(core_frequency),
             "device_energy_before": device_energy_before,
             "device_energy_after": device_energy_after,
             "device_energy_delta": device_energy_delta,
@@ -297,14 +286,3 @@ cpdef create_vecprod_kernel(object adapter):
 
     return SyclKernel._create(KRef, "SYnergyVecProdKernel")
 
-cpdef create_matrix_mul_kernel(object adapter):
-    cdef uintptr_t adapter_handle = <uintptr_t>adapter._native_handle()
-
-    cdef DPCTLSyclKernelRef KRef = SYnergyTest_CreateMatrixMulKernel(
-        adapter_handle
-    )
-
-    if KRef == NULL:
-        raise RuntimeError("Unable to create SYnergy matrix multiplication kernel.")
-
-    return SyclKernel._create(KRef, "SYnergyMatrixMulKernel")

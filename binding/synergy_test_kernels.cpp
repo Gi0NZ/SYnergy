@@ -12,7 +12,6 @@
 
 class SYnergyVecAddKernel;
 class SYnergyVecProdKernel;
-class SYnergyMatrixMulKernel;
 
 /*
  * Functor esplicito per evitare problemi con l'ordine delle catture

@@ -135,8 +135,6 @@ class SYnergyQueue(dpctl.SyclQueue):
         *,
         use_device_profiling=False,
         use_kernel_profiling=False,
-        uncore_frequency=None,
-        core_frequency=None,
     ):
         """
         Submit a dpctl.program.SyclKernel through the SYnergy backend.
@@ -199,31 +197,12 @@ class SYnergyQueue(dpctl.SyclQueue):
 
         dEvents = list(dEvents)
 
-        use_frequency_scaling = (
-            uncore_frequency is not None or core_frequency is not None
-        )
-
-        normalized_uncore_frequency = self._normalize_frequency(
-            "uncore_frequency",
-            uncore_frequency,
-        )
-
-        normalized_core_frequency = self._normalize_frequency(
-            "core_frequency",
-            core_frequency,
-        )
 
 
         if self._execution_backend == "dpctl":
             if use_device_profiling or use_kernel_profiling:
                 raise ValueError(
                     "SYnergy energy profiling is not available when "
-                    "execution_backend='dpctl'."
-                )
-
-            if use_frequency_scaling:
-                raise ValueError(
-                    "SYnergy frequency scaling is not available when "
                     "execution_backend='dpctl'."
                 )
 
@@ -241,7 +220,6 @@ class SYnergyQueue(dpctl.SyclQueue):
                     "execution_backend": "dpctl",
                     "use_device_profiling": False,
                     "use_kernel_profiling": False,
-                    "use_frequency_scaling": False,
                 }
             )
 
@@ -259,9 +237,6 @@ class SYnergyQueue(dpctl.SyclQueue):
             dEvents=dEvents,
             use_device_profiling=bool(use_device_profiling),
             use_kernel_profiling=bool(use_kernel_profiling),
-            use_frequency_scaling=bool(use_frequency_scaling),
-            uncore_frequency=normalized_uncore_frequency,
-            core_frequency=normalized_core_frequency,
         )
 
         self._last_event = event
@@ -415,8 +390,6 @@ class SYnergyQueue(dpctl.SyclQueue):
             *,
             use_device_profiling=False,
             use_kernel_profiling=False,
-            uncore_frequency=None,
-            core_frequency=None,
             compile_options="",
     ):
         kernel = self.create_kernel_from_opencl_source(
@@ -433,8 +406,6 @@ class SYnergyQueue(dpctl.SyclQueue):
             dEvents=dEvents,
             use_device_profiling=use_device_profiling,
             use_kernel_profiling=use_kernel_profiling,
-            uncore_frequency=uncore_frequency,
-            core_frequency=core_frequency
         )
         
         
@@ -449,8 +420,6 @@ class SYnergyQueue(dpctl.SyclQueue):
             *,
             use_device_profiling=False,
             use_kernel_profiling=False,
-            uncore_frequency=None,
-            core_frequency=None,
             compile_options="",
     ):
         
@@ -476,8 +445,6 @@ class SYnergyQueue(dpctl.SyclQueue):
             dEvents=dEvents,
             use_device_profiling=use_device_profiling,
             use_kernel_profiling=use_kernel_profiling,
-            uncore_frequency=uncore_frequency,
-            core_frequency=core_frequency,
             )
     
     def _load_submit_bridge(self):

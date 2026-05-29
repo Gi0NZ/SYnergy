@@ -3,6 +3,7 @@ import time
 import numpy as np
 import dpctl.memory as dpm
 import ctypes
+import csv
 
 from bindings import SYnergyDevice, SYnergyQueue
 import bindings._synergy_submit as synergy_submit
@@ -30,6 +31,7 @@ print("Scaled core frequency", dev.current_core_frequency())
 N = 16 * 8192 * 8192
 REPEAT = 4092
 LOCAL_SIZE = 256
+
 
 def vec_add(q: SYnergyQueue):
     kernel = synergy_submit.create_vecadd_kernel(q._adapter)
@@ -89,6 +91,9 @@ if __name__ == "__main__":
     dev = SYnergyDevice("cuda:gpu:0")
     print("Frequenza attuale: ", dev.current_core_frequency())
     q_auto = SYnergyQueue(dev)
+    
+    print("Frequenza attuale post coda: ", dev.current_core_frequency())
+    
 
     vec_add(q_auto)
     print("============================================")
@@ -110,6 +115,8 @@ if __name__ == "__main__":
 
     vec_add(q_2)
     print("============================================")
+
+    
     
 
 

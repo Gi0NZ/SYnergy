@@ -43,10 +43,9 @@ PYBIND11_MODULE(_synergy_native, m) {
         .def("kernel_energy_consumption", &SYnergy_Queue_Adapter::kernel_energy_consumption)
 
 
-        .def("_native_handle", &SYnergy_Queue_Adapter::native_handle)
+        .def("_native_handle", &SYnergy_Queue_Adapter::native_handle);
 
-        .def("set_target_frequencies", &SYnergy_Queue_Adapter::set_target_frequencies);
-
+  
     py::class_<SYnergy_Device_Adapter>(m, "SYnergy_Device_Adapter")
         .def(py::init<sycl::device>())
         .def("name", &SYnergy_Device_Adapter::name)

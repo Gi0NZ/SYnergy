@@ -10,3 +10,6 @@ dpctl_study/
 .venv/
 venv/
 env/
+python/bindings/*.so
+
+data/
