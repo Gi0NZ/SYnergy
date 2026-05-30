@@ -13,3 +13,5 @@ env/
 python/bindings/*.so
 
 data/
+
+site/

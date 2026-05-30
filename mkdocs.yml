@@ -1,4 +1,7 @@
 site_name: SYnergy Python Bindings
+site_description: Python bindings for SYnergy energy-aware SYCL queues through dpctl
+site_author: Giovanni / Nicolò Gallotta
+
 theme:
   name: material
 
@@ -13,12 +16,15 @@ plugins:
             docstring_style: numpy
             show_source: true
             show_signature_annotations: true
+            members_order: source
 
 nav:
   - Home: index.md
   - Installation: installation.md
   - Quickstart: quickstart.md
-  - Device Profiling: device_profiling.md
-  - Frequency Scaling: frequency_scaling.md
-  - Examples: examples.md
+  - Queue and Profiling: device_profiling.md
+  - Device Management: frequency_scaling.md
+  - Direct Kernel: direct_kernel.md
   - API Reference: api.md
+  - Limitations: limitations.md
+  
