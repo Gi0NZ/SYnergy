@@ -1,0 +1,818 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Python bindings for SYnergy energy-aware SYCL queues through dpctl">
+      
+      
+        <meta name="author" content="Giovanni / Nicolò Gallotta">
+      
+      
+      
+        <link rel="prev" href="../installation/">
+      
+      
+        <link rel="next" href="../device_profiling/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Quickstart - SYnergy Python Bindings</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quickstart" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="SYnergy Python Bindings" class="md-header__button md-logo" aria-label="SYnergy Python Bindings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SYnergy Python Bindings
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quickstart
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="SYnergy Python Bindings" class="md-nav__button md-logo" aria-label="SYnergy Python Bindings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    SYnergy Python Bindings
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#importing-the-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importing the package
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-synergydevice-and-synergyqueue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a SYnergyDevice and SYnergyQueue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a SYnergyDevice and SYnergyQueue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synergydevice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SYnergyDevice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synergyqueue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SYnergyQueue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submitting-a-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Submitting a kernel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiting-for-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waiting for completion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../device_profiling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Queue and Profiling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../frequency_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Device Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../direct_kernel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Direct Kernel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../limitations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Limitations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#importing-the-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importing the package
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-synergydevice-and-synergyqueue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a SYnergyDevice and SYnergyQueue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a SYnergyDevice and SYnergyQueue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synergydevice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SYnergyDevice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synergyqueue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SYnergyQueue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submitting-a-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Submitting a kernel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiting-for-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waiting for completion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="quickstart">Quickstart</h1>
+<p>This page is meant to give a quick indication on how to use the components of the SYnergy Python bindings. </p>
+<p>The goal of the Python layer is to provide a small facade over the native SYnergy/SYCL backend while keeping the programming model close to <code>dpctl</code>.</p>
+<p>At a high level, the user interacts with two main Python objects:</p>
+<ul>
+<li><code>SYnergyDevice</code>, used to inspect the selected SYCL device;</li>
+<li><code>SYnergyQueue</code>, used to submit work and access SYnergy-specific profiling or frequency-scaling features.</li>
+</ul>
+<p>The native implementation is still provided by SYnergy and SYCL. The Python layer only exposes a simplified interface for experimentation and integration with the custom <code>dpctl</code> build.</p>
+<h2 id="importing-the-package">Importing the package</h2>
+<p>After following the <a href="../installation/">installation steps</a>, the Python bindings can be imported via</p>
+<pre><code class="language-python">from bindings import SYnergyDevice, SYnergyQueue
+</code></pre>
+<p>In case the import fails, make sure that the SYnergy/python directory has been added to the PYTHONPATH.</p>
+<h2 id="creating-a-synergydevice-and-synergyqueue">Creating a SYnergyDevice and SYnergyQueue</h2>
+<h3 id="synergydevice">SYnergyDevice</h3>
+<p>A <code>SYnergyDevice</code> wraps a <code>dpctl.SyclDevice</code>. It can be created via a SYCL device selector string:</p>
+<pre><code class="language-python">from bindings import SYnergyDevice
+
+device = SYnergyDevice(&quot;cuda:gpu&quot;)
+</code></pre>
+<p>The selected device can be inspected via high-level properties, exposed by the facade:</p>
+<pre><code class="language-python">print(&quot;Device name:&quot;, device.name)
+print(&quot;Backend:&quot;, device.backend)
+print(&quot;Is GPU:&quot;, device.is_gpu)
+print(&quot;Is CPU:&quot;, device.is_cpu)
+print(&quot;SYnergy supported:&quot;, device.is_synergy_supported)
+</code></pre>
+<p>For more information refer to <a href="../api/">API</a></p>
+<h3 id="synergyqueue">SYnergyQueue</h3>
+<p>A <code>SYnergyQueue</code> is the main object used to submit kernels. It emulates the <code>dpctl.SyclQueue</code> behaviour while communicating with the SYnergy implementation. </p>
+<p>A <code>SYnergyQueue</code> can be created in 2 main ways: </p>
+<pre><code class="language-python">from bindings import SYnergyQueue
+
+queue = SYnergyQueue(&quot;cuda:gpu:0&quot;)
+</code></pre>
+<pre><code class="language-python">from bindings import SYnergyDevice, SYnergyQueue
+
+device = SYnergyDevice(&quot;cuda:gpu:0&quot;)
+queue = SYnergyQueue(device)
+</code></pre>
+<p>Note that if you need to execute frequency scaling operations, you need to use the 2 mode, since the frequency manipulation elements are contained within the SYnergyDevice. </p>
+<p>Internally, the <code>SYnergyQueue</code> extends the <code>dpctl.SyclQueue</code>, meaning that it keeps all of its standard behaviour, provided by dpctl, while also adding the native SYnergy backend for energy related tasks. </p>
+<p>By default, when defining a <code>SYnergyQueue</code> without specifying an <code>execution_backend</code>, it attempts to use the SYnergy execution backend. If it fails it falls back to <code>dpctl</code>. This behaviour can be replicated by specifying <code>execution_backend="auto"</code> when creating a SYnergyQueue. </p>
+<p>One can also specify the precise backend wanted; 2 are the possible options:</p>
+<ol>
+<li><code>execution_backend="synergy"</code></li>
+<li><code>execution_backend="dpctl"</code></li>
+</ol>
+<p>A <code>SYnergyQueue</code> offers a variety of different interactions. To explore them refer to <a href="../api/">API</a></p>
+<p>Among all, one of the most important is <code>queue.wait()</code> methods, which allows one to wait for all queued work to complete. </p>
+<p>When the SYnergy adapter is available, this method waits both on the underlying <code>dpctl.SyclQueue</code> and on the native SYnergy queue. </p>
+<p>A minimal example of queue and device use is shown:</p>
+<pre><code class="language-python">    from bindings import SYnergyDevice, SYnergyQueue
+
+    device = SYnergyDevice(&quot;cuda:gpu:0&quot;)
+    queue = SYnergyQueue(device, execution_backend=&quot;auto&quot;)
+
+    print(&quot;Device name:&quot;, device.name)
+    print(&quot;Device backend:&quot;, device.backend)
+    print(&quot;SYnergy supported:&quot;, device.is_synergy_supported)
+
+    print(&quot;Queue device:&quot;, queue.synergy_device_name)
+    print(&quot;Queue backend:&quot;, queue.synergy_backend_name)
+
+    print(&quot;Capabilities:&quot;)
+    for key, value in queue.capabilities().items():
+        print(f&quot;  {key}: {value}&quot;)
+
+    queue.wait()
+</code></pre>
+<h2 id="submitting-a-kernel">Submitting a kernel</h2>
+<p><code>SYnergyQueue</code> can submit kernels through the native SYnergy backend or through the standard <code>dpctl</code> execution path.</p>
+<p>The main submission method is:</p>
+<pre><code class="language-python">queue.submit(
+    kernel,
+    args,
+    gS,
+    lS=None,
+    dEvents=None,
+    use_device_profiling=False,
+    use_kernel_profiling=False,
+)
+</code></pre>
+<p>The <code>kernel</code> argument must be an existing <code>dpctl.program.SyclKernel</code></p>
+<p>The <code>args</code> argument contains the kernel arguments in the same order expected by the defined kernel</p>
+<p>The <code>gS</code> argument represents the global execution range: it can contain one, two or three dimensions</p>
+<p>The optional <code>lS</code> argument represents the local execution range. When provided, an <em>NDRange</em> submission is used. </p>
+<p>The flags <code>use_device_profiling</code> and <code>use_kernel_profiling</code> enable SYnergy profiling information when the queue is using the native SYnergy backend. </p>
+<p>As stated above, if you want to use directly the <code>.submit(...)</code> method, you need a <code>dpctl.program.SyclKernel</code>. </p>
+<p>The way of obtaining such object varies based on the type of kernel:</p>
+<ul>
+<li><strong>OpenCL Kernel</strong>: if you have an OpenCL kernel, you can obtain a <code>dpctl.program.SyclKernel</code> by invoking the <code>create_program_from_source()</code> dpctl method. </li>
+<li><strong>SPIR-V Kernel</strong>: if you have an SPIR-V kernel, you can obtain a <code>dpctl.program.SyclKernel</code> by invoking the <code>create_program_from_spirv()</code> dpctl method.</li>
+<li><strong>Direct Kernel</strong>: if you have a direct kernel, consult <a href="../direct_kernel/">Direct Kernel</a> to understand the creation process. </li>
+</ul>
+<p>For OpenCL and SPIR-V kernel submission, there also are available two other functions:</p>
+<ul>
+<li>
+<p><code>submit_opencl_source()</code>: the method creates the kernel internally; the user need to indicate <em>source</em> and <em>kernel_name</em> </p>
+</li>
+<li>
+<p><code>submit_spirv()</code>: the method creates the kernel internally; the user need to indicate the path to a <code>.spv</code> file and <em>kernel_name</em> </p>
+</li>
+</ul>
+<p>To understand how to structure kernel submission, refer to the <code>SYnergy/python/tests</code> section for coded examples. </p>
+<h2 id="waiting-for-completion">Waiting for completion</h2>
+<p>Once a kernel has been submitted, the returned event can be used to wait for that specific operation:</p>
+<pre><code class="language-python">event.wait()
+</code></pre>
+<p>If the user wants to wait for all the operations submitted to the queue, the <code>wait()</code> method can be used:</p>
+<pre><code class="language-python">queue.wait()
+</code></pre>
+<p>In general, event.wait() is useful when the application needs to synchronize only with a specific submitted kernel, while queue.wait() is useful when all queued operations must be completed before continuing.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
