@@ -15,3 +15,6 @@ python/bindings/*.so
 data/
 
 site/
+
+python/benchmarks
+results

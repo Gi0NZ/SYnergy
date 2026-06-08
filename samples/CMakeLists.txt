@@ -15,8 +15,17 @@ add_executable(freq_change freq_change/freq_change.cpp)
 add_executable(freq_overhead freq_overhead/freq_overhead.cpp)
 add_executable(freq_overhead_test freq_overhead/freq_overhead_test.cpp)
 add_executable(query_freq query_freq/query_freq.cpp)
-add_executable(learningtests learningtests/learningtests.cpp) #modifica mia
+add_executable(learningtests learningtests/learningtests.cpp)
+add_executable(benchmark_vecprod benchmarks/benchmark_vecprod.cpp)
+ #modifica mia
 
+target_link_libraries(benchmark_vecprod PRIVATE
+    /software-local/dpcpp-05-12-25/install/lib/libur_loader.so
+)
+
+target_link_options(benchmark_vecprod PRIVATE
+    -Wl,-rpath,/software-local/dpcpp-05-12-25/install/lib
+)
 
 
 add_custom_command(
