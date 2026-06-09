@@ -2,7 +2,7 @@
 .vscode/
 .vscode-test/
 .editorconfig
-
+build-no-prof/
 __pycache__/
 
 dpctl_study/
@@ -16,5 +16,5 @@ data/
 
 site/
 
-python/benchmarks
+
 results

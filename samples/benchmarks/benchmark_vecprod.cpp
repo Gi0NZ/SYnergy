@@ -15,9 +15,11 @@ namespace {
 constexpr std::uint32_t REPEAT = 16384;      
 constexpr std::size_t LOCAL_SIZE = 256;
 constexpr int WARMUP_RUNS = 3;
-constexpr int MEASURED_RUNS = 6;
+constexpr int MEASURED_RUNS = 10;
 
 const std::vector<std::size_t> SIZES = {
+    1UL << 10,
+    1UL << 12,
     1UL << 14,
     1UL << 16,
     1UL << 18,
@@ -25,6 +27,7 @@ const std::vector<std::size_t> SIZES = {
     1UL << 22,
     1UL << 24,
     1UL << 26,
+    1UL << 28,
     1UL << 30,
     
 };
